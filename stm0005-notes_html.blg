@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: stm0005-notes_html.aux
+Reallocating 'name_of_file' (item size: 1) to 5 items.
+The style file: agsm.bst
+Reallocating 'name_of_file' (item size: 1) to 8 items.
+Database file #1: physics.bib
+You've used 16 entries,
+            2909 wiz_defined-function locations,
+            711 strings with 6640 characters,
+and the built_in function-call counts, 50439 in all, are:
+= -- 8091
+> -- 660
+< -- 0
++ -- 3798
+- -- 196
+* -- 4155
+:= -- 10468
+add.period$ -- 16
+call.type$ -- 16
+change.case$ -- 208
+chr.to.int$ -- 13
+cite$ -- 16
+duplicate$ -- 256
+empty$ -- 465
+format.name$ -- 248
+if$ -- 9014
+int.to.chr$ -- 8
+int.to.str$ -- 0
+missing$ -- 32
+newline$ -- 52
+num.names$ -- 164
+pop$ -- 125
+preamble$ -- 1
+purify$ -- 240
+quote$ -- 0
+skip$ -- 157
+stack$ -- 0
+substring$ -- 11219
+swap$ -- 21
+text.length$ -- 224
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 32
+warning$ -- 0
+while$ -- 336
+width$ -- 0
+write$ -- 208

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="9.991" height="11.715" viewBox="0 0 9.991 11.715">
+<defs>
+<filter id="filter-remove-color" x="0%" y="0%" width="100%" height="100%">
+<feColorMatrix color-interpolation-filters="sRGB" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" />
+</filter>
+<filter id="filter-color-to-alpha" x="0%" y="0%" width="100%" height="100%">
+<feColorMatrix color-interpolation-filters="sRGB" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"/>
+</filter>
+<g>
+<g id="glyph-0-0">
+<path d="M 7.5625 0.015625 C 7.5625 -0.0625 7.515625 -0.109375 7.453125 -0.109375 C 7.390625 -0.109375 7.359375 -0.046875 7.328125 0.078125 C 7.0625 0.84375 6.4375 1.265625 5.921875 1.265625 C 5.3125 1.265625 5.15625 0.84375 5.09375 -0.078125 C 7.140625 -0.890625 8.671875 -3.078125 8.671875 -5.234375 C 8.671875 -7.203125 7.390625 -8.421875 5.71875 -8.421875 C 3.15625 -8.421875 0.578125 -5.671875 0.578125 -2.90625 C 0.578125 -1.03125 1.8125 0.25 3.546875 0.25 C 3.953125 0.25 4.34375 0.1875 4.734375 0.078125 C 4.65625 0.78125 4.65625 0.84375 4.65625 1.078125 C 4.65625 1.421875 4.65625 2.3125 5.625 2.3125 C 7.046875 2.3125 7.5625 0.078125 7.5625 0.015625 Z M 7.71875 -5.59375 C 7.71875 -4.703125 7.296875 -1.75 5.0625 -0.4375 C 5 -1.046875 4.828125 -1.75 4.046875 -1.75 C 3.390625 -1.75 2.84375 -1.109375 2.84375 -0.53125 C 2.84375 -0.390625 2.890625 -0.21875 2.9375 -0.125 C 2 -0.453125 1.546875 -1.453125 1.546875 -2.546875 C 1.546875 -3.375 1.859375 -4.96875 2.640625 -6.1875 C 3.53125 -7.546875 4.703125 -8.15625 5.640625 -8.15625 C 6.890625 -8.15625 7.71875 -7.140625 7.71875 -5.59375 Z M 4.75 -0.28125 C 4.328125 -0.078125 3.953125 -0.015625 3.625 -0.015625 C 3.5 -0.015625 3.078125 -0.015625 3.078125 -0.53125 C 3.078125 -0.96875 3.5 -1.515625 4.046875 -1.515625 C 4.640625 -1.515625 4.765625 -1.109375 4.765625 -0.515625 C 4.765625 -0.4375 4.765625 -0.34375 4.75 -0.28125 Z M 4.75 -0.28125 "/>
+</g>
+</g>
+<clipPath id="clip-0">
+<path clip-rule="nonzero" d="M 0 0 L 9.988281 0 L 9.988281 11.574219 L 0 11.574219 Z M 0 0 "/>
+</clipPath>
+<image id="source-8" x="0" y="0" width="1" height="1" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAAAmJLR0QA/4ePzL8AAAAKSURBVAiZY2ACAAAEAANTOtgzAAAAAElFTkSuQmCC"/>
+<mask id="mask-0">
+<g filter="url(#filter-remove-color)">
+<use xlink:href="#source-8" filter="url(#filter-color-to-alpha)" transform="matrix(0.24, 0, 0, 0.24, -0.0045, 9.0085)"/>
+</g>
+</mask>
+<image id="source-7" x="0" y="0" width="1" height="1" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABmJLR0QA/wD/AP+gvaeTAAAADElEQVQImWNgYGAAAAAEAAGjChXjAAAAAElFTkSuQmCC"/>
+<clipPath id="clip-1">
+<path clip-rule="nonzero" d="M 0 0 L 9 0 L 9 11.574219 L 0 11.574219 Z M 0 0 "/>
+</clipPath>
+<clipPath id="clip-2">
+<rect x="0" y="0" width="10" height="12"/>
+</clipPath>
+<g id="source-15" clip-path="url(#clip-2)">
+<g mask="url(#mask-0)">
+<use xlink:href="#source-7" transform="matrix(0.24, 0, 0, 0.24, -0.0045, 9.0085)"/>
+</g>
+<g clip-path="url(#clip-1)">
+<g fill="rgb(0%, 0%, 0%)" fill-opacity="1">
+<use xlink:href="#glyph-0-0" x="0.2355" y="9.2485"/>
+</g>
+</g>
+</g>
+</defs>
+<g clip-path="url(#clip-0)">
+<use xlink:href="#source-15"/>
+</g>
+</svg>
