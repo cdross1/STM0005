@@ -1,0 +1,2126 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Freefall and Projectile Motion</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-56"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Freefall and Projectile Motion ......
+-->
+<h3 id="autosec-57">Chapter&nbsp;<span class="sectionnumber">4&#x2003;</span>Freefall and Projectile Motion</h3>
+<a id="stm0005-notes-autopage-57"></a>
+<a id="stm0005-notes-autofile-4"></a>
+<!--
+...... section Freefall ......
+-->
+<h4 id="autosec-58"><span class="sectionnumber">4.1&#x2003;</span>Freefall</h4>
+<a id="stm0005-notes-autopage-58"></a>
+
+
+<p>
+In the last section we talked about motion in one dimension, this can be either horizontal motion, as in all of the examples we studied before, or vertical motion where an object is falling down. This is exactly the problem that
+Galileo was studying in the 16th century. The apocryphal story is that he was dropping objects of unequal mass off the leaning tower of Pisa and observing that the fell at the same rate.<br />
+
+</p>
+
+<figure id="autoid-11" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/Galileo.jpg" target="_blank" ><img
+     src="figures/Galileo.jpg"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;4.1: Italian polymath Galileio Galilei, who probably did not drop objects off the leaning tower of Pisa. The image is from <a href="https://commons.wikimedia.org/wiki/File:Justus_Sustermans_-_Portrait_of_Galileo_Galilei,_1636.jpg"
+target="_blank" >Wikimedia Commons</a>.
+
+</div>
+
+</div>
+
+</figure>
+
+<p>
+More precisely Galileo found that (ignoring air resistance) all objects fall at the same rate with their acceleration determined by the gravity acting on the object. This acceleration is known as the <b>acceleration due to
+gravity</b> \(g\) and is approximately constant everywhere on Earth. The value is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+                                                                                                                         2
+                                                                                                            g = −9.8m/s .
+
+-->
+
+<p>
+
+\begin{equation*}
+g=-9.8\text {m/s}^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+The minus sign is there because gravity causes objects to accelerate towards the surface of the Earth<sup>1</sup><a id="stm0005-notes-autopage-59"></a> and we usually regard upwards as the positive direction.<br />
+
+</p>
+
+<p>
+The acceleration due to gravity can be measured by dropping a ball from a known height and timing how long it takes to hit the ground. The second kinematic equation, eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: Kinematic equation 2">3.4</a>)</span> can then be used to solve for the acceleration. We say that an object only under the influence of gravity is in
+<b>freefall</b>, as it will keep falling towards the source of gravity until it is stopped by another object, in most cases the surface of the Earth.
+</p>
+<!--
+......    paragraph Example 3.1:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-60">Example 3.1:</span>
+<a id="stm0005-notes-autopage-60"></a>
+Consider a coin at rest at the top of a well. If it takes 1.6s to hit the bottom of the well find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The depth of the well.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The speed of the coin just before it hits the bottom of the well.
+</p>
+</li>
+</ul>
+
+<p>
+As usual we start by writing down what we know:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> \(u=0\text {m/s}\) as the coin starts at rest,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(t=1.6\text {s}\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(a=-9.8\text {m/s}^{2}\) as the coin is falling under gravity.
+</p>
+</li>
+</ul>
+
+<p>
+a) We want the depth of the well, this is the displacement of the coin after 1.6s. Use the second kinematic equation and substitute in
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                                    1
+                                                                                                           s = ut + at2
+                                                                                                                    2
+                                                                                                                   1
+                                                                                                             = 0 + (−9.8)(1.6)2
+                                                                                                                   2
+                                                                                                             = −12.5m.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s &amp;=ut+\frac {1}{2}a t^{2}\\ &amp;=0 +\frac {1}{2}(-9.8)(1.6)^{2}\\ &amp;=-12.5\text {m}.
+\end{align*}
+The minus sign is because this is how far down the coin has fallen and conventionally we think of upwards as the positive direction and downwards as negative.
+</p>
+
+<p>
+b) Now we want the final speed of the coin once it has fallen for \(1.6\)s. Since we know \(u,a,\) and \(t\), we can use the first kinematic equation to compute this:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+
+                                                                                                     v = u + at = (−9.8)1.6 = −15.7m/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+v=u+at =(-9.8)1.6=-15.7\text {m/s}.
+\end{equation*}
+
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-61"></a>
+<p>
+<sup>1</sup>&nbsp;Really they accelerate towards the centre of the Earth but on everyday scales we cannot tell the difference. It also varies with height so if you measure \(g\) at the top of a mountain you will get a slightly
+different answer than if you measure it at sea level, though they will be very close.
+</p>
+
+
+</div>
+<!--
+...... section Vectors ......
+-->
+<h4 id="autosec-62"><span class="sectionnumber">4.2&#x2003;</span>Vectors</h4>
+<a id="stm0005-notes-autopage-62"></a>
+
+
+<p>
+Now that we have looked at both horizontal and vertical motion it is time to combine them together and study motion in two dimensions. If we wanted to plot displacement against distance in this case we would need to use a three
+dimensional plot. Usually what is done to visualise the motion is to draw the horizontal and vertical motion separately or to plot horizontal displacement against vertical displacement as in fig.&nbsp;<a
+href="STM0005_PhysicsFreefall-Projectile-Motion.html#fig: projectile motion">4.2</a>.<br />
+
+</p>
+
+<figure id="autoid-12" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-8"
+    class="lateximagesource"
+><!--
+y axis
+
+
+         ⃗r
+
+
+
+
+              x axis
+--><img
+     src="stm0005-notes-images\image-8.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;4.2: A plot of vertical displacement against horizontal displacement including the vector coordinates of the highest point.
+
+</div>
+
+<a id="fig:    projectile motion"></a>
+
+</div>
+
+</figure>
+
+<p>
+There are two common, and very closely related, ways to study motion in two, and higher, dimensions:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Study the horizontal and vertical motion separately. This is called working in components and we use the kinematic equations of the previous section but with subscripts on all of the
+variables to tell us if we are using the horizontal or vertical quantity, e.g. \(s_{x}\) for horizontal displacement and \(s_{y}\) for vertical displacement or height.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Work with vectors.
+</p>
+</li>
+</ul>
+
+<p>
+When working in components we write down what we know at the start of a problem separately for the horizontal and vertical cases. e.g. Horizontal motion
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Initial velocity \(u_{x}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Final velocity \(v_{x}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Displacement \(s_{x}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Acceleration \(a_{x}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> time \(t\).
+</p>
+</li>
+</ul>
+
+<p>
+Vertical motion
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Initial velocity \(u_{y}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Final velocity \(v_{y}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Displacement \(s_{y}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Acceleration \(a_{y}\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> time \(t\).
+</p>
+</li>
+</ul>
+
+<p>
+Notice that the time is the same in both cases as we are describing the motion of the same object, just working with the horizontal and vertical pieces separately. If you ever see the words <b>neglecting air resistance</b>, then
+you can usually assume that \(a_{x}=0\) and \(a_{y}=g\), that is an object is accelerating vertically due to gravity but is not accelerating horizontally. This is just an approximation but it will serve us fairly well in this module.
+This is the approach that we will take in the next subsection, and what we will do for most of this course. However, before doing this it is worth having a basic understanding of what is going on with vectors as they will also be
+important in later weeks when we start discussing forces.<br />
+
+</p>
+
+<p>
+<b>Vectors</b> are quantities with both a magnitude and a direction and are usually denoted in either bold or with an arrow on top. For example in fig.&nbsp;<a
+href="STM0005_PhysicsFreefall-Projectile-Motion.html#fig: projectile motion">4.2</a> the vector \(\vec {r}\) pointing from the origin to the highest point in the objects motion is depicted. The magnitude is the
+length of the vector and the direction is the angle between the vector and the horizontal axis.<br />
+
+</p>
+
+<figure id="autoid-13" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-9"
+    class="lateximagesource"
+><!--
+y axis
+
+                  
+                    x
+             ⃗r = 
+                   
+                    y
+
+
+
+
+         θ
+                         x axis
+--><img
+     src="stm0005-notes-images\image-9.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;4.3: Two ways to visualise a vector.
+
+</div>
+
+<a id="fig:    vectors"></a>
+
+</div>
+
+</figure>
+
+<p>
+Another way to think of a vector is as a pair \((x,y)\) of a horizontal position and a vertical position, if we thought of putting a grid on a piece of paper as in fig.&nbsp;<a
+href="STM0005_PhysicsFreefall-Projectile-Motion.html#fig: vectors">4.3</a> then the pair \((x,y)\) is one way of specifying a point, while the length of a straight line from the point to the origin and the angle
+\(\theta \) between the line and the horizontal is another way to do this. Vectors can be added, subtracted and multiplied. In fact for addition and subtraction there is a nice geometric picture of what is going on as we take the
+two vectors, place the start of the second one at the end of the first one and see where it ends, the vector sum is then the straight line pointing from the start of the first vector to the end of the second as in fig.&nbsp;<a
+href="STM0005_PhysicsFreefall-Projectile-Motion.html#fig: vector addition">4.4</a>. Similarly when subtracting one vector from another we just add the negative of the second vector to the first as shown in
+fig.&nbsp;<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#fig: vector subtraction">4.5</a>.<br />
+
+</p>
+
+<figure id="autoid-14" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-10"
+    class="lateximagesource"
+><!--
+y axis
+
+
+
+                    ⃗s
+
+
+
+         ⃗r   ⃗r + ⃗s
+
+
+
+                         x axis
+--><img
+     src="stm0005-notes-images\image-10.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;4.4: Vector addition.
+
+</div>
+
+<a id="fig:   vector addition"></a>
+
+</div>
+
+</figure>
+
+<figure id="autoid-15" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-11"
+    class="lateximagesource"
+><!--
+y axis
+
+
+                         ⃗s
+
+
+
+
+              ⃗r   −⃗s
+
+         ⃗r − ⃗s
+                              x axis
+--><img
+     src="stm0005-notes-images\image-11.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;4.5: Vector subtraction.
+
+</div>
+
+<a id="fig:    vector subtraction"></a>
+
+</div>
+
+</figure>
+
+<p>
+We said that a vector \(\vec {r}\) can be expressed in terms of \(x\) and \(y\) coordinates as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+                                                                                                                   
+                                                                                                                   x
+                                                                                                             ⃗r =     .
+                                                                                                                   y
+
+-->
+
+<p>
+
+\begin{equation*}
+\vec {r}=\begin{pmatrix} x\\ y \end {pmatrix}.
+\end{equation*}
+
+</p>
+
+<p>
+The length or modulus of the vector is given by \(\vert \vec {r}\vert =\sqrt {x^2 +y^2}\), and the angle is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+                                                                                                                       y
+                                                                                                          θ = arctan         .
+                                                                                                                        x
+
+-->
+
+<p>
+
+\begin{equation*}
+\theta =\arctan \left (\frac {y}{x}\right ).
+\end{equation*}
+
+</p>
+
+<p>
+We need to be careful which quadrant the vector is in as this formula will always return an angle between \(-90^{\circ }\) and \(90^{\circ }\), we can tell which quadrant the vector is in by drawing it, to get the correct angle
+we then need to add or subtract \(180^{\circ }\) as is appropriate. This means that when \(x\) is negative and \(y\) is positive then the angle is \(180^{\circ }+\arctan \left (\frac {y}{x}\right )\) and when \(x\) and
+\(y\) are both negative the angle is \(180^{\circ }-\arctan \left (\frac {y}{x}\right )\). Putting this altogether mathematically gives
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> \(\theta =\arctan \left (\frac {y}{x}\right ) \) when \(x\geq 0\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(\theta =180^{\circ }+\arctan \left (\frac {y}{x}\right ) \) when\(y\geq 0\) and \(x&lt;0\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(\theta =180^{\circ }-\arctan \left (\frac {y}{x}\right ) \) when \(x,y &lt;0\).
+</p>
+</li>
+</ul>
+
+<p>
+Remember that when if we are working in radians then it will be a \(\uppi \) that appears instead of \(180^{\circ }\).
+</p>
+
+<p>
+Note that when the angle goes beyond \(90^{\circ }\) it no longer describes a triangle but the mathematical expressions still make sense. To see why either wait until we discuss circular motion in a later week, or have a look at
+the mathematical background appendix where a partial explanation of this is given.
+</p>
+<!--
+...... section Motion in 2D ......
+-->
+<h4 id="autosec-75"><span class="sectionnumber">4.3&#x2003;</span>Motion in 2D</h4>
+<a id="stm0005-notes-autopage-75"></a>
+
+
+<p>
+We now turn to motion in two dimensions. The most common example of this is <b>projectile motion</b> which is a combination of freefall in the vertical direction and constant speed motion in the horizontal direction.
+Projectile motion describes is a good approximation for many things from golf balls and artillery shells, through to thrown stones. We will meet many examples of it in the tutorial problems and in the recommended books. As was
+mentioned above it is important to start every problem by writing down what we know about the horizontal and vertical motion then identifying what we can compute with that information. This is just like we did with one
+dimensional motion, but there we did not need to keep track of as many quantities.
+</p>
+<!--
+......   paragraph Example 3.2:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-76">Example 3.2:</span>
+<a id="stm0005-notes-autopage-76"></a>
+Consider an arrow fired from the top of a 20 m tower. If the arrow has a horizontal speed of \(25 \text {m/s}\), assuming now air resistance find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> how long the arrow takes to hit the ground,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> the horizontal distance traveled by the arrow<sup>2</sup>.
+</p>
+</li>
+</ul>
+
+<p>
+First write down what we know:
+</p>
+
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Horizontal:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> \(t=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(u_{x}=25\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(v_{x}=u_{x}\), since there is no air resistance we are assuming that \(a_{x}=0\text {m/s}^{2}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(s_{x}=?\)
+</p>
+</li>
+</ul>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Vertical:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> \(t=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(u_{y}=0\text {m/s}\) as the arrow is fired horizontally
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(v_{y}=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(a_{y}=g=-9.8\text {m/s}^{2}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(s_{y}=y=-h=-20m\), this is negative as the arrow will fall \(20\)m before it hits the ground.
+</p>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+a) We want to find the time it takes the arrow to fall \(20\) m, this just involves the vertical motion so we can focus on that case and use
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                                      1
+                                                                                                         sy = uy t + ay t2
+                                                                                                                      2
+                                                                                                                    1 2
+                                                                                                            = 0 + gt ,
+                                                                                                              r 2
+                                                                                                                 2s
+                                                                                                        ⇒t=
+                                                                                                                  g
+                                                                                                              r
+                                                                                                                 2 × 20
+                                                                                                          t=            = 2.02s.
+                                                                                                                    9.8
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s_{y}&amp;=u_{y}t+\frac {1}{2}a_{y}t^{2}\\ &amp;=0+\frac {1}{2}gt^{2},\\ \Rightarrow t&amp;=\sqrt {\frac {2s}{g}}\\ t&amp;=\sqrt {\frac {2\times 20}{9.8}}=2.02 \text {s}.
+\end{align*}
+If you prefer to rearrange the equation after you have substituted in the numbers then that is ok, just be careful that you do not introduce any rounding errors. Also, note that since the time is always positive we can ignore the
+negative square root when solving for \(t\), if we were solving for a position then we would need to include both<sup>3</sup>.<br />
+
+</p>
+
+<p>
+b) Now we want the horizontal distance traveled and since we know the time that the arrow is in the air for, from part a), and we know that \(u_{x}\) is constant, we can use
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+
+                                                                                                     sx = ux t = 25 × 2.02 = 50.5m.
+
+-->
+
+<p>
+
+\begin{equation*}
+s_{x}=u_{x}t=25\times 2.02=50.5\text {m}.
+\end{equation*}
+
+</p>
+
+<p>
+So the arrow travel \(50.5\) m before it hits the ground.
+</p>
+
+<p>
+Often we will be given the velocity in a given direction, and an angle specifying that direction, rather than being given the horizontal and vertical velocities separately. This means that we need to be able to use trigonometry to
+extract \(v_{x}\) and \(v_{y}\) from what we are given. See fig.&nbsp;<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#fig: velocity components">4.6</a> for an example of what this looks like.
+</p>
+<figure id="autoid-16" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-12"
+    class="lateximagesource"
+><!--
+    v    vy
+
+
+θ   vx
+--><img
+     src="stm0005-notes-images\image-12.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;4.6: A velocity vector and how it is decomposed into horizontal and vertical components.
+
+</div>
+
+<a id="fig:    velocity components"></a>
+
+</div>
+
+</figure>
+
+<p>
+The key point is that using trigonometry we have that
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                           vx = v cos θ,
+                                                                                                           vy = v sin θ.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+v_{x}&amp;=v\cos \theta ,\\ v_{y}&amp;=v\sin \theta .
+\end{align*}
+There will be lots of opportunity to practice these sorts of problems as well. If you need a reminder about how to use trigonometry then have a look at the appendix on mathematical background or check out some of the links to
+further reading.
+</p>
+<!--
+......   paragraph Example 3.3:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-80">Example 3.3:</span>
+<a id="stm0005-notes-autopage-80"></a>
+Consider an arrow fired at a velocity of \(48\text {m/s}\) at an agle of \(30^{\circ }\) above the horizontal from a height of \(1.5\) m above flat ground. Calculate the maximum height that the arrow reaches, e.g. the peak of
+the parabola.<br />
+
+</p>
+
+<p>
+First we are being asked to find the maximum height, is there anything special about where an object reaches its maximum height? Yes, before the maximum it is going up while after the maximum it is going down, this means that
+the vertical velocity has changed direction, and it can only do this if it has gone to zero at the maximum height. The maximum height is thus the point where the vertical velocity vanishes, \(v_{y}=0\) m/s. In this case we just
+need to solve a one dimensional problem using the vertical motion.
+</p>
+
+<p>
+We know that:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> \(t=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(u_{y}=48\sin \left (30^{\circ }\right )=24\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(v_{y}=0\)m/s
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(a_{y}=g=-9.8\text {m/s}^{2}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(s_{y}=?\)
+</p>
+</li>
+</ul>
+
+<p>
+Now use
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                          vy2 = u2y + 2ay sy ,
+                                                                                                                 vy2 − u2y
+                                                                                                       ⇒ sy =
+                                                                                                                    2ay
+                                                                                                               0 − (24)2
+                                                                                                             =
+                                                                                                               −2 × 9.8
+                                                                                                             = 29.3m
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+v_{y}^{2}&amp;=u_{y}^{2}+2a_{y}s_{y},\\ \Rightarrow s_{y}&amp;=\frac {v_{y}^{2}-u_{y}^{2}}{2a_{y}}\\ &amp;=\frac {0-(24)^{2}}{-2\times 9.8}\\ &amp;=29.3\text {m}
+\end{align*}
+
+</p>
+
+<p>
+This is the height the arrow travels from above its starting point, however it starts at \(1.5\) m above the ground so attains a maximum height above the ground of \(30.8\) m.
+</p>
+
+<p>
+An alternative way to solve this problem would be to use the first kinematic equation, eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: Kinematic equation 1">3.3</a>)</span>, to find \(t\) and then substitute this into the second kinematic equation, eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: Kinematic equation 2">3.4</a>)</span>, then solving for \(s_{y}\).<br />
+
+</p>
+<!--
+......   paragraph Example 3.4:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-81">Example 3.4:</span>
+<a id="stm0005-notes-autopage-81"></a>
+A Batter hits a baseball so that it leaves the bat at a speed of \(u=37.0\text {m/s}\) at an angle of \(\theta =53.1^{\circ }\). Find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The horizontal and vertical components of the velocity at \(t=0\) s.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The position of the ball and its speed after 2s.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The maximum height reached by the ball and how long it takes to reach this height.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">d)</span> The range of the ball before it hits the ground.
+</p>
+</li>
+</ul>
+
+<p>
+This is a complicated question with several stages, if you can solve this problem then you can solve any of the projectile motion questions that you will come across on the tutorial sheet or on the exam. This brings together
+everything that we have seen so far.
+</p>
+
+<p>
+a) Use trigonometry to caluclate the compnents as
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                  ux = u cos θ = 37 × cos 53.1◦ = 22.2m/s,
+                                                                                                  uy = u sin θ = 37 × sin 53.1◦ = 29.6m/s.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+u_{x}&amp;=u\cos \theta =37\times \cos 53.1^{\circ }=22.2 \text {m/s},\\ u_{y}&amp;=u\sin \theta =37\times \sin 53.1^{\circ }=29.6 \text {m/s}.
+\end{align*}
+
+</p>
+
+<p>
+b) Let’s list what we know and what we do not know:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Horizontal:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> \(t=2\)s
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(v_{x}=u_{x}=22.2\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(s_{x}=?\)
+</p>
+</li>
+</ul>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Vertical:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> \(t=2\)s
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(u_{y}=29.6\text {m/s}\) as the arrow is fired horizontally
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(v_{y}=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(a_{y}=g=-9.8\text {m/s}^{2}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(s_{y}=?\).
+</p>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+We want both \(s_{x}\) and \(s_{y}\) so first calculate horizontal then vertical position using kinematic equations:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                           sx = ux t = 22.2 × 2 = 44.4m,
+                                                                                                       1                 1
+                                                                                           sy = uy t + ay t2 = 29.6 × 2 + (−9.8) × 4 = 39.6m.
+                                                                                                       2                 2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s_{x}&amp;=u_{x}t=22.2\times 2=44.4\text {m},\\ s_{y}&amp;=u_{y}t+\frac {1}{2}a_{y}t^{2}=29.6\times 2+\frac {1}{2}(-9.8)\times 4=39.6\text {m}.
+\end{align*}
+For the speed we need \(v_{y}\) and then can use that the speed is calculated from the velocity as \(\text {speed}=\sqrt {v^{2}_{x}+v^{2}_{y}}\). Thus:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                   vy = uy + ay t = 29.6 − 9.8 × 2 = 10m/s,
+                                                                                                        q
+                                                                                                speed = vx2 + vy2 = 24.3m/s.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+v_{y}&amp;=u_{y}+a_{y}t=29.6-9.8\times 2=10\text {m/s},\\ \text {speed}&amp;=\sqrt {v^{2}_{x}+v^{2}_{y}}=24.3\text {m/s}.
+\end{align*}
+
+</p>
+
+<p>
+c) Now we want to find the maximum height reached by the ball. Recall that \(v_{y}=0\) at the maximum height, we can either compute the time using \(v_{y}=u_{y}+a_{y}t\) then use this to compute \(s_{y}\) through
+\(s_{y}=u_{y}t+\frac {1}{2}a_{y}t^{2}\) or we can use the third kinematic equation, eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: Kinematic equation 3">3.5</a>)</span> to solve for \(s_{y}\) directly as
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                            vy2 = u2y + 2ay sy ,
+                                                                                                                   vy2 − u2y
+                                                                                                         ⇒ sy =
+                                                                                                                      2ay
+                                                                                                                   (29.6)2
+                                                                                                            sy =           = 44.7m.
+                                                                                                                   9.8 × 2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+v^{2}_{y}&amp;=u^{2}_{y}+2a_{y}s_{y},\\ \Rightarrow s_{y}&amp;=\frac {v^{2}_{y}-u^{2}_{y}}{2a_{y}}\\ s_{y}&amp;=\frac {(29.6)^{2}}{9.8\times 2}= 44.7\text {m}.
+\end{align*}
+
+</p>
+
+<p>
+d) Finally, we want to find the range of the ball, that is how far it travels horizontally before hitting the ground. We do this in two steps: 1) find the time it takes the ball to hit the ground by studying the vertical motion, 2) use
+\(t\) and the horizontal motion to find the range.
+</p>
+
+<p>
+1) The ground is at \(s_{y}=0\) so for the vertical motion we know that:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> \(t=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(u_{y}=29.6\text {m/s}\) as the arrow is fired horizontally
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(v_{y}=?\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(a_{y}=g=-9.8\text {m/s}^{2}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(s_{y}=0\)m.
+</p>
+</li>
+</ul>
+
+<p>
+To find for \(t\) we use the second kinematic equation to get a quadratic equation for \(t\) that we can then solve:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                                      1
+                                                                                                           sy = uy t + ay t2
+                                                                                                                     2      
+                                                                                                                        1
+                                                                                                            0 = t uy + ay t ,
+                                                                                                                        2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s_{y}&amp;=u_{y}t+\frac {1}{2}a_{y}t^{2}\\ 0&amp;=t\left (u_{y}+\frac {1}{2}a_{y}t\right ),
+\end{align*}
+so \(t=0\) or \(t=-2u_{y}/a_{y}\). Note that getting two values of \(t\) makes sense as the ball is at ground level at two times, first when it is hit initially and then when it returns to the ground. Plugging in the numbers gives
+that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+                                                                                                             2uy   2 × 29.6
+                                                                                                       t=−       =          = 6.04s
+                                                                                                              ay      9.8
+
+-->
+
+<p>
+
+\begin{equation*}
+t=-\frac {2u_{y}}{a_{y}}=\frac {2\times 29.6}{9.8}=6.04\text {s}
+\end{equation*}
+
+</p>
+
+<p>
+2) Now that we have \(t\) we can solve for \(s_{x}\) as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+
+                                                                                                      sx = ux t = 22.2 × 6.04 = 134m.
+
+-->
+
+<p>
+
+\begin{equation*}
+s_{x}=u_{x}t=22.2\times 6.04 =134\text {m}.
+\end{equation*}
+
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-82"></a>
+<p>
+<sup>2</sup>&nbsp;This is often called the <b>range</b>.
+</p>
+
+<p>
+<sup>3</sup>&nbsp;In the future we will meet examples where \(u\neq 0\) and then we have to solve a quadratic equation for \(t\) which has two roots, often \(t=0\) and another positive value of \(t\).
+</p>
+
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

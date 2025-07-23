@@ -1,0 +1,1800 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Motion in One Dimension and SUVAT</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-26"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Motion in One Dimension and SUVAT ......
+-->
+<h3 id="autosec-27">Chapter&nbsp;<span class="sectionnumber">3&#x2003;</span>Motion in One Dimension and SUVAT</h3>
+<a id="stm0005-notes-autopage-27"></a>
+<a id="stm0005-notes-autofile-3"></a>
+
+<a id="sec:   motion in 1D"></a>
+<!--
+...... section Mechanics ......
+-->
+<h4 id="autosec-28"><span class="sectionnumber">3.1&#x2003;</span>Mechanics</h4>
+<a id="stm0005-notes-autopage-28"></a>
+
+
+<p>
+Throughout this course we will study objects in motion. This could be a ball rolling down a hill, a spring oscillating up and down, or a pendulum. The first part of this course is focussed on <b>kinematics</b>, the study of how
+objects move. Later in the module we will also deal with <b>dynamics</b>, the study of why objects move. These are both subsets of <b>mechanics</b>, the study of moving objects.<br />
+
+</p>
+
+<figure id="autoid-4" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-1"
+    class="lateximagesource"
+><!--
+--><img
+     src="stm0005-notes-images\image-1.svg"
+     alt="( This is a diagram of a ball rolling down a hill)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.1: A ball rolling down a hill.
+
+</div>
+
+<a id="fig:    ball on a hill"></a>
+
+</div>
+
+</figure>
+
+<p>
+Kinematics is concerned with quantities like:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> <b>Displacement:</b> The distance an object moves in a given direction, typically measured in metres or similar units.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Distance:</b> How far an object has moved without keeping track of the direction. We use the symbol \(s\) for displacement.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Speed:</b> The rate of change of distance with respect to time.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Velocity:</b> The rate of change of displacement with respect to time, e.g. the speed in a given direction. Velocity is usually measured in metres per second, m/s or \(\text
+{ms}^{-1}\). we use the symbols \(v\) or \(u\) for velocity. When the velocity is constant it is related to the displacement through \(v=\frac {s}{t}\), i.e velocity is displacement divided by time.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Acceleration:</b> The rate of change of velocity with respect to time, usually measured in metres per second squared, \(\text {m/}\text {s}^{2}\) or \(\text {ms}^{-2}\).
+Acceleration is given the symbol a.
+</p>
+</li>
+</ul>
+
+<p>
+The formula relating constant velocity, displacement, and time can be recalled using the formula triangle in fig.&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#fig:     vst triangle">3.2</a>.<br />
+
+</p>
+
+<figure id="autoid-5" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-2"
+    class="lateximagesource"
+><!--
+ s
+v× t
+--><img
+     src="stm0005-notes-images\image-2.svg"
+     alt="( The formula triangle for displacement, velocity, and time.)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.2: The formula triangle for constant velocity, displacement, and time. To use the triangle cover up the quantity that you want to calculate and you are left with the formula for it. For example if \(s\) is covered up
+we are left with \(v\times t\)
+
+</div>
+
+<a id="fig:    vst triangle"></a>
+
+</div>
+
+</figure>
+
+<p>
+Speed and distance are examples of scalars. Quantities that have a size (also called a magnitude) but not a direction. While velocity, displacement, and acceleration are vectors. This means that they have both a size and a
+direction.<br />
+
+</p>
+
+<p>
+The distinction between scalars and vectors is an important one and we will make a lot of use of both quantities repeatedly during this module.
+</p>
+<!--
+...... section Motion in 1D ......
+-->
+<h4 id="autosec-35"><span class="sectionnumber">3.2&#x2003;</span>Motion in 1D</h4>
+<a id="stm0005-notes-autopage-35"></a>
+
+
+<p>
+The easiest way to remember the difference is to think about motion along a line in one dimension.<br />
+
+</p>
+
+<figure id="autoid-6" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-3"
+    class="lateximagesource"
+><!--
+0
+    x
+--><img
+     src="stm0005-notes-images\image-3.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.3: A one dimensional line described by the coordinate x. The point \(x=0\) is marked in the middle of the line with \(x\) negative to the left of this and positive to the right.
+
+</div>
+
+<a id="fig:    x-axis fig"></a>
+
+</div>
+
+</figure>
+
+<p>
+The line shown in fig.&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#fig: x-axis fig">3.3</a> is known as the \(x\)-axis since the value of \(x\) tells us how far along the line we are. In
+fig.&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#fig: x-axis fig2">3.4</a> we have two marked points, \(x_{1}\) and \(x_{2}\) on the \(x\)-axis. If we think of an object starting at \(x_{1}\)
+and moving to \(x_{2}\) then the displacement is the change<sup>1</sup><a id="stm0005-notes-autopage-38"></a> in position \(\Delta x =x_{2}-x_{1}\).<br />
+
+</p>
+
+<p>
+The difference between displacement and distance is that the distance is always positive, while the displacement is positive when an object is moving to the right and negative for an object moving to the left.<br />
+
+</p>
+
+<figure id="autoid-7" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-4"
+    class="lateximagesource"
+><!--
+x1 at t1   x2 at t2
+                      x
+--><img
+     src="stm0005-notes-images\image-4.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.4: The \(x\)-axis with two points marked, \(x_{1}\) and \(x_{2}\), where the moving object is at the times \(t_{1}\) and \(t_{2}\).
+
+</div>
+
+<a id="fig:    x-axis fig2"></a>
+
+</div>
+
+</figure>
+
+<p>
+The <b>sign</b> of \(\Delta x\), either positive or negative is the direction, it shows if the object is moving to the right or to the left. Note that the distance the object travels is given by \(\vert \Delta x\vert \), the modulus
+of \(\Delta x\).<br />
+
+</p>
+
+<p>
+We can explicitly see the difference between distance and displacement if we consider the following two examples:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> if \(x_{1}=0\) and \(x_{2}=2\) then the displacement is \(\Delta x=2-0=2\) and the distance is also \(2\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> If \(x_{1}=0\) and \(x_{2}=-2\) then the displacement is \(\Delta x = -2-0=-2\) while the distance is still \(2\).
+</p>
+</li>
+</ul>
+
+<p>
+So the distance does not care whether we move left or right along the \(x\)-axis, while the displacement cares about the difference.<br />
+
+</p>
+
+<p>
+The <b>average velocity</b> is the displacement divided by the difference between the time when the object is at \(x_{2}\) and the time at \(x_{1}\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{0}\)</span>
+
+<!--
+
+                                            ∆x   x2 − x 1
+                                   vavg =      =          .                                 (3.1)                                                                                     --><a id="eq:     average velocity"></a><!--
+                                            ∆t   t2 − t 1
+
+-->
+
+<p>
+
+\begin{equation}
+v_{\text {avg}}=\frac {\Delta x}{\Delta t}=\frac {x_{2}-x_{1}}{t_{2}-t_{1}}.                 \label {eq:     average velocity}
+\end{equation}
+
+</p>
+
+<p>
+You may recognise this as the formula for the gradient of a straight line starting at \((t_{1},x_{1})\) and ending at \((t_{2},x_{2})\). In fact plotting displacement against time is a convenient way to visualise an objects
+motion. In fig.&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#fig: displacement time graph 1">3.5</a> we see two examples of this type of plot, in red we have the case of constant velocity, while
+in blue we see that the velocity is changing.<br />
+
+</p>
+
+<figure id="autoid-8" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-5"
+    class="lateximagesource"
+><!--
+x axis
+
+
+
+
+         t axis
+--><img
+     src="stm0005-notes-images\image-5.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.5: A displacement time graph showing the difference between constant velocity motion, in red and dashed, and motion with a changing velocity, in blue.
+
+</div>
+
+<a id="fig:    displacement time graph 1"></a>
+
+</div>
+
+</figure>
+
+<p>
+To read this off the graphs notice that in the constant velocity case no matter which points on the \(x\)-axis we think of starting and ending at, when we use eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: average velocity">3.1</a>)</span> we will find the same value. This is why we called it the constant velocity case. The velocity is the gradient, rate of
+change, of a displacement time graph, and a straight line has a constant gradient.<br />
+
+</p>
+
+<p>
+For the second case, the blue curve<sup>2</sup><a id="stm0005-notes-autopage-44"></a>, the gradient is not constant it changes from point to point along the curve. In this case eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: average velocity">3.1</a>)</span> for the average velocity will only be an approximation to the gradient of the curve. This approximation will get better
+and better as the time difference between the two points, \(\Delta t\), gets smaller. To get the instantaneous velocity we would need to take \(\Delta t\) to zero, and then the velocity \(v\) is given by the <b>derivative</b> of
+\(x\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{1}\)</span>
+
+<!--
+
+                                                                                                                      dx
+                                                                                                                 v=      .
+                                                                                                                      dt
+
+-->
+
+<p>
+
+\begin{equation*}
+v=\frac {\ud x}{\ud t}.
+\end{equation*}
+
+</p>
+
+<p>
+In this module we are not assuming any familiarity with calculus so will not need to use the derivative to calculate the velocity.
+</p>
+
+<figure id="autoid-9" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-6"
+    class="lateximagesource"
+><!--
+x axis
+
+
+
+
+         t axis
+--><img
+     src="stm0005-notes-images\image-6.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.6: A displacement time graph where the object returns to its starting position. This is the sort of graph we will see when looking at objects falling under gravity next week.
+
+</div>
+
+<a id="fig:    displacement time graph 2"></a>
+
+</div>
+
+</figure>
+
+<p>
+When the velocity is constant we can just use eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: average velocity">3.1</a>)</span> and the equation triangle in
+fig.&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#fig: vst triangle">3.2</a> to relate velocity, displacement, and time. If the velocity is changing in time we need to consider the acceleration.
+This is easiest to understand if we visualise the changing velocity on a velocity time graph. This is just like the displacement time graphs that we saw above but we plot the velocity of the object on the vertical axis rather than the
+displacement.<br />
+
+</p>
+
+<figure id="autoid-10" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-7"
+    class="lateximagesource"
+><!--
+v axis
+
+ v
+
+
+
+ u
+
+
+                   t axis
+t1 = 0s   t2 = t
+--><img
+     src="stm0005-notes-images\image-7.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;3.7: A velocity time graph showing uniform motion starting with velocity \(u\) at time zero and accelerating to have velocity \(v\) at time \(t_{2}\).
+
+</div>
+
+<a id="fig:    velocity time graph 1"></a>
+
+</div>
+
+</figure>
+
+<p>
+Consider the motion shown in fig.&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#fig: velocity time graph 1">3.7</a>, here the moving object has the initial velocity \(u\) at time
+\(t_{1}=0\text {s}\) which changes to the final velocity \(v\) at time \(t_{2}=t\). The acceleration is the rate of change of velocity so the average acceleration is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{1}\)</span>
+
+<!--
+
+                                          ∆v   v−u
+                                 aavg =      =     .                                    (3.2)                                                                                     --><a id="eq:     average acceleration"></a><!--
+                                          ∆t    t
+
+-->
+
+<p>
+
+\begin{equation}
+a_{\text {avg}}=\frac {\Delta v}{\Delta t}=\frac {v-u}{t}.              \label {eq:     average acceleration}
+\end{equation}
+
+</p>
+
+<p>
+As with velocity, if the acceleration is changing then the instantaneous acceleration will be different from the average acceleration and we would need calculus to compute it properly. In this module we will rarely go beyond the case
+of constant acceleration<sup>3</sup><a id="stm0005-notes-autopage-50"></a>. This is called <b>uniform motion</b>.<br />
+
+</p>
+
+<p>
+For uniform motion we can rearrange eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq:                       average acceleration">3.2</a>)</span> to make the final velocity \(v\) the
+subject:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{2}\)</span>
+
+<!--
+
+
+                                      v = u + at.                                       (3.3)                                                                                     --><a id="eq:     Kinematic equation 1"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+v=u+at. \label {eq:       Kinematic equation 1}
+\end{equation}
+
+</p>
+
+<p>
+This is the first of the so called <b>Kinematic equations</b> that we have met. These are the equations relating velocity, time, acceleration, and displacement, by the end of this module you will be very familiar with using these
+kinematic equations to solve problems.
+</p>
+<!--
+......   paragraph Example 2.1:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-51">Example 2.1:</span>
+<a id="stm0005-notes-autopage-51"></a>
+A car is travelling at \(8\text {m/s}\) and breaks for \(6\text {s}\) to reduce its velocity to \(2\text {m/s}\) calculate its deceleration.
+</p>
+
+<p>
+First collect together what we know about the problem:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> initial velocity is \(u=8\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> final velocity is \(v=2\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> time is \(t=6\text {s}\).
+</p>
+</li>
+</ul>
+
+<p>
+We know that we are in the realm of uniform motion so can use \(a=\frac {v-u}{t}\) to find the acceleration. substituting in the numbers gives:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+
+
+<!--
+
+
+                                                                                                        v−u   2−8    6    m
+                                                                                                   a=       =     = − = −1 2 .
+                                                                                                         t     6     6    s
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+a&amp;=\frac {v-u}{t}=\frac {2-8}{6}=-\frac {6}{6}=-1\frac {\text {m}}{\text {s}^{2}}.
+\end{align*}
+The negative sign shows that the car is decelerating and is because the velocity is decreasing. Note that it is very important to always include the units in your final answer.<br />
+
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-52"></a>
+<p>
+<sup>1</sup>&nbsp;In physics we often use the notation \(\Delta \) to mean the change in a quantity.
+</p>
+
+<p>
+<sup>2</sup>&nbsp;Mathematically the blue curve is known as a parabola and is described by a formula \(x=t^{2}\) so we can also compute its gradient at any point.
+</p>
+
+<p>
+<sup>3</sup>&nbsp;We will only need this when discussing circular motion later in the module. and there we will describe the acceleration in a slightly different way which avoids using the derivative.
+</p>
+
+
+</div>
+<!--
+...... section Kinematic Equations ......
+-->
+<h4 id="autosec-53"><span class="sectionnumber">3.3&#x2003;</span>Kinematic Equations</h4>
+<a id="stm0005-notes-autopage-53"></a>
+
+
+<p>
+There are several other kinematic equations that will be useful, deciding which one to use to solve a given problem is something that you will learn by practising solving problems. In the exam you will be given a formula book that
+will have most of the equations in it. The formula included in the formula sheet are given at the end of these lecture notes.<br />
+
+</p>
+
+<p>
+For completeness we will derive the other kinematic equations here and use them to solve an example. <b>You do not need to be able to replicate the derivations, but you do need to know how to use the
+equations.</b><br />
+
+</p>
+
+<p>
+The formula above, eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: average acceleration">3.2</a>)</span>, is good if we know any three of initial velocity, final
+velocity, acceleration, and time. However, often we will be interested in the displacement of an object during its motion. This means that we need a way to calculate displacement in terms of the other quantities. Let us start with
+what we know. For an object in uniform motion we have that:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> The acceleration is related to the initial velocity, final velocity, and the time the object is moving for through
+</p>
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+<!--
+
+                                                                                                              v = u + at.
+-->
+<p>
+
+\begin{equation*}
+v=u+at.
+\end{equation*}
+
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> The displacement of the object at time \(t\) is given by
+</p>
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+<!--
+
+                                                                                                              s = vavg t.
+-->
+<p>
+
+\begin{equation*}
+s=v_{\text {avg}}t.
+\end{equation*}
+
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> The average velocity is given in terms of the initial and final velocity as
+</p>
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+<!--
+                                                                                                                      v+u
+                                                                                                             vavg =       .
+                                                                                                                       2
+-->
+<p>
+
+\begin{equation*}
+v_{\text {avg}}=\frac {v+u}{2}.
+\end{equation*}
+
+</p>
+<p>
+
+</p>
+</li>
+</ul>
+
+<p>
+Substituting \(v_{\text {avg}}\) into the expression for the displacement gives
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+
+<!--
+
+                                                                                                                  1     1
+                                                                                                             s=     vt + ut,
+                                                                                                                  2     2
+
+-->
+
+<p>
+
+\begin{equation*}
+s=\frac {1}{2}vt+\frac {1}{2}ut,
+\end{equation*}
+
+</p>
+
+<p>
+then substitute in eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq:                   Kinematic equation 1">3.3</a>)</span> to get
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+
+<!--
+
+                                                                                                             1     1     1
+                                                                                                        s=     ut + at2 + ut.
+                                                                                                             2     2     2
+
+-->
+
+<p>
+
+\begin{equation*}
+s=\frac {1}{2}ut+\frac {1}{2}at^{2}+\frac {1}{2}ut.
+\end{equation*}
+
+</p>
+
+<p>
+Grouping the terms together gives the second kinematic equation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{3}\)</span>
+
+<!--
+
+                                                                       1
+                                                               s = ut + at2 .                                                             (3.4)                                  --><a id="eq:     Kinematic equation 2"></a><!--
+                                                                       2
+
+-->
+
+<p>
+
+\begin{equation}
+s=ut+\frac {1}{2}at^{2}.        \label {eq:     Kinematic equation 2}
+\end{equation}
+
+</p>
+
+<p>
+This gives us a relationship between displacement, time, acceleration, and initial velocity.
+</p>
+<!--
+......   paragraph Example 2.2:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-54">Example 2.2:</span>
+<a id="stm0005-notes-autopage-54"></a>
+Consider the car from Example 3 which was decelerating. Calculate how far it travels while decelerating. First collect what we know:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> \(u=8\text {m/s}\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(v=2\text {m/s}\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(t=6\text {s}\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(a=-1\text {m/s}^{2}\).
+</p>
+</li>
+</ul>
+
+<p>
+We do not need to use \(v\) but can substitute the rest into eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq:   Kinematic equation 2">3.4</a>)</span> to calculate
+the displacement of the car,
+</p>
+<span class="hidden"> \(\seteqnumber{0}{3.}{4}\)</span>
+
+
+<!--
+
+
+                                                                                                             1
+                                                                                                    s = ut + at2
+                                                                                                             2
+                                                                                                                1           2
+                                                                                                      = 8 × 6 + × (−1) × (6)
+                                                                                                                2
+                                                                                                      = 48 − 18
+                                                                                                      = 30m.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s&amp;=ut+\frac {1}{2}at^{2}\\ &amp;=8\times 6 +\frac {1}{2}\times \left (-1\right )\times \left (6\right )^{2}\\ &amp;=48-18\\ &amp;=30\text {m}.
+\end{align*}
+So the car travels \(30\text {m}\) while decelerating.<br />
+
+</p>
+
+<p>
+Next consider the product of acceleration and displacement \(as\) and substitute in the expressions that we have for \(a\) and \(s\):
+</p>
+<span class="hidden"> \(\seteqnumber{0}{3.}{4}\)</span>
+
+
+<!--
+
+
+                                                                                                            v−u v+u
+                                                                                                        as =       ×       t
+                                                                                                               t       2
+                                                                                                            (v − u)(v + u)
+                                                                                                          =
+                                                                                                                   2
+                                                                                                            v 2 − u2
+                                                                                                          =          .
+                                                                                                                 2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+as &amp;=\frac {v-u}{t}\times \frac {v+u}{2}t\\ &amp;=\frac {(v-u)(v+u)}{2}\\ &amp;=\frac {v^{2}-u^{2}}{2}.
+\end{align*}
+We rearrange to make \(v^{2}\) the subject to give the third kinematic equation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{4}\)</span>
+
+<!--
+
+
+                                                                   v 2 = u2 + 2as.                                                      (3.5)                  --><a id="eq:   Kinematic equation 3"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+v^{2}=u^{2}+2as.     \label {eq:    Kinematic equation 3}
+\end{equation}
+
+</p>
+<!--
+......    paragraph Example 2.3:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-55">Example 2.3:</span>
+<a id="stm0005-notes-autopage-55"></a>
+A car is moving at \(120 \)km/hr, when the brakes are applied to produce a constant deceleration. After 100 m, the velocity has decreased to 65 km/hr. Find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> What is the value of the deceleration.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> How long the car was decelerating for
+</p>
+</li>
+</ul>
+
+<p>
+As always we start by collecting what we know.
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> \(u=120\text {km/hr}\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(v=65\text {km/hr}\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> \(s=100\text {m}\).
+</p>
+</li>
+</ul>
+
+<p>
+For a) we want \(a\) but as we do not know \(t\) we need to use eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq:               Kinematic equation 3">3.5</a>)</span> and
+rearrange it to get
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{5}\)</span>
+
+<!--
+
+                                                                                                  v 2 − u2   (65)2 − (120)2             2
+                                                                                             a=            =                = −50.1km/hr .
+                                                                                                      2s        2 × 100
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v^{2}-u^{2}}{2s}=\frac {(65)^{2}-(120)^{2}}{2\times 100}=-50.1\text {km/hr}^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+If we convert this to \(\text {m/s}^{2}\) we find \(a=-0.0039\text {m/s}^{2}\). Again note that the negative sign is because the car is decelerating.<br />
+
+</p>
+
+<p>
+b) Now we want the time taken for the the car to travel \(100\) m while decelerating. So now we use that the deceleration is constant at \(a=-50.1\text {km/hr}^{2}\). This time we will use eq.&nbsp;<span
+class="textup">(<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#eq: Kinematic equation 1">3.3</a>)</span> and rearrange to solve for \(t\) as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{3.}{5}\)</span>
+
+<!--
+
+                                                                                                          v−u   65 − 120
+                                                                                                     t=       =          = 1.098s.
+                                                                                                           a     −50.1
+
+-->
+
+<p>
+
+\begin{equation*}
+t=\frac {v-u}{a}=\frac {65-120}{-50.1}=1.098 \text {s}.
+\end{equation*}
+
+</p>
+
+<p>
+The are lots of problems for you to practice using the kinematic equations on the tutorial sheets.
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

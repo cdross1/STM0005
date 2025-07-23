@@ -1,0 +1,1551 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Mathematical Basics</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-304"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Mathematical Basics ......
+-->
+<h3 id="autosec-305">Chapter&nbsp;<span class="sectionnumber">11&#x2003;</span>Mathematical Basics</h3>
+<a id="stm0005-notes-autopage-305"></a>
+<a id="stm0005-notes-autofile-11"></a>
+<!--
+...... section Background and References ......
+-->
+<h4 id="autosec-306"><span class="sectionnumber">11.1&#x2003;</span>Background and References</h4>
+<a id="stm0005-notes-autopage-306"></a>
+
+
+<p>
+Physics is by its very nature a mathematical subject and it gets progressively more mathematical the further you take your studies of it. This means that to understand the material in the module and to be able to solve the tutorial
+problems, you need to have a experience with a variety of mathematical techniques such as:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> solving linear equation,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> solving quadratic equations
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> using trigonometry,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> using scientific notation and understanding
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> knowing what a vector and being able to calculate its magnitude and direction.
+</p>
+</li>
+</ul>
+
+<p>
+You will meet many of these topics in STM0001 Applied Mathematics which you are taking at the same time as this module, and I am aiming to briefly introduce any new mathematical topics when we need them. However, I also
+want to link to some extra resources where you can brush up on your maths beforehand.<br />
+
+</p>
+
+<p>
+A great resource is the website <a href="https://tutorial.math.lamar.edu/" target="_blank" >Pauls Online Math Notes</a>. The website contains notes for a variety of mathematics courses including algebra and calculus.
+The most useful material to complement this Physics module are the Algebra and trigonometry review <a href="https://tutorial.math.lamar.edu/Extras/AlgebraTrigReview/AlgebraTrigIntro.aspx" target="_blank"
+>linked here</a> and the preliminaries section of the algebra notes, <a href="https://tutorial.math.lamar.edu/Classes/Alg/Preliminaries.aspx" target="_blank" >linked here</a>.<br />
+
+</p>
+
+<p>
+As the module goes on I may add more maths resources or add some examples. In the first few weeks of tutorial problems there will be some maths problems for extra practice.<br />
+
+</p>
+
+<p>
+The essential maths skills needed for studying physics at this level are nicely summarised in (Garrett 2015). It is worth having a look at this book if you want to revise the maths background.
+</p>
+<!--
+...... section Trigonometry Primer ......
+-->
+<h4 id="autosec-307"><span class="sectionnumber">11.2&#x2003;</span>Trigonometry Primer</h4>
+<a id="stm0005-notes-autopage-307"></a>
+
+
+<p>
+Since trigonometry comes up a lot in this course a review of the basics is included here. If you are not familiar with it you can either check out the links suggested above or ask me to provide more background information.<br />
+
+</p>
+
+<p>
+For our purposes we will only need trigonometry for right angled triangles. <b>Trigonometry</b> is an area of mathematics related to the study of triangles and provides a way to compute the lengths and angles in a triangle
+provided that you now some of them already.
+</p>
+
+<figure id="autoid-64" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-48"
+    class="lateximagesource"
+><!--
+        φ
+
+
+    a
+            c
+
+
+θ
+    b
+--><img
+     src="stm0005-notes-images\image-48.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;11.1: A right angle triangle with all the angles and sides marked.
+
+</div>
+
+<a id="fig:    Trig definitions"></a>
+
+</div>
+
+</figure>
+
+<p>
+The typical mnemonic used to remember trigonometry is <b>SOH CAH TOA</b> which means Sine is opposite over hypotenuse
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                  c               b
+                                                                                                        sin θ =     ,   sin φ =     ,
+                                                                                                                  a               a
+
+-->
+
+<p>
+
+\begin{equation*}
+\sin \uptheta =\frac {c}{a}, \qquad \sin \upphi =\frac {b}{a},
+\end{equation*}
+
+</p>
+
+<p>
+Cosine is adjacent divided by hypotenuse
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                  b               c
+                                                                                                       cos θ =      ,   cos φ =     ,
+                                                                                                                  a               a
+
+-->
+
+<p>
+
+\begin{equation*}
+\cos \uptheta =\frac {b}{a}, \qquad \cos \upphi =\frac {c}{a},
+\end{equation*}
+
+</p>
+
+<p>
+and Tangent is opposite divided by adjacent
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                               c               b
+                                                                                                        tan θ = ,       sin φ = .
+                                                                                                               b               c
+
+-->
+
+<p>
+
+\begin{equation*}
+\tan \uptheta =\frac {c}{b}, \qquad \sin \upphi =\frac {b}{c}.
+\end{equation*}
+
+</p>
+
+<p>
+There are associated inverse functions \(\arcsin ,\arccos ,\arctan \) which convert ratios of sides into angles. All of these functions are available on your calculator.<br />
+
+</p>
+
+<p>
+It is important to be careful with which units you are using to express angles. It is likely that you will have come across degrees where going around a full circle is represented by an angle of \(360^{\circ }\). However, it is often
+convenient to work with a different measure of angles called radians, in this case we take a full circle to be \(2\uppi \text {rad}\) and express angles as a number between \(0\) and \(2\uppi \). In this module you can probably
+get away with always working in degrees, other than for some of the formulas quoted for the pendulum. However, if you go further with maths or physics you will find that radians as much more convenient to work with.
+</p>
+<!--
+...... section Rearranging Equations ......
+-->
+<h4 id="autosec-311"><span class="sectionnumber">11.3&#x2003;</span>Rearranging Equations</h4>
+<a id="stm0005-notes-autopage-311"></a>
+
+
+<p>
+A very important skill for solving physics problems is to be able to rearrange equations. This is sometimes referred to as changing the subject of an equation. Newcastle University have a webpage, available <a
+href="https://www.mas.ncl.ac.uk/ask/numeracy-maths-statistics/core-mathematics/pure-maths/algebra/rearranging-equations.html" target="_blank" >here</a> that goes through some examples of how to
+rearrange equations. The webpage also has some self test questions that you can look at if you want more practice. Some of the details are reviewed here, along with examples for the specific equations that we have been using in
+this module.<br />
+
+</p>
+
+<p>
+In the equation
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+
+                                                                                                                       x = 5y + 4z,
+
+-->
+
+<p>
+
+\begin{equation*}
+x=5y+4z,
+\end{equation*}
+
+</p>
+
+<p>
+\(x\) is called the subject, which is just a fancy way of saying that \(x\) is expressed in terms of the other variables. When we talk about rearranging an equation, we mean that we change the subject of the equation from \(x\) to
+another variable like \(y\) and \(z\). We do this by performing a variety of mathematical operations to both sides of the equation to swap some of the variables from one side to the other.<br />
+
+</p>
+
+<p>
+These operations can include: adding or subtracting a quantity from both sides, multiplying or dividing by a quantity, taking logarithms of or exponentiating both sides of the equation, raising both sides of the equation to any
+non-zero power.<br />
+
+</p>
+
+<p>
+Returning to the above equation \(x=5y+4x\), we can rearrange it to make \(z\) the subject. Again, this means that we will perform mathematical operations on both sides of the equation to put it in the form \(z=\dots {}\) :
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                   x = 5y + 4z,       first subtract \(5y\) from both sides,
+                                                                                         x − 5y = 5y + 4z − 5y = 4z,                 then divide both sides by 4,
+                                                                                         x − 5y   4z
+                                                                                                =    = z.
+                                                                                           4       4
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+x&amp;=5y+4z, \quad \text { first subtract $5y$ from both sides},\\ x-5y&amp;=5y+4z-5y=4z, \quad \text {then divide both sides by 4},\\ \frac {x-5y}{4}&amp;=\frac {4z}{4}=z.
+\end{align*}
+This gives us
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                                x − 5y
+                                                                                                                        z=             ,
+                                                                                                                                  4
+
+-->
+
+<p>
+
+\begin{equation*}
+z=\frac {x-5y}{4},
+\end{equation*}
+
+</p>
+
+<p>
+with \(z\) now the subject of the equation.<br />
+
+</p>
+
+<p>
+As another example consider one of the kinematic equations that we met in chapter&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#sec:                                    motion in 1D">3</a>, \(v=u+at\). In several examples we
+have rearranged this equation to make the acceleration \(a\) the subject. If we go through this step by step what we do is:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                       v = u + at,   subtract \(u\) from both sides,
+                                                                                             v − u = u + at − u = at,               divide both sides by \(t\),
+                                                                                             v−u     at
+                                                                                                   =    = a,
+                                                                                               t      t
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+v&amp;=u+at, \quad \text {subtract $u$ from both sides},\\ v-u&amp;=u+at -u=at, \quad \text {divide both sides by $t$},\\ \frac {v-u}{t}&amp;=\frac {at}{t}=a,
+\end{align*}
+which gives us
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                                 v−u
+                                                                                                                           a=        .
+                                                                                                                                  t
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v-u}{t}.
+\end{equation*}
+
+</p>
+
+<p>
+The later expression is actually what we started with in chapter&nbsp;<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#sec:                                   motion in 1D">3</a>, before performing these operations in reverse to make
+\(v\) the subject.<br />
+
+</p>
+
+<p>
+Another example that appears frequently is rearranging another of the kinematic equations,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                              1
+                                                                                                                      s = ut + at2 ,
+                                                                                                                              2
+
+-->
+
+<p>
+
+\begin{equation*}
+s=ut+\frac {1}{2}at^{2},
+\end{equation*}
+
+</p>
+
+<p>
+to solve for either \(a\) or \(t\).<br />
+
+</p>
+
+<p>
+To make \(a\) the subject we proceed as follows:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                     1
+                                                                                           s = ut + at2 , subtract \(ut\) from both sides,
+                                                                                                     2
+                                                                                                     1         1
+                                                                                      s − ut = ut + at2 − ut = at2 , multiply both sides by \(2\),
+                                                                                                  2          2
+                                                                                                   1 2      2
+                                                                                  2 (s − ut) = 2     at = at , divide both sides by \(t^{2}\),
+                                                                                                   2
+                                                                                  2 (s − ut)   at2
+                                                                                       2
+                                                                                             = 2 = a,
+                                                                                      t         t
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s&amp;=ut+\frac {1}{2}at^{2}, \quad \text {subtract $ut$ from both sides},\\ s-ut&amp;=ut+\frac {1}{2}at^{2}-ut=\frac {1}{2}at^{2}, \quad \text {multiply both sides by $2$},\\ 2\left
+(s-ut\right )&amp;=2\left (\frac {1}{2}at^{2}\right )=at^{2}, \quad \text {divide both sides by $t^{2}$},\\ \frac {2\left (s-ut\right )}{t^{2}}&amp;=\frac {at^{2}}{t^{2}}=a,
+\end{align*}
+thus the equation with \(a\) being the subject is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                               2 (s − ut)
+                                                                                                                      a=                  .
+                                                                                                                                   t2
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {2\left (s-ut\right )}{t^{2}}.
+\end{equation*}
+
+</p>
+
+<p>
+If instead we wanted \(t\) to be the subject then it is easier to put it in the form of a quadratic equation and then use the quadratic formula:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                       1
+                                                                               s = ut + at2 , subtract \(s\) from both sides,
+                                                                                       2
+                                                                                   1 2
+                                                                               0 = at + ut − s, this is a qudratic equation for \(t\) and is solved by
+                                                                                   2    √
+                                                                                   −u ± u2 + 2as
+                                                                               t=                 .
+                                                                                         a
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s&amp;=ut+\frac {1}{2}at^{2}, \quad \text {subtract $s$ from both sides},\\ 0&amp;=\frac {1}{2}at^{2}+ut-s,\quad \text {this is a qudratic equation for $t$ and is solved by}\\ t&amp;=\frac
+{-u\pm \sqrt {u^{2}+2as}}{a}.
+\end{align*}
+
+</p>
+
+<p>
+There are a few special cases where we do not need to use the quadratic formula that it is worth being aware of. If \(s=0\) then we have
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                           1
+                                                                                                   0 = ut + at2 , factor out the common factor,
+                                                                                                         2      
+                                                                                                             1
+                                                                                                   0 = t u + at ,
+                                                                                                             2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+0&amp;=ut+\frac {1}{2}at^{2}, \quad \text {factor out the common factor},\\ 0&amp;=t\left (u+\frac {1}{2}at\right ),
+\end{align*}
+This has two solutions \(t=0\), which is the start of the motion, and
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                             1
+                                                                                                      0 = u + at, subtract \(u\) from both sides,
+                                                                                                             2
+                                                                                                          1
+                                                                                                   −u = at, multiply both sides by \(2\),
+                                                                                                          2
+                                                                                                  −2u = at, divide both sides by \(a\),
+                                                                                                    2u
+                                                                                                  −     = t.
+                                                                                                     a
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+0&amp;=u+\frac {1}{2}at, \quad \text {subtract $u$ from both sides},\\ -u&amp;=\frac {1}{2}at, \quad \text {multiply both sides by $2$},\\ -2u&amp;=at, \quad \text {divide both sides by
+$a$},\\ -\frac {2u}{a}&amp;=t.
+\end{align*}
+This case often appear when considering projectile motion and you want to calculate the total length of time that the projectile is in the air for.<br />
+
+</p>
+
+<p>
+The other common example is if \(u=0\), then:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                          1 2
+                                                                                                           s=at , multiply both sides by \(2\),
+                                                                                                          2
+                                                                                                     2s = at2 , divide both sides by \(a\),
+                                                                                                     2s
+                                                                                                        = t2 , take the square root of both sides,
+                                                                                                   r a
+                                                                                                     2s
+                                                                                                        = t.
+                                                                                                     a
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+s&amp;=\frac {1}{2}at^{2}, \quad \text {multiply both sides by $2$},\\ 2s&amp;=at^{2}, \quad \text {divide both sides by $a$},\\ \frac {2s}{a}&amp;=t^{2}, \quad \text {take the square root of
+both sides},\\ \sqrt {\frac {2s}{a}}&amp;=t.
+\end{align*}
+In the last line we have dropped the \(\pm \) that should be in front of the square root since we do not consider negative time. However, if you were just solving a quadratic equation then you would have to remember to include
+that. Both of these special cases can also be found by direct substitution into the quadratic formula of \(s=0\) or \(u=0\) respectively.<br />
+
+</p>
+
+<p>
+The final example is one that is needed for the lab experiment using a pendulum to measure the acceleration due to gravity. We know that the period of a simple pendulum is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                                     s
+                                                                                                                                         l
+                                                                                                                        T = 2π             .
+                                                                                                                                         g
+
+-->
+
+<p>
+
+\begin{equation*}
+T=2\uppi \sqrt {\frac {l}{g}}.
+\end{equation*}
+
+</p>
+
+<p>
+In the lab manual you are asked to make \(l\) the subject of this equation:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                           s
+                                                                                                  l
+                                                                                             T = 2π , first divide both sides by \(2\uppi \),
+                                                                                                  g
+                                                                                                s      s
+                                                                                        T    2π l         l
+                                                                                           =         =      , then square both sides of the equation,
+                                                                                        2π   2π g         g
+                                                                                     2       s !2
+                                                                                     T           l       l
+                                                                                           =           = , now multiply both sides by \(g\),
+                                                                                     2π          g       g
+                                                                                     2
+                                                                                     T           l
+                                                                                  g        = g × = l.
+                                                                                     2π          g
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+T&amp;=2\uppi \sqrt {\frac {l}{g}}, \quad \text {first divide both sides by $2\uppi $},\\ \frac {T}{2\uppi }&amp;=\frac {2\uppi }{2\uppi }\sqrt {\frac {l}{g}}=\sqrt {\frac {l}{g}}, \quad \text
+{then square both sides of the equation},\\ \left (\frac {T}{2\uppi }\right )^{2}&amp;=\left (\sqrt {\frac {l}{g}}\right )^{2}=\frac {l}{g}, \quad \text {now multiply both sides by $g$},\\
+g\left (\frac {T}{2\uppi }\right )^{2}&amp;=g\times \frac {l}{g}=l.
+\end{align*}
+This leaves us with
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+<!--
+
+                                                                                                                                    2
+                                                                                                                                             gT 2
+                                                                                                                           
+                                                                                                                               T
+                                                                                                                     l=g                 =        .
+                                                                                                                               2π            4π2
+
+-->
+
+<p>
+
+\begin{equation*}
+l=g\left (\frac {T}{2\uppi }\right )^{2}=\frac {gT^{2}}{4\uppi ^{2}}.
+\end{equation*}
+
+</p>
+
+<p>
+This is the equation for a straight line \(y=mx+c\) where \(l\) plays the role of \(y\), the \(y\)-intercept \(c=0\), \(\left (\frac {T}{2\uppi }\right )^{2}\) plays the role of \(x\), and \(m=g\) is the gradient of the straight
+line. When analysing your data you would use plot your data and should observe a straight line whose gradient is \(g\).<br />
+
+</p>
+
+<p>
+At the last step of this rearrangement we could instead make \(g\) the subject. To do this we proceed as follows:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{11.}{0}\)</span>
+
+
+<!--
+
+
+                                                                                                 2           s !2
+                                                                                             T                  l    l
+                                                                                                       =            = ,        now multiply both sides by \(g\),
+                                                                                             2π                 g    g
+                                                                                                 2                                                          2
+                                                                                             T              l                                             T
+                                                                                     g              = g × = l, divide both sides by                                 ,
+                                                                                             2π             g                                             2π
+                                                                                                         l      4π2 l
+                                                                                                   g=         =       .
+                                                                                                        T 2      T2
+                                                                                                           
+                                                                                                            2π
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+\left (\frac {T}{2\uppi }\right )^{2}&amp;=\left (\sqrt {\frac {l}{g}}\right )^{2}=\frac {l}{g}, \quad \text {now multiply both sides by $g$},\\ g\left (\frac {T}{2\uppi }\right
+)^{2}&amp;=g\times \frac {l}{g}=l, \quad \text {divide both sides by }\left (\frac {T}{2\uppi }\right )^{2}, \\ g&amp;=\frac {l}{\left (\frac {T}{2\uppi }\right )^{2}}=\frac {4\uppi ^{2}
+l}{T^{2}}.
+\end{align*}
+
+</p>
+
+<p>
+If you want more examples there is a <b>Transposition of Formulae</b> workbook, designed by mathcentre, available <a href="https://www.mathcentre.ac.uk/resources/uploaded/mc-ty-transposition-2009-1.pdf"
+target="_blank" >here</a>.
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

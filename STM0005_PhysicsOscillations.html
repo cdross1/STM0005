@@ -1,0 +1,2165 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Oscillations</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-164"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Oscillations ......
+-->
+<h3 id="autosec-165">Chapter&nbsp;<span class="sectionnumber">8&#x2003;</span>Oscillations</h3>
+<a id="stm0005-notes-autopage-165"></a>
+<a id="stm0005-notes-autofile-8"></a>
+
+<p>
+<span
+     class="textcolor"
+     style="color:#FF0000"
+>This chapter needs to have pictures added to it.</span>
+</p>
+<!--
+...... section SHM and Sine Waves ......
+-->
+<h4 id="autosec-166"><span class="sectionnumber">8.1&#x2003;</span>SHM and Sine Waves</h4>
+<a id="stm0005-notes-autopage-166"></a>
+
+
+<p>
+There are many places in everyday life where we encounter oscillations. Some examples include:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> A car travelling over a speed bump and bounces up and down,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> A person on a swing,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> An object on a spring moving up and down,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> A small pendulum moving to and fro.
+</p>
+</li>
+</ul>
+
+<p>
+An oscillating object moves first in one direction then in the other direction in what is called a cycle. This involves an object starting away from equilibrium and moving towards it, overshooting and then turning around.<br />
+
+</p>
+
+<p>
+In other words, during an oscillation the objects displacement from equilibrium changes during the motion. In one full cycle after being released from a non-equilibrium position, the objects displacement:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Decreases as it returns towards equilibrium,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Reverses and increases as it moves past equilibrium and away from it in the other direction,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Decreases as it returns back towards equilibrium,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Increases as it moves away from equilibrium and back to the starting point.
+</p>
+</li>
+</ul>
+
+<p>
+We call the maximum displacement from equilibrium the <b>amplitude</b> of the oscillation. When there is no friction the oscillation is called a <b>free vibration</b>. The time it takes for one cycle to be completed is called
+the <b>period of oscillation</b> and has the symbol \(T\). This is equivalent to the period for circular motion from the last section.<br />
+
+</p>
+
+<p>
+Similarly, the frequency of oscillations is the number of cycles per second and is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{0}\)</span>
+
+<!--
+
+                                                                                                                     1
+                                                                                                                f=     .
+                                                                                                                     T
+
+-->
+
+<p>
+
+\begin{equation*}
+f=\frac {1}{T}.
+\end{equation*}
+
+</p>
+
+<p>
+Another important notion is that of the phase of an oscillation, and the phase difference between two oscillations. Imagine two children on adjacent identical swings and assume that the oscillations have the same period \(T\). If
+one child reaches their maximum displacement a time \(\Delta t\) later than the other child then we say that they are out of phase. The <b>phase difference</b> is the fraction of a cycle that the swings differ by \(\frac
+{\Delta t}{T}\).<br />
+
+</p>
+
+<p>
+For example, if \(T=2.4\text {s}\) and \(\Delta t=0.6\text {s}\), then the second child will always be \(0.6/2.4=1/4\), or a quarter of a cycle out phase. In radians this is \(2\uppi \Delta t/T=\uppi /2\).
+</p>
+<!--
+......   paragraph Example 7.1:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-167">Example 7.1:</span>
+<a id="stm0005-notes-autopage-167"></a>
+Consider an object suspended from the lower end of a vertical spring. The object is displaced downward from equilibrium. It takes \(9.6\text {s}\) to undergo \(20\) complete cycles.
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> What is the period of oscillation?
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> What is the frequency of oscillation?
+</p>
+</li>
+</ul>
+
+<p>
+a) \(T=9.6/20=0.48\text {s}\).<br />
+
+</p>
+
+<p>
+b) \(f=1/T=1/0.48=2.08\text {Hz}\).<br />
+
+</p>
+<!--
+......   paragraph Simple Harmonic Motion.        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-168">Simple Harmonic Motion.</span>
+<a id="stm0005-notes-autopage-168"></a>
+An oscillating object speeds up as it returns to equilibrium and slows down as it moves away. You can see this explicitly when you do the Hooke’s law and simple pendulum experiments in the lab sessions. Assuming that friction is
+negligible, the amplitude of oscillation remains constant and an oscillating object will keep oscillating forever. The position, velocity, and acceleration of the oscillating object all follow “similar” curves as a function of
+time<sup>1</sup> as can be seen in fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig: shm profile">8.1</a>.
+</p>
+
+<figure id="autoid-30" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-20"
+    class="lateximagesource"
+><!--
+    Acceleration
+t
+    Velocity
+    Displacement
+--><img
+     src="stm0005-notes-images\image-20.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;8.1: Displacement, velocity, and acceleration of an oscillating object.
+
+</div>
+
+<a id="fig:    shm profile"></a>
+
+</div>
+
+</figure>
+
+<p>
+By inspection of the plots in fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig: shm profile">8.1</a> we see that the acceleration is always in the opposite direction to the displacement. This is because the
+velocity is the derivative (gradient) of displacement and acceleration is the gradient of velocity. Sometimes the force \(F=ma\) is called a <b>restoring force</b> as it always points towards equilibrium and is trying to “restore” the
+object to its equilibrium position.<br />
+
+</p>
+
+<p>
+<b>Simple harmonic motion</b> (shm) is defined as oscillating motion where:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> The acceleration is proportional to the displacement,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> and opposite in direction, ie \(\vec {a}\propto -\vec {x}\).
+</p>
+</li>
+</ul>
+
+<p>
+In other words, acceleration =-constant \(\times \) displacement. The constant of proportionality depends on \(T\) and is the <b>angular frequency</b> \(\upomega =2\uppi /T\) and
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{0}\)</span>
+
+<!--
+
+
+                                                                                                               ⃗a = −ω2 ⃗x.                                                                                                          (8.1)
+
+-->
+
+<p>
+
+\begin{equation}
+\vec {a}=-\upomega ^{2}\vec {x}.
+\end{equation}
+
+</p>
+
+<p>
+In shm the period is independent of the amplitude! This is something that you will show, at least for a pendulum, in the lab sessions. The maximum displacement from equilibrium occurs at \(x_{\text {max}}=\pm A\), where
+\(A\) is the amplitude of oscillations. From our earlier study of circular motion we know that \(\upomega =2\uppi f\) so we could also write the acceleration in terms of the frequency.<br />
+
+</p>
+<!--
+......   paragraph Example 7.2:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-172">Example 7.2:</span>
+<a id="stm0005-notes-autopage-172"></a>
+A small object is attached to the end of a vertical spring which oscillates with an amplitude of \(25\text {mm}\) in a period of \(T=2\text {s}\). The object passes through equilibrium moving upwards at time \(t=0\text {s}\).
+What is the displacement and direction of motion of the object at:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> \(t=\frac {1}{4}T\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> \(t=\frac {1}{2}T\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> \(t=\frac {3}{4}T\),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">d)</span> \(t=T\).
+</p>
+</li>
+</ul>
+
+<p>
+The easiest way to solve this is to draw a picture, fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig:       shm with parts">8.2</a>, and see what that tells us.
+</p>
+<figure id="autoid-31" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-21"
+    class="lateximagesource"
+><!--
+      25mm
+                            t
+Displacement
+
+    −25mm
+               T   T   3T   T
+               4   2    4
+--><img
+     src="stm0005-notes-images\image-21.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;8.2: Displacement of an oscillating object with parts of its cycle marked.
+
+</div>
+
+<a id="fig:    shm with parts"></a>
+
+</div>
+
+</figure>
+
+<p>
+a) When \(t=\frac {1}{4}T\) the object is at the maximum amplitude \(25\text {mm}\) away from equilibrium and is turning around to head back towards equilibrium.<br />
+
+</p>
+
+<p>
+b) When \(t=\frac {1}{2}T\) the object passing through equilibrium, \(x=0\text {mm}\), and heading away from equilibrium towards a negative displacement.<br />
+
+</p>
+
+<p>
+c) When \(t=\frac {3}{4}T\) the object is at the maximum negative extension, \(x=-25\text {mm}\), and is turning around to head back to equilibrium.<br />
+
+</p>
+
+<p>
+d) When \(t=T\) the object is again passing through equilibrium, \(x=0\text {mm}\), and moving away from it towards positive displacements.<br />
+
+</p>
+
+<p>
+You may have recognised already that shm is really uniform circular motion in disguise. fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig:       shm circle">8.3</a> shows a point \(p\) rotating round on a circle. The
+coordinates of the point \(p\) are found, using trigonometry on the triangle with hypotenuse \(r\), to be
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{1}\)</span>
+
+<!--
+
+
+                                                                                                  x = r cos θ,    y = r sin θ.
+
+-->
+
+<p>
+
+\begin{equation*}
+x=r\cos \uptheta , \qquad y=r\sin \uptheta .
+\end{equation*}
+
+</p>
+
+<p>
+Also note that since \(p\) is undergoing uniform circular motion its acceleration is given by<sup>2</sup><a id="stm0005-notes-autopage-175"></a> \(a=-v^{2}/r\), where \(v\) is the linear speed and \(r\) is the radius of the
+circle. We also know that \(v=\upomega r\) which implies that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{1}\)</span>
+
+<!--
+
+
+                                                                                                           a = −ω2 r,
+
+-->
+
+<p>
+
+\begin{equation*}
+a=-\upomega ^{2}r,
+\end{equation*}
+
+</p>
+
+<p>
+which is exactly what we expect for simple harmonic motion.
+</p>
+
+<figure id="autoid-32" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-22"
+    class="lateximagesource"
+><!--
+y           p
+    r
+    θ
+        x
+--><img
+     src="stm0005-notes-images\image-22.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;8.3: Converting from shm to circular motion.
+
+</div>
+
+<a id="fig:    shm circle"></a>
+
+</div>
+
+</figure>
+
+<p>
+We can make another direct link between circular motion and shm. If we projected the circular motion onto the \(y\)-axis then it says that as time goes on the \(y\) coordinate of \(p\) increases to a maximum then decreases to
+\(0\), keeps decreasing to a minimum, and then increases back to \(0\) again. This is just the motion of a vertical spring oscillating around equilibrium. The \(y\) component of the acceleration is \(a_{y}=a\sin \uptheta \) and
+since \(y=r\sin \uptheta \) we have that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{1}\)</span>
+
+<!--
+
+
+                                                                                                        ay = −ω2 r sin θ = −ω2 y.
+
+-->
+
+<p>
+
+\begin{equation*}
+a_{y}=-\upomega ^{2} r\sin \uptheta =-\upomega ^{2}y.
+\end{equation*}
+
+</p>
+
+<p>
+This is the definition of shm.<br />
+
+</p>
+
+<p>
+What the relationship between shm and circular motion tells us is that the displacement (as well as the velocity and acceleration) of our oscillating object is described by trigonometric functions:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{1}\)</span>
+
+<!--
+
+
+                                                                                                           x = A sin (ωt + φ) .                                                                                               (8.2)
+
+-->
+
+<p>
+
+\begin{equation}
+x=A\sin \left (\upomega t+\upphi \right ).
+\end{equation}
+
+</p>
+
+<p>
+Here \(A\) is the amplitude, \(\upomega \) is the angular frequency, and \(\upphi \) is a phase difference<sup>3</sup><a id="stm0005-notes-autopage-178"></a>. For our example of motion on a circle up above we have that
+\(A=r\) so the amplitude is the radius of the circle.<br />
+
+</p>
+
+<p>
+<b>Warning!</b> Remember that we need to measure \(\uptheta =\upomega t\) in radians rather than degrees. we will also sometimes say frequency we will mean \(\upomega \) rather than \(f\), in practice it is best to
+compute both of them if asked to find the frequency.<br />
+
+</p>
+<!--
+......   paragraph Example 7.3:     ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-179">Example 7.3:</span>
+<a id="stm0005-notes-autopage-179"></a>
+An object oscillates with a time period of \(T=3\text {s}\) and an amplitude of \(A=58\text {mm}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The frequency of oscillation,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The maximum acceleration.
+</p>
+</li>
+</ul>
+
+<p>
+a) The frequency is given by \(f=1/T=1/3=0.33\text {Hz}\) and the angular frequency is \(\upomega =2\uppi f=2.1\text {rads}^{-1}\).<br />
+
+</p>
+
+<p>
+b) The acceleration is maximum when the displacement has its maximum negative value, see the graphs in fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig:     shm profile">8.1</a> to check that this is true. This
+means that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{2}\)</span>
+
+<!--
+
+                                                                                                                                      2
+                                                                                   amax = −ω2 (−A) = −(2.1)2 × (−58 × 10−3 ) = 0.26m/s .
+
+-->
+
+<p>
+
+\begin{equation*}
+a_{\text {max}}=-\upomega ^{2}(-A)=-(2.1)^{2}\times (-58\times 10^{-3})=0.26\text {m/s}^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+We call the shape of the curves in fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig:      shm profile">8.1</a> <b>sinusoidal</b>. You may have heard that name before, and you should see more about sinusoidal
+curves in the applied maths module.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-180"></a>
+<p>
+<sup>1</sup>&nbsp;This relationship between position, velocity, and acceleration is essentially the definition of simple harmonic motion and you could have oscillating motion where they are not related in precisely this way.
+</p>
+
+<p>
+<sup>2</sup>&nbsp;The minus sign is just showing that \(a\) points towards the centre of the circle. We did not explicitly included it in the last section as there we only cared about the magnitude of the acceleration and were
+saying in words that this pointed towards the centre of the circle.
+</p>
+
+<p>
+<sup>3</sup>&nbsp;You may be wondering why there is a phase difference here. It is because we can think about starting to observe the motion at any point, and we want to be able to relate this to starting from \(x=0\) at
+\(t=0\), this is what \(\upphi \) takes in to account.
+</p>
+
+
+</div>
+<!--
+...... section Springs and Pendulums ......
+-->
+<h4 id="autosec-181"><span class="sectionnumber">8.2&#x2003;</span>Springs and Pendulums</h4>
+<a id="stm0005-notes-autopage-181"></a>
+<!--
+......   paragraph Springs:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-182">Springs:</span>
+<a id="stm0005-notes-autopage-182"></a>
+For an oscillating object the resultant force causing the acceleration is a restoring force acting towards the equilibrium position. As long as \(F\propto -x\) we have that \(a\propto -x\) and the motion is simple harmonic
+motion. For a spring the constant of proportionality between the restoring force and the displacement, in this case called the <b>extension</b>, is the spring constant \(k\). The restoring force for a spring,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{2}\)</span>
+
+<!--
+
+
+                                                                           F = −kx,                                                                             (8.3)                          --><a id="eq:     Hookes law"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+F=-k x, \label {eq:      Hookes law}
+\end{equation}
+
+</p>
+
+<p>
+is given by Hooke’s law. The spring constant essentially measures how stiff the spring is, or how hard it is to stretch the spring. In our discussion about energy we saw a very similar expression but without the negative sign, that
+was because in chapter&nbsp;<a href="STM0005_PhysicsWork-Energy.html#sec: work and energy">6</a> when we quoted \(F\) we meant the force needed to stretch the spring points away from equilibrium. While in
+eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsOscillations.html#eq: Hookes law">8.3</a>)</span>, \(F\) is the restoring force pointing towards the springs equilibrium. Sometimes the restoring force will
+be denoted \(F_{r}\) to try and avoid confusion. However, it is often left to the reader to work out which sign should be used from the choice of force.<br />
+
+</p>
+
+<p>
+If we combine eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsOscillations.html#eq:                  Hookes law">8.3</a>)</span> with both Newton’s second law (\(F=ma\)) we see that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{3}\)</span>
+
+<!--
+
+                                                                                                                       k
+                                                                                                               a=−       x.
+                                                                                                                       m
+
+-->
+
+<p>
+
+\begin{equation*}
+a=-\frac {k}{m}x.
+\end{equation*}
+
+</p>
+
+<p>
+comparing this with the expression for acceleration in shm (\(a=-\upomega ^{2}x\)) we get
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{3}\)</span>
+
+<!--
+
+                                                                                                                       k
+                                                                                                                ω2 =     .                                                                                                           (8.4)
+                                                                                                                       m
+
+-->
+
+<p>
+
+\begin{equation}
+\upomega ^{2}=\frac {k}{m}.
+\end{equation}
+
+</p>
+
+<p>
+So for any spring, in a regime where we can assume it undergoes shm, the angular frequency is determined entirely by the spring constant and the mass on the end of the spring. This means that we could set up a mass and spring
+system on a different planet and it would oscillate at the same rate. This will not be the case when we look at pendulums. Pendulums care what planet they are on but springs do not.<br />
+
+</p>
+
+<p>
+Notice that I have said this is only true if we are in a regime where we can assume a spring is a <b>simple harmonic oscillator</b>, ie an object undergoing simple harmonic motion. If we put too much mass on the end of a
+spring we can over stretch it and cause it to deform which means that it will no longer stretch and compress as it oscillates around equilibrium. You will some times see this expressed as Hooke’s law only describing a spring in what
+is known as the (linear) <b>elastic regime</b>, ie where deformations are reversible. Going beyond this elastic regime means that the deformation is no longer reversible and the spring will be permanently deformed. Those of you
+going on to do Mechanical Engineering or Physics will learn more about this in the Materials module in your first year.<br />
+
+</p>
+
+<p>
+Recall that the period of oscillation is related to the angular frequency through \(T=1/f=2\uppi /\upomega \). This means that the oscillation period of a spring is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{4}\)</span>
+
+<!--
+
+                                                                                   r
+                                                                           2π          m
+                                                                     T =        = 2π     .                                                                   (8.5)                         --><a id="eq:      spring period"></a><!--
+                                                                           ω           k
+
+-->
+
+<p>
+
+\begin{equation}
+T=\frac {2\uppi }{\upomega }=2\uppi \sqrt {\frac {m}{k}}.              \label {eq:       spring period}
+\end{equation}
+
+</p>
+
+<p>
+If we have a vertical spring with a mass on the end then the spring will stretch until the restoring force of the spring \(F_{r}\) balances the weight of the mass \(F_{W}=mg\), ie the spring will extend until it reaches an equilibrium
+point where \(F_{r}=F_{W}\). It is important to remember that the \(x\) in Hooke’s law is the extension of the spring <b>not</b> the length of the spring. The extension is the difference between the length of the spring with a
+mass attached, \(L\), and the length of the spring with no mass attached, \(L_{0}\). Or as an equation \(x=L-L_{0}\). This distinction is important when you carry out the Hooke’s law experiment in the lab sessions. Hooke’s law
+says that the force needed to stretch the spring is proportional to the extension so if you plot \(mg\) against \(x\) you will find a linear relationship as we saw in fig.&nbsp;<a
+href="STM0005_PhysicsWork-Energy.html#fig: spring extension">6.2</a>. However, if you plot \(mg\) against length then you will see a different relationship.
+</p>
+<!--
+......   paragraph Example 7.4:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-183">Example 7.4:</span>
+<a id="stm0005-notes-autopage-183"></a>
+A spring of length \(300\text {mm}\) hangs vertically with its upper end attached to a fixed point. When a small object of mass \(0.2\text {kg}\) is suspended from the lower end of the spring in equilibrium, the spring is
+stretched to a length of \(379\text {mm}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The extension of the spring at equilibrium,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The spring constant,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The time period of oscillations if the mass were to be displaced slightly downward and released.
+</p>
+</li>
+</ul>
+
+<p>
+a) The extension is the difference between the length with the mass, \(L\), attached and the length without the mass attached, \(L_{0}\). Above we denoted it by \(x\) but we can make this clearer by calling the extension
+\(\Delta L\) and calculating it from
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+
+                                                                                               ∆L = L − L0 = 379 − 300 = 79mm.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Delta L=L-L_{0}=379-300=79\text {mm}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The spring constant is calculated at equilibrium by comparing \(F_{W}=mg\) and \(F_{r}=-k\Delta L\)
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+                                                                                                                 mg    0.2 × (−9.8)
+                                                                                     −k∆L = mg,     ⇒ k=−           =−              = 25N/m.
+                                                                                                                 ∆L        0.079
+
+-->
+
+<p>
+
+\begin{equation*}
+-k\Delta L=mg , \quad \Rightarrow \, k=-\frac {mg}{\Delta L}=-\frac {0.2\times (-9.8)}{0.079}=25\text {N/m}.
+\end{equation*}
+
+</p>
+
+<p>
+c) For the period use
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+                                                                                                           r         r
+                                                                                                               m       0.2
+                                                                                                  T = 2π         = 2π      = 0.56s.
+                                                                                                               k       25
+
+-->
+
+<p>
+
+\begin{equation*}
+T=2\uppi \sqrt {\frac {m}{k}}=2\uppi \sqrt {\frac {0.2}{25}}=0.56\text {s}.
+\end{equation*}
+
+</p>
+
+<figure id="autoid-33" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/Simple_gravity_pendulum.png" target="_blank" ><img
+     src="figures/Simple_gravity_pendulum.png"
+     style="
+     width:260pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;8.4: A schematic of the simple pendulum from <a href="https://commons.wikimedia.org/wiki/File:Simple_gravity_pendulum.svg" target="_blank" >Wikimedia Commons</a>.
+
+</div>
+
+<a id="fig:   simple pendulum"></a>
+
+</div>
+
+</figure>
+<!--
+......   paragraph The simple pendulum:         ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-185">The simple pendulum:</span>
+<a id="stm0005-notes-autopage-185"></a>
+The other common example of simple harmonic motion is the <b>simple pendulum</b>. The basic set up is shown in fig.&nbsp;<a href="STM0005_PhysicsOscillations.html#fig: simple pendulum">8.4</a> and consists
+of a bob of mass \(m\) on the end of a massless rod, or piece of string, of length \(l\), we will also be making the assumption that the angular displacement \(\uptheta \) is small<sup>4</sup>. This is called a simple pendulum as
+it is a first approximation to the motion of a pendulum, it can be made more sophisticated by dropping the assumption that the the rod is massless and by considering initial displacements where the angle \(\uptheta \) is large.
+We will not be very specific about what “large” means for \(\uptheta \). However, in the lab sessions you will want to keep \(\uptheta \) less than \(20^{\circ }\) to be in this regime. Note that while I have given \(\uptheta
+\) in degrees here we will need to work in radians for most of the mathematical expressions given in this section to be valid.<br />
+
+</p>
+
+<p>
+Equilibrium for this system is when the string hangs vertically downwards and with the tension in the string balancing the weight of the mass. If we displace the mass from equilibrium it will oscillate around its lowest point. In this
+case the restoring force is given by the horizontal component of the weight. The horizontal and vertical components are:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+
+<!--
+
+
+
+                                                                                                           Fperp = mg cos θ,
+                                                                                                            Fpar = −mg sin θ.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+F_{\text {perp}}&amp;=mg\cos \uptheta ,\\ F_{\text {par}}&amp;=-mg\sin \uptheta .
+\end{align*}
+
+</p>
+
+<figure id="autoid-34" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-23"
+    class="lateximagesource"
+><!--
+    FW = mg        mg cos θ
+
+
+θ
+        mg sin θ
+--><img
+     src="stm0005-notes-images\image-23.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;8.5: The weight of the pendulum bob and its components. <span
+       class="textcolor"
+       style="color:#FF0000"
+>This figure needs improved.</span>
+
+</div>
+
+<a id="fig:     weight components"></a>
+
+</div>
+
+</figure>
+
+<p>
+The restoring force is thus \(-mg\sin \uptheta \), while the tension in the rod balances the perpendicular component \(F_{\text {perp}}\). The restoring force leads to an acceleration through Newton’s second law,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+                                                                                                          F    mg sin θ
+                                                                                                     a=     =−          = −g sin θ.
+                                                                                                          m      m
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {F}{m}=-\frac {mg\sin \uptheta }{m}=-g\sin \uptheta .
+\end{equation*}
+
+</p>
+
+<p>
+When the angle is small we can use the approximation \(\sin \uptheta \sim \uptheta =\frac {s}{l}\), where \(s\) is the arc length. This means that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+                                                                                                                         g
+                                                                                                                    a = − s,
+                                                                                                                         l
+
+-->
+
+<p>
+
+\begin{equation*}
+a=-\frac {g}{l}s,
+\end{equation*}
+
+</p>
+
+<p>
+which is shm with an angular frequency of
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+                                                                                 g
+                                                                         ω2 =      ,                                                                      (8.6)                  --><a id="eq:     pendulum frequency"></a><!--
+                                                                                 l
+
+-->
+
+<p>
+
+\begin{equation}
+\upomega ^{2}=\frac {g}{l}, \label {eq:          pendulum frequency}
+\end{equation}
+
+</p>
+
+<p>
+and the period of oscillation is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{6}\)</span>
+
+<!--
+
+                                                                                       s
+                                                                            2π             l
+                                                                      T =        = 2π        .                                                               (8.7)                  --><a id="eq:     pendulum period"></a><!--
+                                                                            ω              g
+
+-->
+
+<p>
+
+\begin{equation}
+T=\frac {2\uppi }{\upomega }=2\uppi \sqrt {\frac {l}{g}}.             \label {eq:       pendulum period}
+\end{equation}
+
+</p>
+
+<p>
+Notice that unlike with a spring gravity is important.<br />
+
+</p>
+
+<p>
+As an aside note that we can think of the simple pendulum as being a “spring” with a mass dependent spring constant, \(k_{\text {eff}}=\frac {mg}{l}\). This is related to an approximation scheme that is very common in
+physics where we use a a simple harmonic oscillator as a model for the low energy behaviour of many different phenomena.<br />
+
+</p>
+
+<p>
+Another point to be aware of is that the approximation that we used above, \(\sin \uptheta \sim \uptheta \), is just the first term in what is known as a Taylor expansion where we can expand the \(\sin \) function as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+<!--
+
+                                                                                                               θ3       θ5
+                                                                                                 sin θ = θ −        +        − ...,   for all θ.
+                                                                                                               3!       5!
+
+-->
+
+<p>
+
+\begin{equation*}
+\sin \uptheta =\uptheta -\frac {\uptheta ^{3}}{3!}+\frac {\uptheta ^{5}}{5!}-\dots , \qquad \text {for all } \uptheta .
+\end{equation*}
+
+</p>
+
+<p>
+If we want to understand the physics of a pendulum for angles larger than \(10^{\circ }\) to \(20^{\circ }\) more terms need to be included. This approximation is valid in both degrees and radians, however, if we then go on
+and use that \(\uptheta =\frac {s}{l}\) in terms of the arc length, this is only valid if \(\uptheta \) is measured in radians.<br />
+
+</p>
+
+<p>
+The expression for the period of the pendulum in eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsOscillations.html#eq: pendulum period">8.7</a>)</span> shows that the period can be changed by
+lengthening the string of pendulum rod. As mentioned above, the period would also change if the pendulum was set up on a planet with different gravity.<br />
+
+</p>
+
+<p>
+We can analyse oscillations by considering how the types of energy change during the motion. In particular, for a pendulum at its maximum displacement the bob is instantaneously at rest, since the motion is changing direction,
+and all of the energy is potential. While when the pendulum bob is passing through equilibrium all of the energy is kinetic.<br />
+
+</p>
+
+<p>
+In general the potential energy of a spring is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+<!--
+
+                                                                                                                             1 2
+                                                                                                                    EP =       kx ,
+                                                                                                                             2
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{P}=\frac {1}{2}kx^{2},
+\end{equation*}
+
+</p>
+
+<p>
+where \(x\) is the displacement from equilibrium. Since at the maximum amplitude, \(x=A\) all of the energy is potential, the total energy is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+<!--
+
+                                                                                                                             1 2
+                                                                                                                    E=         kA .
+                                                                                                                             2
+
+-->
+
+<p>
+
+\begin{equation*}
+E=\frac {1}{2}kA^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+Since the total energy is \(E_{K}+E_{P}\) the kinetic energy of the spring can be expressed as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+<!--
+
+                                                                                                                        1 2
+                                                                                                                          A − x2 .
+                                                                                                                                
+                                                                                                           EK =
+                                                                                                                        2
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{K}=\frac {1}{2}\left (A^{2}-x^{2}\right ).
+\end{equation*}
+
+</p>
+
+<p>
+We can use this to find a linear speed<sup>5</sup><a id="stm0005-notes-autopage-188"></a> for the object at a displacement of \(x\) from equilibrium. To do this write \(E_{K}=\frac {1}{2}mv^{2}\) and equate the two
+expressions for the kinetic energy:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+
+<!--
+
+
+                                                                                                 1       1
+                                                                                                   mv 2 = k A2 − x2 ,
+                                                                                                                   
+                                                                                                 2       2
+                                                                                                      2   k
+                                                                                                            A2 − x2 = ω2 A2 − x2 ,
+                                                                                                                               
+                                                                                                 ⇒ v =
+                                                                                                         m
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+\frac {1}{2}mv^{2}&amp;=\frac {1}{2}k\left (A^{2}-x^{2}\right ),\\ \Rightarrow \, v^{2}&amp;=\frac {k}{m}\left (A^{2}-x^{2}\right )=\upomega ^{2}\left (A^{2}-x^{2}\right ),
+\end{align*}
+which means that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+<!--
+
+                                                                                                                  p
+                                                                                                           v = ± ω A2 − x 2 .
+
+-->
+
+<p>
+
+\begin{equation*}
+v=\pm \upomega \sqrt {A^{2}-x^{2}}.
+\end{equation*}
+
+</p>
+
+<p>
+Note that this fits our intuition that the velocity should be maximum at equilibrium where \(x=0\), and zero at the maximum displacement, \(x=\pm A\). If we plot both \(E_{K}\) and \(E_{P}\) we see that they are both
+parabolas, and the total energy is just a straight line. <span
+     class="textcolor"
+     style="color:#FF0000"
+>This figure needs to be added.</span>
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-189"></a>
+<p>
+<sup>4</sup>&nbsp;As the initial angle \(\uptheta \) determines the amplitude we sometimes refer to \(\uptheta \) itself as the amplitude.
+</p>
+
+<p>
+<sup>5</sup>&nbsp;As in this is the speed that the object has is we think of it as a moving in one dimension.
+</p>
+
+
+</div>
+<!--
+...... section Damping, Forcing, and Resonance ......
+-->
+<h4 id="autosec-190"><span class="sectionnumber">8.3&#x2003;</span>Damping, Forcing, and Resonance</h4>
+<a id="stm0005-notes-autopage-190"></a>
+
+
+<p>
+So far we have studied oscillating objects while ignoring friction, air resistance, and any other force which may cause the oscillations to gradually die away. These are known as dissipative forces, and are essential when trying to
+match up our idealised models of oscillators with how real oscillators behave. We call the motion <b>damped</b> if there are dissipative forces. If we ant to make our models realistic we have to consider these dissipative effects
+along with phenomena like forcing and resonance. This section of the module is much more qualitative than the others. It can be made quantitative but the full mathematical description is more advanced than we want to be
+concerned with in this module. If you go on to study more physics during your degree then you will likely get to learn more about the maths behind these phenomena. If you want to know more now, then you can ask in the lectures
+or take a look at the further reading suggestions.<br />
+
+</p>
+
+<p>
+There are three types of damping that we are interested in here.
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> <b>Light damping:</b> This is when the time period is independent of the amplitude so each cycle of oscillation takes the same time, but the amplitude is gradually decreasing as the
+oscillations die away.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Critical damping:</b> There is just enough damping to stop the system from oscillating after it has been displaced. This type of damping returns the oscillating object to equilibrium
+by the shortest possible route.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Heavy damping:</b> This occurs when the damping is so strong that no oscillating motion occurs and the mass returns to equilibrium straight away, but by a much slower route than
+for critical damping.
+</p>
+</li>
+</ul>
+<!--
+......    paragraph Example 7.5:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-191">Example 7.5:</span>
+<a id="stm0005-notes-autopage-191"></a>
+Consider the following cases of damping and decide if they are light, critical, or heavy:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> A child on a swing displaced from equilibrium and then released,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> A car suspension system,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The door closer on a fire door.
+</p>
+</li>
+</ul>
+
+<p>
+a) This is lightly damped as the swing will keep oscillating with the amplitude gradually decreasing as it returns to equilibrium.<br />
+
+</p>
+
+<p>
+b) Suspension is critically damped as we want the car to return to equilibrium as quickly as possible to avoid throwing the passengers around.<br />
+
+</p>
+
+<p>
+c) This is heavily damped as there are no oscillations, the closer ensures that the door returns to equilibrium, closed, in a slow and gentle manner.<br />
+
+</p>
+
+<p>
+As well as considering dissipative forces that damp an oscillator we can imagine adding forces that drive the oscillator. Imagine pushing someone on a swing, we are applying an external force, the push, to drive the motion of the
+oscillator rather than just displacing them from equilibrium and leaving them to oscillate back and forth. If we time our pushes well then they make the sing go higher and higher. This is known as <b>driving</b> or
+<b>forcing</b> the oscillation since we are applying an external force. These pushes are a periodic force, eg a force applied at regular intervals. When there is no external periodic force being applied we say that an oscillating
+system is oscillating at its <b>natural frequency</b>. When a periodic force is applied, we call it a <b>forced vibration</b>. In this case the response, ie the oscillation frequency, depends on the frequency of the forcing.<br />
+
+</p>
+
+<p>
+Consider forcing a spring, we could do this by just stretching and compressing the spring by hand, the frequency of oscillation is the applied frequency. A natural question is “what happens if the applied frequency is increased?”
+</p>
+
+<p>
+As the applied frequency increases from zero we would notice a few things happening. First, the amplitude of oscillation will initially increase, until it reaches some maximum amplitude at a particular applied frequency before
+starting to decrease as the frequency continues to be raised. The phase difference between the displacement of the oscillating object and the applied force increases from \(0\) to \(\uppi /2\), reaching \(\uppi \) when the
+amplitude reaches its maximum value. The phase difference will then keep increasing up to \(\uppi \) as the applied frequency is increased further. It would then keep increasing up to a phase difference of \(2\uppi \) which is
+equivalent to a difference of \(0\).<br />
+
+</p>
+
+<p>
+When the system is oscillating with its maximum amplitude, the phase difference between the driving force and the displacement is \(\uppi /2\). This means that the driving force is in phase with the oscillators velocity and we
+say that the system is in <b>resonance</b>. The frequency at the maximum amplitude is called the <b>resonant frequency</b>. The lighter the damping the larger the maximum amplitude is at resonance and the closer that
+the resonant frequency is to the natural frequency. If there is no damping then the maximum amplitude would diverge at resonance, in practice this means that systems break when they reach resonance. On the other hand, if the
+damping is large enough then resonance can essentially be removed entirely. A famous example is the collapse of the Tacoma bridge. With a bridge like this we model it on an oscillator since it can be springy and bounce when
+someone walks across it. Most bridges are fitted with dampers so that resonance is avoided, this is very important since the steps of people walking across the bridge act like a periodic driving force.<br />
+
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

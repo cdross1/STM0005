@@ -1,0 +1,2363 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Forces and Momentum</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-83"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Forces and Momentum ......
+-->
+<h3 id="autosec-84">Chapter&nbsp;<span class="sectionnumber">5&#x2003;</span>Forces and Momentum</h3>
+<a id="stm0005-notes-autopage-84"></a>
+<a id="stm0005-notes-autofile-5"></a>
+<!--
+...... section Force and Motion ......
+-->
+<h4 id="autosec-85"><span class="sectionnumber">5.1&#x2003;</span>Force and Motion</h4>
+<a id="stm0005-notes-autopage-85"></a>
+
+
+<p>
+The previous two sections of this module have focussed on kinematics, or how things move, now we turn to <b>dynamics</b>, or why objects move. Forces are responsible for why objects move. Think of pushing someone on a
+swing, if you did not give them the initial push they would not start moving. Or think of gravity pulling down on an object, if I let go of an apple it will fall. If an object, or system of objects, changes the state of another, it does so
+by applying a force. The obvious everyday examples are things that <b>push</b> and <b>pull</b>.<br />
+
+</p>
+
+<p>
+Some forces like friction require contact between the objects to act, we call these <b>contact forces</b>. Think of rolling a ball across a table, does it matter what the table is made of? Yes, the rougher the table is the higher its
+friction and the faster the ball will come to a stop. Other forces, e.g. gravity, magnetism, &#x2026;, act over a distance. These are called either <b>long range</b> or <b>short range</b> forces, depending on how long a distance
+they can act over.<br />
+
+</p>
+
+<p>
+Forces are vectors as they have both a magnitude, how strong the effect of the force is, and a direction, which direction the force wants the object to move in. Since we can have more than one force acting on an object we
+understand them using a free body diagram as in fig.&nbsp;<a href="STM0005_PhysicsForces-Momentum.html#fig: free body diagram">5.1</a>. The motion of the object will be governed by the net force, the vector sum, of
+all the forces acting on the object. This net force is often called the <b>resultant</b>, and the process of finding it is referred to as <b>resolving</b> the forces on the object.<br />
+
+</p>
+
+<p>
+Typically when there are more is more than one force acting on an object we use a <b>free body diagram</b> to help us understand the situation. An example free body diagram for an object hanging on the end of a piece of
+string is given in fig.&nbsp;<a href="STM0005_PhysicsForces-Momentum.html#fig: free body diagram">5.1</a>. A free body diagram is not a detailed scale drawing of the problem, it is a diagram depicting a simplified
+version of the body, all the forces acting on the object as arrows pointing in the direction that they are acting. When solving a problem involving forces it is often a good idea to start with a free body diagram so that you can work
+out what the net force is.
+</p>
+
+<figure id="autoid-17" class="figure ">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-13"
+    class="lateximagesource"
+><!--
++
+
+    T
+
+m
+
+    W = mg
+--><img
+     src="stm0005-notes-images\image-13.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;5.1: A free body diagram showing the forces acting on an object of mass \(m\) suspended on a string. The weight of the object is pointing down and is given by \(W=mg\), and the tension in the string is pointing upwards
+and is \(T\).
+
+</div>
+
+<a id="fig:     free body diagram"></a>
+
+</figure>
+<!--
+......   paragraph Example 4.1:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-88">Example 4.1:</span>
+<a id="stm0005-notes-autopage-88"></a>
+Consider an object of weight \(\vec {W}\) on an inclined plane, with angle \(\theta \). There are three forces acting on the object:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Gravity acts on the objects centre of mass and points straight down to the surface of the Earth. This gives rise to the objects weight \(W\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> The object does not fall through the plane due to the support force \(S\) acting perpendicular to the plane.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> The friction of the plane \(F_{r}\) acts on the object, this points upwards along the plane as it is what stops the object from sliding down the plane.
+</p>
+</li>
+</ul>
+
+<figure id="autoid-18" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/inclined_plane.png" target="_blank" ><img
+     src="figures/inclined_plane.png"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;5.2: An inclined plane with a mass on it. The massive block has three forces acting on it, \(W\) its weight pointing straight down, the support force of the plane \(S\) acting perpendicular to the plane, and friction
+\(F_{r}\). If this was a free body diagram we would not show the plane and just depict the mass with forces acting on it and the angles that they act at.
+
+</div>
+
+</div>
+
+</figure>
+
+<p>
+To understand if the object will move or not we need to resolve the forces and find if there is a net force acting in any direction. If the forces <b>balance</b><sup>1</sup><a id="stm0005-notes-autopage-89"></a> then the
+object will be stationary, if they do not balance then the object will slide down the slope.<br />
+
+</p>
+
+<p>
+<b>Question:</b> Do you think that whether the object slides down or not depends on the mass of the object or just on the angle of the slope?<br />
+
+</p>
+
+<p>
+When the net force \(\vec {F}_{\text {net}}\) acting on an object vanishes we say that the object is in <b>equilibrium</b>. Often there is a lot of trigonometry involved in resolving forces so it is a good idea to get a lot of
+practice doing it.<br />
+
+</p>
+
+<p>
+A very common force that we interact with every day is gravity. It acts to attract mass to the centre of the Earth and is responsible for the weight<sup>2</sup> of an object. For an object of mass \(m\), measured in kg, its weight
+is give by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{0}\)</span>
+
+<!--
+
+
+                                                                                                              W = mg,                                                                                                            (5.1)
+
+-->
+
+<p>
+
+\begin{equation}
+W=mg,
+\end{equation}
+
+</p>
+
+<p>
+where \(g=-9.8\text {m/s}^{2}\) is the acceleration due to gravity. Remember that the negative sign is there to signify that gravity points downwards. The unit of force is known as the Newton and has the symbol N.<br />
+
+</p>
+
+<p>
+To understand how to resolve forces it is best to consider the following example.
+</p>
+<!--
+......   paragraph Example 4.2:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-90">Example 4.2:</span>
+<a id="stm0005-notes-autopage-90"></a>
+Consider a \(10\)kg mass suspended from two pieces of string at angles \(70^{\circ }\) and \(30^{\circ }\) respectively. What is the tensions in the strings so that the mass hangs at equilibrium.
+</p>
+<figure id="autoid-19" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/hanging_mass.png" target="_blank" ><img
+     src="figures/hanging_mass.png"
+     style="
+     width:130pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;5.3: A \(10\) kg mass hanging from two wires.
+
+</div>
+
+<a id="fig:    hanging mass"></a>
+
+</div>
+
+</figure>
+
+<p>
+<b>Tension</b> is the name for the force in the string pulling the mass upwards, it points along the string. To understand this problem we can either add together the forces as vectors, or work component wise. In either case, we
+need to understand the horizontal and vertical components of the vectors.<br />
+
+</p>
+
+<p>
+This is easiest for the weight since it only points vertically so the horizontal component vanishes, \(W_{x}=0\), and \(W_{y}=W\). For the tensions we need to evaluate the components. The angles that we have been given are the
+angles between the string and the vertical, while we can work with these it is easier to work with the angle between the strings and the horizontal, these are depicted in fig.&nbsp;<a
+href="STM0005_PhysicsForces-Momentum.html#fig: hanging mass">5.3</a> as the angles under the string.
+</p>
+
+<figure id="autoid-20" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-14"
+    class="lateximagesource"
+><!--
+      T2
+            T2y
+
+
+60◦
+      T2x
+--><img
+     src="stm0005-notes-images\image-14.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;5.4: The components of the tension \(T_{2}\).
+
+</div>
+
+<a id="fig:    Tension components"></a>
+
+</div>
+
+</figure>
+
+<p>
+For \(T_{2}\) the horizontal and vertical components are:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{1}\)</span>
+
+
+<!--
+
+
+
+                                                                                                         T2x = T2 cos(60◦ ),
+                                                                                                         T2y = T2 sin(60◦ ).
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+T_{2x}&amp;=T_{2}\cos (60^{\circ }),\\ T_{2y}&amp;=T_{2}\sin (60^{\circ }).
+\end{align*}
+Similarly for \(T_{1}\) we have:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{1}\)</span>
+
+
+<!--
+
+
+
+                                                                                                        T1x = −T1 cos(20◦ ),
+                                                                                                        T1y = T1 sin(20◦ ),
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+T_{1x}&amp;=-T_{1}\cos (20^{\circ }),\\ T_{1y}&amp;=T_{1}\sin (20^{\circ }),
+\end{align*}
+where the sign in \(T_{1x}\) is there to show that it points to the left.<br />
+
+</p>
+
+<p>
+We know that at equilibrium the net force, \(F_{\text {net}~}=W+T_{1}+T_{2}\) must vanish, this means that both its horizontal and vertical component must vanish. In other words:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{1}\)</span>
+
+
+<!--
+
+
+
+                                                                                                             + T1 sin(20◦ ) + T2 sin(60◦ ),
+                                                                                       0 = W + T1y + T2y = W (5.2)                                                     --><a id="eq:       vertical force components"></a><!--
+                                                                                                                    ◦              ◦
+                                                                                                             (5.3)) − T1 cos(20 ).
+                                                                                       0 = T1x + T2x = T2 cos(60                                                     --><a id="eq:     horizontal force components"></a><!--
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+0&amp;=W+T_{1y}+T_{2y}=W +T_{1}\sin (20^{\circ })+T_{2}\sin (60^{\circ }) \label {eq: vertical force components},\\ 0&amp;=T_{1x}+T_{2x}= T_{2}\cos (60^{\circ }) -T_{1}\cos (20^{\circ })
+\label {eq: horizontal force components}.
+\end{align}
+This is a system of equations that we can solve for \(T_{1}\) and \(T_{2}\). The second equation tells us that
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{3}\)</span>
+
+
+<!--
+
+
+                                                                                                                    cos(20◦ )
+                                                                                                          T2 = T1             ,
+                                                                                                                    cos(60◦ )
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+T_{2}=T_{1}\frac {\cos (20^{\circ })}{\cos (60^{\circ })},
+\end{align*}
+substituting this into the first gives
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{3}\)</span>
+
+
+<!--
+
+
+
+                                                                                        −W = −mg = T1 sin(20◦ ) + T2 sin(60◦ )
+                                                                                                                          cos(20◦ )
+                                                                                                      = T1 sin(20◦ ) + T1           sin(60◦ )
+                                                                                                                          cos(60◦ )
+                                                                                                                         cos(20◦ )
+                                                                                                                                             
+                                                                                                      = T1 sin(20◦ ) +             sin(60 ◦
+                                                                                                                                            )   .
+                                                                                                                         cos(60◦ )
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+-W=-mg &amp;=T_{1}\sin (20^{\circ })+T_{2}\sin (60^{\circ })\\ &amp;=T_{1}\sin (20^{\circ })+T_{1}\frac {\cos (20^{\circ })}{\cos (60^{\circ })}\sin (60^{\circ })\\ &amp;=T_{1}\left (\sin
+(20^{\circ })+\frac {\cos (20^{\circ })}{\cos (60^{\circ })}\sin (60^{\circ })\right ).
+\end{align*}
+Now use that \(-W=-mg=-10\times (-9.8)=98\text {N}\) and evaluate the trig functions to find:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{3}\)</span>
+
+
+<!--
+
+
+                                                                                                                          
+                                                                                                                    0.9397
+                                                                                            98 = T1 0.342 + 0.866 ×          = 1.97T1 ,
+                                                                                                                      0.5
+                                                                                         ⇒ T1 = 49.8N,
+                                                                                                      cos(20◦ )          0.9397
+                                                                                            T2 = T1             = 49.8 ×        = 93.5N
+                                                                                                      cos(60◦ )            0.5
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+98&amp;=T_{1}\left (0.342+0.866\times \frac {0.9397}{0.5}\right )=1.97T_{1},\\ \Rightarrow T_{1}&amp;=49.8\text {N},\\ T_{2}&amp;=T_{1}\frac {\cos (20^{\circ })}{\cos (60^{\circ })}=49.8\times
+\frac {0.9397}{0.5}=93.5\text {N}
+\end{align*}
+
+</p>
+
+<p>
+Thus the tension in the strings are \(T_{1}=49.8\) N and \(T_{2}=93.5\)N respectively, notice that here we are giving the magnitude of the vector hence both results are positive.<br />
+
+</p>
+
+<p>
+There are further examples of resolving forces given in the tutorial problems.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-95"></a>
+<p>
+<sup>1</sup>&nbsp;Here balance means that the resultant vanishes \(\vec {W}+\vec {S}+\vec {F}_{r}=\vec {R}=0\).
+</p>
+
+<p>
+<sup>2</sup>&nbsp;Remember that mass and weight are not the same, mass is a scalar quantity that measures the amount of stuff making up an object, while weight is the force of gravity acting on that mass. If you went to the
+moon where gravity is weaker your mass would be the same but your weight would have decreased.
+</p>
+
+
+</div>
+<!--
+...... section Newton’s Laws ......
+-->
+<h4 id="autosec-96"><span class="sectionnumber">5.2&#x2003;</span>Newton’s Laws</h4>
+<a id="stm0005-notes-autopage-96"></a>
+
+
+<p>
+<b>Newton’s laws</b>, sometimes referred to as Newton’s laws of motion, describe how forces are related to the motion of objects. When you first encounter them they can seem counter intuitive, but they have been very well
+validated through experiments. There are three laws with each telling us something about how forces cause objects to move.
+</p>
+
+<figure id="autoid-21" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg" target="_blank" ><img
+     src="figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;5.5: A picture of the British mathematician and physicist Isaac Newton from <a href="https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newton,_1689.jpg" target="_blank" >Wikimedia
+Commons</a>.
+
+</div>
+
+</div>
+
+</figure>
+<!--
+......   paragraph Newton’s First Law:          ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-98">Newton’s First Law:</span>
+<a id="stm0005-notes-autopage-98"></a>
+The first law states that a body acted on by <b>no</b> net force moves with constant velocity (which may be zero) and zero acceleration.<br />
+
+</p>
+
+<p>
+This is the law that some find counter-intuitive since in everyday experience a ball rolling across a table will not keep rolling forever. However, in this situation there are net forces acting on the ball. There will be friction on the
+table and air resistance both acting to slow it down.<br />
+
+</p>
+
+<p>
+In the absence of friction or drag forces, motion really does persist until a force acts on an object. Think of an air hockey game, you apply an initial force to get the puck moving but after that it keeps travelling at a constant speed
+until it encounters another force, from the side of the table or the other players paddle. When friction is small we do see behaviour approximating Newton’s first law, think of a person on roller skates or in a hover craft.
+</p>
+<!--
+......   paragraph Newton’s Second Law:         ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-99">Newton’s Second Law:</span>
+<a id="stm0005-notes-autopage-99"></a>
+If a net external force acts on a body, the body accelerates. The direction of acceleration is the same as the direction of the net force. The mass of the body times its acceleration equals the net force.<br />
+
+</p>
+
+<p>
+This statement can look confusing but it is essentially saying that forces cause objects to accelerate and this is described mathematically by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{3}\)</span>
+
+<!--
+
+
+                                                                    F⃗net = m⃗a.                                                                    (5.4)                                                --><a id="eq:   N2"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\vec {F}_{\text {net}}=m\vec {a}.         \label {eq:     N2}
+\end{equation}
+
+</p>
+
+<p>
+This is one of the most famous equations in physics and is commonly just referred to as Newton’s second law. This equation is how we define the unit of force the Newton, with \(1 \text {N}=1\text {kg m/s}^{2}\). Note that
+\(m\vec {a}\) is not necessarily a force itself, but is the vector sum of all the forces acting on an object. In many of the specific cases that we meet in this module, \(F\) will just be one force.
+</p>
+<!--
+......    paragraph Example 4.3:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-100">Example 4.3:</span>
+<a id="stm0005-notes-autopage-100"></a>
+Consider a vehicle of mass \(600\text {kg}\) accelerating uniformly from rest to a velocity of \(8.0\text {m/s}\) in \(20\)s. Find the force that needs to be applied to achieve this.<br />
+
+</p>
+
+<p>
+Recall that the first kinematic equation states that:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                           v−u   8−0
+                                                                                                      a=       =     = 0.4m/s,
+                                                                                                            t     20
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v-u}{t}=\frac {8-0}{20}=0.4\text {m/s},
+\end{equation*}
+
+</p>
+
+<p>
+thus the force is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                      F = ma = 600 × 0.4 = 240N.
+
+-->
+
+<p>
+
+\begin{equation*}
+F=ma=600\times 0.4=240\text {N}.
+\end{equation*}
+
+</p>
+
+<p>
+Newton’s second law relies on knowing the mass of the object, but not which mass this is. There are two different definitions of mass in physics, the first is the <b>inertial mass</b>, defined through eq.&nbsp;<span
+class="textup">(<a href="STM0005_PhysicsForces-Momentum.html#eq: N2">5.4</a>)</span>, which relates to how “difficult” it is to get an object moving. The second definition of mass is the <b>gravitational mass</b>
+which governs the strength of the gravitational force acting on an object. To the best of our ability to compare these different definitions of mass they agree.<br />
+
+</p>
+
+<p>
+What about weight? In everyday usage we use mass and weight interchangeably. However, in physics they are fundamentally different quantities. Mass is an intrinsic property of an object and a scalar quantity, while weight is the
+force of gravity acting on an object and is a vector. In other words, if the only force acting on an object is gravity, then the acceleration is \(a=g\) and Newton’s second law says that \(mg=F_{W}=W\) is the weight of an object.
+Sometimes \(g\) is referred to as the <b>gravitational field strength</b> as it is not actually constant, it decreases as your height above sea level increases. The gravitational field strength will also be different on the moon or on
+a different planet, for example on the moon \(g_{\text {moon}}=1.62\text {m/s}^{2}\).
+</p>
+<!--
+......   paragraph Example 4.4:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-101">Example 4.4:</span>
+<a id="stm0005-notes-autopage-101"></a>
+Find the constant force needed to accelerate a \(200\text {kg}\) mass to \(6\text {m/s}\) in \(4\text {s}\), neglecting air resistance.<br />
+
+</p>
+
+<p>
+First compute the average acceleration through:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                        v−u   6−0         2
+                                                                                                   a=       =     = 1.5m/s ,
+                                                                                                         t     4
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v-u}{t}=\frac {6-0}{4}=1.5\text {m/s}^{2},
+\end{equation*}
+
+</p>
+
+<p>
+then apply Newton’s second law to find
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                    F = ma = 200 × 1.5 = 300N.
+
+-->
+
+<p>
+
+\begin{equation*}
+F=ma=200\times 1.5 =300\text {N}.
+\end{equation*}
+
+</p>
+
+<p>
+This is just considering the horizontal part of the motion, what about the vertical part? If we drew a free body diagram the vertical forces would be the wight pointing downward and a <b>normal reaction</b> force pointing
+upwards. The normal force is the support force of the ground acting on the object and stopping the object from falling through the ground. The weight and the normal force must be balanced if the object is not rising and falling.
+This opens up a new question, what is the normal force? This is where Newton’s third law comes in.
+</p>
+<!--
+......   paragraph Newton’s Third Law:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-102">Newton’s Third Law:</span>
+<a id="stm0005-notes-autopage-102"></a>
+If a body A exerts a force on body \(B\) (an <b>action</b>), then body B exerts a force on body A (a <b>reaction</b>). These two forces have the same magnitude but opposite direction. These two forces act on
+<b>different</b> bodies.<br />
+
+</p>
+
+<p>
+Written as an equation this says that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                     F⃗A on B = −F⃗B on A .
+
+-->
+
+<p>
+
+\begin{equation*}
+\vec {F}_{\text {A on B}}=-\vec {F}_{\text {B on A}}.
+\end{equation*}
+
+</p>
+
+<p>
+Often Newton’s third law is expressed as “Every action has an equal and opposite reaction”.
+</p>
+<!--
+......   paragraph Example 4.5:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-103">Example 4.5:</span>
+<a id="stm0005-notes-autopage-103"></a>
+Consider a stationary ball on a table. The net force on the ball is zero since it is stationary and not accelerating. However, there is a <b>downward</b> force on the table from the ball, the weight of the ball. Newton’s third law
+states that the table exerts an <b>upwards</b> force on the ball.<br />
+
+</p>
+
+<p>
+Newton’s third law applies beyond contact forces, if we drop an apple then both the apple and the Earth accelerate towards each other. This explains the extra support or normal force that is always drawn on free body diagrams, it
+is the reaction force.<br />
+
+</p>
+<!--
+...... section Momentum and Collisions ......
+-->
+<h4 id="autosec-104"><span class="sectionnumber">5.3&#x2003;</span>Momentum and Collisions</h4>
+<a id="stm0005-notes-autopage-104"></a>
+
+
+<p>
+A closely related concept to force is <b>momentum</b>. It is a vector quantity denoted by \(\vec {p}\) and given by the mass times the velocity. As an equation this is given by:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                  p⃗ = m⃗v .                                             --><a id="eq:    momentum"></a><!--
+
+-->
+
+<p>
+
+\begin{equation*}
+\vec {p}=m\vec {v}.     \label {eq:    momentum}
+\end{equation*}
+
+</p>
+
+<p>
+Momentum is a useful bookkeeping tool for studying objects in motion because in the absence of external forces the momentum is <b>conserved</b>. This makes it useful in analysing <b>collisions</b> between objects. In
+practice it is often easier to understand the effects of forces by applying conservation of momentum than by using Newton’s second law. There is another conserved quantity that we will use to study motion, the <b>energy</b>.
+However, mechanical energy is <b>not always conserved</b>, while momentum is. e.g. when we study the collision between two cars, or a meteorite colliding with a planet, momentum is more convenient to use.<br />
+
+</p>
+
+<p>
+Momentum is measured in units of \(\text {kg m/s}\) as defined through section&nbsp;<a href="STM0005_PhysicsForces-Momentum.html#eq:               momentum">5.3</a>. We can rewritten Newton’s second law in terms of the
+momentum to state that “ The rate of change of the momentum of an object is proportional to the resultant force on it.”
+</p>
+<!--
+......   paragraph Example 4.6:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-105">Example 4.6:</span>
+<a id="stm0005-notes-autopage-105"></a>
+Consider an object of mass \(m\) travelling at velocity \(u\) before being acted on by a constant force \(F\) and accelerating to velocity \(v\). The initial momentum, before the force acts, is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                                pi = mu,
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{i}=mu,
+\end{equation*}
+
+</p>
+
+<p>
+while the final momentum is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                                pf = mv.
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{f}=mv.
+\end{equation*}
+
+</p>
+
+<p>
+The change in momentum is thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                        ∆p = pf − pi = mv − mu,
+
+-->
+
+<p>
+
+\begin{equation*}
+\Delta p=p_{f}-p_{i}=mv-mu,
+\end{equation*}
+
+</p>
+
+<p>
+this will be positive if the object accelerates and negative if the object decelerates. Using Newton’s second law we then get
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                               v−u   mv − mu   ∆p
+                                                                                                 F = ma = m        =         =    .
+                                                                                                                t       t       t
+
+-->
+
+<p>
+
+\begin{equation*}
+F=ma=m\frac {v-u}{t}=\frac {mv-mu}{t}=\frac {\Delta p}{t}.
+\end{equation*}
+
+</p>
+
+<p>
+This is a convenient rewriting of Newton’s second law where \(F\) is the force acting the object, \(t\) is the length of time that the force is acting for, and \(\Delta p\) is the change of momentum due to the force.
+</p>
+
+<p>
+In general we will write the change of momentum as either \(\Delta p\) or \(\Delta \left (mv\right )\). The change in momentum is often referred to as the <b>impulse</b> and we saw above that it is given by the force
+multiplied by the time that the force acts over, \(J=F t\). The example that we gave above had \(m\) kept constant, however the mass can also change. This means that we should really write Newton’s second law as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                                    ∆ (mv)
+                                                                                                              F =          .
+                                                                                                                      ∆t
+
+-->
+
+<p>
+
+\begin{equation*}
+F=\frac {\Delta \left (mv\right )}{\Delta t}.
+\end{equation*}
+
+</p>
+
+<p>
+If the mass changes at a constant rate but the velocity is constant then the force is
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+
+<!--
+
+
+                                                                                                                      ∆m
+                                                                                                               F =v      ,
+                                                                                                                      ∆t
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+F=v\frac {\Delta m}{\Delta t},
+\end{align*}
+that is the force depends on the change of mass per second.
+</p>
+<!--
+......   paragraph Example 4.7:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-106">Example 4.7:</span>
+<a id="stm0005-notes-autopage-106"></a>
+The case of changing mass is important when studying rockets. A rocket ejects its burnt fuel at a constant speed. Then \(v\) is the speed that the hot gas is expelled from the engine and \(\Delta m/\Delta t\) is the mass of hot
+gas lost per second. A nice discussion of the physics of the rocket equation is given in this <a href="https://www.youtube.com/watch?v=V_brZ-KWY3g" target="_blank" >YouTube</a> video. Though be careful as a different
+sign convention is in the YouTube video.
+</p>
+<!--
+......   paragraph Example 4.8:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-107">Example 4.8:</span>
+<a id="stm0005-notes-autopage-107"></a>
+Consider an object of mass \(50 \text {kg}\) which is initially at rest before being acted on by a \(10\text {N}\) force for \(20\text {s}\). Find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The change in momentum
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The velocity of the object after the force has acted.
+</p>
+</li>
+</ul>
+
+<p>
+a) We know that
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+
+<!--
+
+
+                                                                                                          ∆p
+                                                                                                       F =
+                                                                                                          ∆t
+                                                                                                   ⇒ ∆p = F ∆t
+                                                                                                          = 10 × 20 = 200Ns.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+F&amp;=\frac {\Delta p}{\Delta t}\\ \Rightarrow \Delta p&amp;=F\Delta t\\ &amp;=10\times 20 =200 \text {Ns}.
+\end{align*}
+
+</p>
+
+<p>
+b) Now we now that the initial momentum is \(p_{i}=0\text {kgm/s}\) and that at \(20\text {s}\) the final momentum is \(p_{f}=200\text {kgm/s}\). The velocity is thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                          p   200
+                                                                                                     v=     =     = 4m/s.
+                                                                                                          m    50
+
+-->
+
+<p>
+
+\begin{equation*}
+v=\frac {p}{m}=\frac {200}{50}=4\text {m/s}.
+\end{equation*}
+
+</p>
+
+<p>
+From our everyday experience, we know that the harder we hit a ball the further it will travel. The impact changes the momentum over a very short time. We call the force associated with the change in momentum an <b>impact
+force</b>,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                                ∆ (mv)
+                                                                                                          F =          .
+                                                                                                                   t
+
+-->
+
+<p>
+
+\begin{equation*}
+F=\frac {\Delta \left (mv\right )}{t}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Example 4.9:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-108">Example 4.9:</span>
+<a id="stm0005-notes-autopage-108"></a>
+Consider a ball of mass \(m=0.63\text {kg}\), initially at rest, which is struck by a bat and accelerated to a velocity of \(35\text {m/s}\). The contact time between the ball and the bat is \(25\text {ms}\). Find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The momentum gained by the ball.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The average force acting on the ball.
+</p>
+</li>
+</ul>
+
+<p>
+As in kinematics problem we start by writing down what we know and do not know about the initial and final configuration:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Initial:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> \(t=0\text {s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(u=0\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(p_{i}=mu=0\text {kgm/s}\)
+</p>
+</li>
+</ul>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Final:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> \(t=25\text {ms}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(v=35\text {m/s}\)
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> \(p_{f}=?\)
+</p>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+a) Calculate the change in momentum by finding the final momentum
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                   pf = mv = 0.63 × 35 = 22kgm/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{f}=mv=0.63\times 35 =22\text {kgm/s}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The impact force is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                             ∆p    22
+                                                                                                       F =      =       = 880N.
+                                                                                                              t   0.025
+
+-->
+
+<p>
+
+\begin{equation*}
+F=\frac {\Delta p}{t}=\frac {22}{0.025}=880\text {N}.
+\end{equation*}
+
+</p>
+
+<p>
+Often it can be useful to plot force against time for an impact force. Typically we will find that the force acts over a very short time and can be quite sharply peaked. The average force of impact is the area under this curve.<br />
+
+</p>
+<!--
+...... section Impact and Conservation of Momentum ......
+-->
+<h4 id="autosec-109"><span class="sectionnumber">5.4&#x2003;</span>Impact and Conservation of Momentum</h4>
+<a id="stm0005-notes-autopage-109"></a>
+
+
+<p>
+Recall that momentum us a vector so when a ball bounces off a wall and rebound its momentum will change direction. This is shown in fig.&nbsp;<a
+href="STM0005_PhysicsForces-Momentum.html#fig: recoiling ball">5.6</a>. After a normal collision the ball rebounds and the direction of momentum is reversed. If we calculate \(\Delta p\) we find that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                         ∆p = m(−u) − mu = −2mu,
+
+-->
+
+<p>
+
+\begin{equation*}
+\Delta p=m(-u)-mu=-2mu,
+\end{equation*}
+
+</p>
+
+<p>
+this is with the sign convention that towards the wall is positive and away from the wall is negative.
+</p>
+
+<figure id="autoid-22" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/recoil.png" target="_blank" ><img
+     src="figures/recoil.png"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;5.6: A ball recoiling off a wall, the velocity afterwards is the negative of the velocity before.
+
+</div>
+
+<a id="fig:     recoiling ball"></a>
+
+</div>
+
+</figure>
+
+<p>
+For an oblique impact we need to take account of the angle of incidence of the object on the wall – done properly factors of \(\cos \theta \) will show up when we work out what the initial and final momentum are. What we need
+to know is that the angle the ball comes in at will be equal to the angle it comes out at.
+</p>
+<!--
+......   paragraph Example 4.10:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-111">Example 4.10:</span>
+<a id="stm0005-notes-autopage-111"></a>
+A tennis ball of mass \(0.2\text {kg}\) moving at a speed of \(18\text {m/s}\) is hit by a racket causing it to go back in the direction that it came from at a speed of \(15\text {m/s}\). Given that the contact time is
+\(0.12\text {s}\) find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The change in momentum of the ball.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The impact force on the ball.
+</p>
+</li>
+</ul>
+
+<p>
+a) We know that \(m=0.2\text {kg}\), \(u=+18\text {m/s}\), and \(v=-15\text {m/s}\), so
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                        ∆p = mv − mu = 0.2 × (−15) − 0.2 × 18 = −6.6kgm/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Delta p=mv-mu=0.2\times (-15)-0.2\times 18=-6.6\text {kgm/s}.
+\end{equation*}
+
+</p>
+
+<p>
+b) Impact force is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                             ∆     6.6
+                                                                                                       F =     =−      = −55N.
+                                                                                                             t    0.12
+
+-->
+
+<p>
+
+\begin{equation*}
+F=\frac {\Delta }{t}=-\frac {6.6}{0.12}=-55\text {N}.
+\end{equation*}
+
+</p>
+
+<p>
+An important principle when analysing impact forces and collisions is the <b>conservation of momentum</b>. This states that “for a system of interacting objects, the total momentum remains constant provided no external
+resultant force acts on the system.”<br />
+
+</p>
+
+<p>
+Consider two objects which collide with each other then separate. The momentum of each object changes, but they exert equal and opposite forces on each other, by Newton’s third law, so the total momentum is unchanged. In
+other words, the change in momentum of one object is equal and opposite to the change in momentum of the other object.<br />
+
+</p>
+
+<p>
+To see this in action consider two billiard balls \(A\) and \(B\) which collide and then separate. The impact force from \(B\) on \(A\) changes the velocity of \(A\) from \(u_{A}\) to \(v_{A}\) in the contact time \(t\). This force is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                                mA vA − mA uA
+                                                                                                         F1 =                 ,
+                                                                                                                      t
+
+-->
+
+<p>
+
+\begin{equation*}
+F_{1}=\frac {m_{A}v_{A}-m_{A}u_{A}}{t},
+\end{equation*}
+
+</p>
+
+<p>
+by analogy
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                                mB vB − mB uB
+                                                                                                         F2 =                 .
+                                                                                                                      t
+
+-->
+
+<p>
+
+\begin{equation*}
+F_{2}=\frac {m_{B}v_{B}-m_{B}u_{B}}{t}.
+\end{equation*}
+
+</p>
+
+<p>
+From Newton’s third law these forces are equal and opposite so \(F_{1}=-F_{2}\), which means that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+                                                                                                  mA vA − mA uA    m B vB − m B u B
+                                                                                                                =−                  ,
+                                                                                                        t                 t
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {m_{A}v_{A}-m_{A}u_{A}}{t}=-\frac {m_{B}v_{B}-m_{B}u_{B}}{t},
+\end{equation*}
+
+</p>
+
+<p>
+which rearranges to
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                                                   mA uA + mB uB = mA vA + mB vB .
+
+-->
+
+<p>
+
+\begin{equation*}
+m_{A}u_{A}+m_{B}u_{B}=m_{A}v_{A}+m_{B}v_{B}.
+\end{equation*}
+
+</p>
+
+<p>
+We often write this as in terms of the momentum as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{4}\)</span>
+
+<!--
+
+
+                                                                   pi = pf                                                                     (5.5)                          --><a id="eq:     conservation of momentum"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+p_{i}=p_{f} \label {eq:       conservation of momentum}
+\end{equation}
+
+</p>
+<!--
+......    paragraph Example 4.11:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-112">Example 4.11:</span>
+<a id="stm0005-notes-autopage-112"></a>
+A wagon \(A\) of mass \(4500\text {kg}\) is moving along a level track at a speed of \(3\text {m/s}\) when it collides with and couples to a second wagon \(B\) of mass \(3000\text {kg}\) which is initially stationary.
+Calculate the velocity of the two wagons after the collision.<br />
+
+</p>
+
+<p>
+Note that since the objects stick together after the collision, the conservation of momentum becomes
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{5}\)</span>
+
+<!--
+
+
+                                                                                                  mA uA + mB uB = (mA + mB )vf .
+
+-->
+
+<p>
+
+\begin{equation*}
+m_{A}u_{A}+m_{B}u_{B}=(m_{A}+m_{B})v_{f}.
+\end{equation*}
+
+</p>
+
+<p>
+The initial momentum is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{5}\)</span>
+
+<!--
+
+
+                                                                                     pi = mA uA + mB uB = 4500 × 3 + 3000 × 0 = 13500kgm/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{i}=m_{A}u_{A}+m_{B}u_{B}=4500\times 3+3000\times 0=13500\text {kgm/s}.
+\end{equation*}
+
+</p>
+
+<p>
+The final momentum is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{5.}{5}\)</span>
+
+<!--
+
+
+                                                                                               pf = vf (4500 + 3000)kg = vf × 7500kg.
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{f}=v_{f}(4500+3000) \text {kg} =v_{f}\times 7500\text {kg}.
+\end{equation*}
+
+</p>
+
+<p>
+Conservation of momentum then implies that
+</p>
+<span class="hidden"> \(\seteqnumber{0}{5.}{5}\)</span>
+
+
+<!--
+
+
+
+                                                                                                vf × 7500kg = 13500kgm/s
+                                                                                                              13500
+                                                                                                         vf =       m/s = 1.8m/s.
+                                                                                                               7500
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+v_{f}\times 7500\text {kg}&amp;=13500\text {kgm/s}\\ v_{f}&amp;=\frac {13500}{7500}\text {m/s}=1.8\text {m/s}.
+\end{align*}
+
+</p>
+
+<p>
+In the next section we will meet another quantity that we can also use to study objects in motion, and more generally. The <b>energy</b>. While momentum is always conserved, in the absence of net external forces, mechanical
+energy is not. This leads us to distinguish between two different types of collisions: <b>elastic collisions</b> where both are conserved, and <b>inelastic collisions</b> where momentum is conserved but mechanical energy is
+not. Here <b>mechanical energy</b> means the kinetic energy or energy of motion. You can practice using the conservation of momentum by solving some of the problems on the tutorial sheet.
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

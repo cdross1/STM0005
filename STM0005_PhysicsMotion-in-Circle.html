@@ -1,0 +1,2136 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Motion in a Circle</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-138"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Motion in a Circle ......
+-->
+<h3 id="autosec-139">Chapter&nbsp;<span class="sectionnumber">7&#x2003;</span>Motion in a Circle</h3>
+<a id="stm0005-notes-autopage-139"></a>
+<a id="stm0005-notes-autofile-7"></a>
+<!--
+...... section Radians and Degrees ......
+-->
+<h4 id="autosec-140"><span class="sectionnumber">7.1&#x2003;</span>Radians and Degrees</h4>
+<a id="stm0005-notes-autopage-140"></a>
+
+
+<p>
+To discuss circular motion we need to know how to describe angles, eg how round in a circle we have gone. Often when working with circles we do not describe angles in terms of degrees but instead use units called radians. You are
+likely to be familiar with describing angles in a degrees where a full rotation is \(360^{\circ }\) and a half rotation is \(180^{\circ }\). <b>Radians</b> are an alternative, and some would say “better” method of measuring
+angles, the certainly simplify some computations, though they can seem confusing when we first meet them.<br />
+
+</p>
+
+<p>
+The basic idea of radians is to work in terms of the distance around the circle that the angle corresponds to. For a circle with radius \(r\) the circumference is \(c=2\uppi r\), while an arc of the circle would have length s, shown
+in red in fig.&nbsp;<a href="STM0005_PhysicsMotion-in-Circle.html#fig: radians">7.1</a>. Radians are defined in terms of the length of arcs as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{0}\)</span>
+
+<!--
+
+                                                                           s
+                                                                      θ=     ,                                                                     (7.1)                          --><a id="eq:     definition of radians"></a><!--
+                                                                           r
+
+-->
+
+<p>
+
+\begin{equation}
+\uptheta =\frac {s}{r}, \label {eq:         definition of radians}
+\end{equation}
+
+</p>
+
+<p>
+in other words, an angle measured in radians is the ratio of the distance travelled on an arc round the circle to the radius of the circle. This means that a full rotation \(360^{\circ }\) corresponds to \(2\uppi \) radians as in this
+case \(s=2\uppi r\), half a rotation or \(180^{\circ }\) then corresponds to \(\uppi \) radians.
+</p>
+
+<figure id="autoid-26" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-16"
+    class="lateximagesource"
+><!--
+r s
+θ
+--><img
+     src="stm0005-notes-images\image-16.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;7.1: A circle of radius \(r\) showing how arc length around the circle corresponds to angles
+
+</div>
+
+<a id="fig:     radians"></a>
+
+</div>
+
+</figure>
+
+<p>
+More generally the conversion rule is that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{1}\)</span>
+
+<!--
+
+                                                                                                                      180◦
+                                                                                                          radians =          × degrees.
+                                                                                                                       π
+
+-->
+
+<p>
+
+\begin{equation*}
+\text {radians} = \frac {180^{\circ }}{\uppi }\times \text {degrees}.
+\end{equation*}
+
+</p>
+
+<p>
+The main advantage of radians comes when differentiating and expanding functions as working in degrees requires extra terms to be included and greater care to be taken. While we will not be doing any differentiation in this
+module we will come across some expressions where we need to work in radians for the quoted expressions to be valid. When this happens we will include a warning so that it is clear where you need to be careful.<br />
+
+</p>
+
+<p>
+One way to motivate working in radians is to think of unwinding the circle to get a straight line, for a circle of radius \(r\) this length will be the circumference, if we divide this length by \(r\) we will have a line if length \(2\uppi
+\) and the angle in radians will be the distance travelled along this line. In other words, working in radians is a bit like converting from circular motion to linear motion.
+</p>
+
+<figure id="autoid-27" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-17"
+    class="lateximagesource"
+><!--
+    s
+θ
+
+
+
+        θ
+--><img
+     src="stm0005-notes-images\image-17.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;7.2: A circle of radius \(r\) showing how arc length around the circle corresponds to angles
+
+</div>
+
+<a id="fig:    radians 2"></a>
+
+</div>
+
+</figure>
+
+<p>
+As evidenced in figs.&nbsp;<a href="STM0005_PhysicsMotion-in-Circle.html#fig: radians">7.1</a> and&nbsp;<a href="STM0005_PhysicsMotion-in-Circle.html#fig: radians 2">7.2</a>, it is common practice to
+use the Greek letter theta, \(\uptheta \), to denote an angle. Other Greek letters like phi, \(\upphi \) or \(\upvarphi \), and psi, \(\uppsi \), are sometimes used as well. It is worth spending some time familiarising yourself
+with these Greek letters so you do not think that they are just badly written English letters.
+</p>
+<!--
+...... section Circular Motion ......
+-->
+<h4 id="autosec-147"><span class="sectionnumber">7.2&#x2003;</span>Circular Motion</h4>
+<a id="stm0005-notes-autopage-147"></a>
+
+
+<p>
+In the second section of these notes we studied linear motion, in particular uniform motion where the acceleration is constant. In that case objects moved in straight lines. What about if an object is moving in a circle?<br />
+
+</p>
+
+<p>
+An object rotating at a steady rate is said to be in <b>uniform circular motion</b>. A good example to have in mind is a point on the perimeter of a wheel of radius \(r\) rotating at a steady speed. The circumference of the
+wheel is \(2\uppi r\) and we call the time taken for \(p\) to rotate once around the wheel the <b>period</b> \(T\). Another important quantity related to the period is the <b>frequency</b>, \(f=1/T\) which measures the
+number of rotations per second. The period is measured in seconds as it is a unit of time, while the frequency is measured in Hertz or units of per second.<br />
+
+</p>
+
+<figure id="autoid-28" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-18"
+    class="lateximagesource"
+><!--
+v
+    p
+--><img
+     src="stm0005-notes-images\image-18.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;7.3: A rotating wheel with a point \(p\) marked on its surface along with the instantaneous velocity of \(p\).
+
+</div>
+
+<a id="fig:    pt on a wheel"></a>
+
+</div>
+
+</figure>
+
+<p>
+The linear speed, or the speed if the point \(p\) was moving in a straight line is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{1}\)</span>
+
+<!--
+
+                                                                                                        circumference   2πr
+                                                                                                   v=                 =     = 2πrf.
+                                                                                                              T          T
+
+-->
+
+<p>
+
+\begin{equation*}
+v=\frac {\text {circumference}}{T}=\frac {2\uppi r}{T}=2\uppi r f.
+\end{equation*}
+
+</p>
+
+<p>
+This relationship gives us away to convert between the linear motion of an object and the circular motion of its wheels.
+</p>
+<!--
+......   paragraph Example 6.1:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-151">Example 6.1:</span>
+<a id="stm0005-notes-autopage-151"></a>
+A cyclist is travelling at \(25\text {m/s}\) on a bicycle that has wheels of radius \(750 \text {mm}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The time for one rotation of the wheel,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The rotation frequency of the wheel,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The number of times the wheel rotates in a minute.
+</p>
+</li>
+</ul>
+
+<p>
+a) Rearranging \(v=2\uppi r/T\) and substituting in the numbers we have that the period is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{1}\)</span>
+
+<!--
+
+                                                                                                           2πr        0.75
+                                                                                                     T =       = 2π ×      = 0.19s.
+                                                                                                            v          25
+
+-->
+
+<p>
+
+\begin{equation*}
+T=\frac {2\uppi r}{v}=2\uppi \times \frac {0.75}{25}=0.19\text {s}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The frequency is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{1}\)</span>
+
+<!--
+
+                                                                                                            1    1
+                                                                                                       f=     =      Hz = 5.3Hz.
+                                                                                                            T   0.19
+
+-->
+
+<p>
+
+\begin{equation*}
+f=\frac {1}{T}=\frac {1}{0.19}\text {Hz}=5.3\text {Hz}.
+\end{equation*}
+
+</p>
+
+<p>
+c) The number of rotations in a minute is then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{1}\)</span>
+
+<!--
+
+
+                                                                                                 rotations per minute = f × 60 = 320.
+
+-->
+
+<p>
+
+\begin{equation*}
+\text {rotations per minute} = f\times 60=320.
+\end{equation*}
+
+</p>
+
+<p>
+The angle \(\uptheta \) that a rotating object moves through is called the <b>angular displacement</b>. We will almost always work with \(\uptheta \) in radians, though occasionally you may see an angle quoted in degrees
+that you need to convert into radians. In uniform circular motion an object turns through an angle of \(2\uppi /T\) radians per second, thus the angular displacement after a time \(t\) is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{1}\)</span>
+
+<!--
+
+                                                                                                                        2πt
+                                                                                                                θ=          .                                                                                                       (7.2)
+                                                                                                                         T
+
+-->
+
+<p>
+
+\begin{equation}
+\uptheta =\frac {2\uppi t}{T}.
+\end{equation}
+
+</p>
+
+<p>
+To understand this recall that the total distance round the circle is \(2\uppi \) in radians, and \(T\) is measuring the time it takes to complete a full rotation. The angular displacement is measured in radians as it is an angle.<br
+/>
+
+</p>
+
+<p>
+The angular analogue of the speed from linear motion is the <b>angular speed</b> or angular velocity, omega \(\upomega \), which is defined as the rate of change of angular displacement and is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{2}\)</span>
+
+<!--
+
+                                                                                                                θ       2π
+                                                                                                           ω=       =      = 2πf.                                                                                                   (7.3)
+                                                                                                                t       T
+
+-->
+
+<p>
+
+\begin{equation}
+\upomega =\frac {\uptheta }{t}=\frac {2\uppi }{T}=2\uppi f.
+\end{equation}
+
+</p>
+
+<p>
+we measure angular speed in units of radians per second or \(\text {rad/s}\).
+</p>
+<!--
+......   paragraph Example 6.2:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-152">Example 6.2:</span>
+<a id="stm0005-notes-autopage-152"></a>
+Consider a cyclist travelling at \(12\text {m/s}\) on a bike with wheels of radius \(0.4\text {m}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The frequency of rotation of the wheels,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The angular speed of each wheel,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The angle that a wheel turns through in \(0.1\text {s}\) in both radians and degrees.
+</p>
+</li>
+</ul>
+
+<p>
+a) The circumference of a wheel is \(2\uppi r=2\uppi \times 0.4 =2.5\text {m}\) and
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{3}\)</span>
+
+<!--
+
+                                                                                                      circumference   2.5
+                                                                                                T =                 =     = 0.21s.
+                                                                                                            v         12
+
+-->
+
+<p>
+
+\begin{equation*}
+T=\frac {\text {circumference}}{v}=\frac {2.5}{12}=0.21\text {s}.
+\end{equation*}
+
+</p>
+
+<p>
+The frequency is thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{3}\)</span>
+
+<!--
+
+                                                                                                           1    1
+                                                                                                      f=     =      = 4.8Hz.
+                                                                                                           T   0.21
+
+-->
+
+<p>
+
+\begin{equation*}
+f=\frac {1}{T}=\frac {1}{0.21}=4.8\text {Hz}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The angular speed is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{3}\)</span>
+
+<!--
+
+
+                                                                                                        ω = 2πf = 30rad/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+\upomega =2\uppi f=30\text {rad/s}.
+\end{equation*}
+
+</p>
+
+<p>
+c) The angular displacement in \(0.1\text {s}\) is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{3}\)</span>
+
+<!--
+
+
+                                                                                                           θ = ωt = 3rad,
+
+-->
+
+<p>
+
+\begin{equation*}
+\uptheta =\upomega t=3 \text {rad},
+\end{equation*}
+
+</p>
+
+<p>
+or in degrees this is \(3\times 360^{\circ }/2\uppi =170^{\circ }\).
+</p>
+<!--
+...... section Centripetal forces ......
+-->
+<h4 id="autosec-153"><span class="sectionnumber">7.3&#x2003;</span>Centripetal forces</h4>
+<a id="stm0005-notes-autopage-153"></a>
+
+
+<p>
+When an object is moving in a circle at a constant speed the linear velocity is constantly changing direction. In other words the magnitude of the velocity is constant but its direction is changing. Since the objects velocity is
+changing in time it is accelerating. This may seem counter intuitive since we say that the motion is uniform.<br />
+
+</p>
+
+<p>
+From fig.&nbsp;<a href="STM0005_PhysicsMotion-in-Circle.html#fig: pt on a wheel">7.3</a> we see that the velocity is tangent to the circle at the objects location. As the object moves around the circle the direction of
+the velocity continually changes with the direction of change being towards the centre of the circle. Thus the acceleration is pointing towards the centre of the circle. This acceleration is called the <b>centripetal
+acceleration</b>, and is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{3}\)</span>
+
+<!--
+
+                                                                      v2
+                                                                 a=      = ω2 r.                                                                (7.4)                          --><a id="eq:     centripetal acceleration"></a><!--
+                                                                      r
+
+-->
+
+<p>
+
+\begin{equation}
+a=\frac {v^{2}}{r}=\upomega ^{2}r.         \label {eq:     centripetal acceleration}
+\end{equation}
+
+</p>
+
+<figure id="autoid-29" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-19"
+    class="lateximagesource"
+><!--
+v
+        p
+    a
+--><img
+     src="stm0005-notes-images\image-19.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;7.4: A rotating wheel with a point \(p\) marked along with its velocity and acceleration.
+
+</div>
+
+<a id="fig:     pt on a wheel 2"></a>
+
+</div>
+
+</figure>
+
+<p>
+To make an object move in a circular path we need to act on it with a force that generates the inward acceleration. This resultant force is known as the <b>centripetal acceleration</b> and it acts towards the centre of the
+circle.<br />
+
+</p>
+
+<p>
+There are a few places where you may have come across centripetal acceleration before:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Satellites orbiting the earth get their centripetal force from the Earth’s gravity.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> An object spinning round on the end of a string gets its centripetal force from the string’s tension.
+</p>
+</li>
+</ul>
+
+<p>
+For an object moving with linear velocity \(v\) along a circular path of radius \(r\) we know the centripetal acceleration from eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsMotion-in-Circle.html#eq: centripetal acceleration">7.4</a>)</span>. By Newton’s second law this corresponds to a centripetal force given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{4}\)</span>
+
+<!--
+
+                                                                                 mv 2
+                                                                   F = mω2 r =        .                                                                  (7.5)                   --><a id="eq:     centripetal force"></a><!--
+                                                                                  r
+
+-->
+
+<p>
+
+\begin{equation}
+F=m\upomega ^{2}r=\frac {mv^{2}}{r}.          \label {eq:     centripetal force}
+\end{equation}
+
+</p>
+
+<p>
+Note that since the centripetal force is at right angles to the direction of motion it does no work, and the kinetic energy is constant since the speed is unchanged.
+</p>
+
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The speed of a capsule,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The centripetal acceleration of a capsule,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The centripetal force acting on a person of mass \(65\text {kg}\) in a capsule.
+</p>
+</li>
+</ul>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+
+                                                                                                       2πr = πd = π × 130 = 408m,
+
+-->
+
+<p>
+
+\begin{equation*}
+2\uppi r=\uppi d=\uppi \times 130=408\text {m},
+\end{equation*}
+
+</p>
+
+<p>
+and the speed is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                           2πr     408
+                                                                                                      v=       =         = 0.23m/s.
+                                                                                                            T    30 × 60
+
+-->
+
+<p>
+
+\begin{equation*}
+v=\frac {2\uppi r}{T}=\frac {408}{30\times 60}=0.23\text {m/s}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The centripetal acceleration is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                 v2   0.232             2                2
+                                                                                            a=      =       = 0.00079m/s = 7.9 × 10−4 m/s .
+                                                                                                 r     65
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v^{2}}{r}=\frac {0.23^{2}}{65}=0.00079\text {m/s}^{2}=7.9\times 10^{-4}\text {m/s}^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+c) The centripetal force is then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+
+                                                                                                 F = ma = 65 × 7.9 × 10−4 = 5.1 × 10−2 N.
+
+-->
+
+<p>
+
+\begin{equation*}
+F=ma=65\times 7.9\times 10^{-4}=5.1\times 10^{-2}\text {N}.
+\end{equation*}
+
+</p>
+<!--
+...... section Circular motion in action ......
+-->
+<h4 id="autosec-157"><span class="sectionnumber">7.4&#x2003;</span>Circular motion in action</h4>
+<a id="stm0005-notes-autopage-157"></a>
+
+
+<p>
+To finish off this section we will now discuss some concrete examples of where objects moving in circles appear in the real world:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Vehicles going round roundabouts.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Going over hills.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Banked tracks.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Amusement rides
+</p>
+</li>
+</ul>
+
+<p>
+All four of these examples are included in (Breithaupt 2016a) so you can look there for further details if you want to know more. For the case of motion on a banked track we refer the interested reader to Chapter 17.3 of
+(Breithaupt 2016a).
+</p>
+<!--
+......    paragraph Going over hills.         ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-158">Going over hills.</span>
+<a id="stm0005-notes-autopage-158"></a>
+Consider a vehicle of mass \(m\) moving at speed \(v\) along a road that passes over the top of a hill or a curved bridge. We will assume that the road or bridge has the shape of an arc in a circle, this may not be perfectly true but
+it is a good approximation and in this module we will not need to take a better approximation. The road acts on the vehicle through a support force \(S\) which is opposite to the vehicle’s weight \(mg\). The difference between the
+support force and the weight acts towards the centre of the circle. This net force is a centripetal force and is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                            mv 2
+                                                                                                                mg − S =         .
+                                                                                                                             r
+
+-->
+
+<p>
+
+\begin{equation*}
+mg-S=\frac {mv^{2}}{r}.
+\end{equation*}
+
+</p>
+
+<p>
+Here \(r\) is the radius of curvature of the hill, in other words the radius of the circle if we pretend that the hill is part of a circle.<br />
+
+</p>
+
+<p>
+<span
+    class="textcolor"
+    style="color:#FF0000"
+>Figures to be added to this section.</span><br />
+
+</p>
+
+<p>
+If the vehicle is travelling fast enough it will lose contact with the road. This will happen for velocities higher than a critical speed \(v_{0}\). When \(v=v_{0}\) the support force will vanish and
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                         mv02
+                                                                                                                  mg =        .
+                                                                                                                          r
+
+-->
+
+<p>
+
+\begin{equation*}
+mg=\frac {mv^{2}_{0}}{r}.
+\end{equation*}
+
+</p>
+
+<p>
+As there is a factor of the mass on both sides of the equation they cancel out and we are left with the critical speed given in terms of \(g\) and the radius of the circle as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                        √
+                                                                                                                  v0 = ± gr,
+
+-->
+
+<p>
+
+\begin{equation*}
+v_{0}=\pm \sqrt {gr},
+\end{equation*}
+
+</p>
+
+<p>
+the \(\pm \) show that the vehicle can be heading either left or right over the hill and the condition is the same. As \(g\) is approximately constant on Earth, this is essentially a geometric condition where the size of the hill
+determines how fast you need to go to lose contact with the road. For small hills this may not be that fast, but for a large hill you would need to go very fast.<br />
+
+</p>
+
+<p>
+If \(r=5\text {m}\) then \(v_{0}=\pm 7\text {m/s}\) or \(15.7\text {mph}\).
+</p>
+<!--
+......    paragraph Roundabouts.        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-159">Roundabouts.</span>
+<a id="stm0005-notes-autopage-159"></a>
+Next consider a car of mass \(m\) going in a circle round a roundabout at a speed \(v\). Now the car is going round in a horizontal circle rather than a vertical circle. The centripetal force is not related to the weight of the car but
+rather to the sideways frictional force between the car’s tires and the road,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                         mv 2
+                                                                                                                  Ff =        .
+                                                                                                                          r
+
+-->
+
+<p>
+
+\begin{equation*}
+F_{f}=\frac {mv^{2}}{r}.
+\end{equation*}
+
+</p>
+
+<p>
+The weight of the vehicle is still important though. If the vehicle is travelling too fast, above a critical velocity \(v_{0}\), then the friction will not be enough to stop the car from slipping and skidding. The limiting force is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                         mv02
+                                                                                                                  F0 =        .
+                                                                                                                          r
+
+-->
+
+<p>
+
+\begin{equation*}
+F_{0}=\frac {mv_{0}^{2}}{r}.
+\end{equation*}
+
+</p>
+
+<p>
+As \(F_{0}\) is a frictional force it can be written as \(F_{0}=\upmu mg\) where \(\upmu \) is the <b>coefficient of friction</b><sup>1</sup>. Using \(\upmu \) we can find an expression for \(v_{0}\) analagous to that used
+above. The critical speed is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                         √
+                                                                                                                  v0 =       µgr,
+
+-->
+
+<p>
+
+\begin{equation*}
+v_{0}=\sqrt {\upmu g r},
+\end{equation*}
+
+</p>
+
+<p>
+deriving this expression is left as an exercise to the interested reader.
+</p>
+<!--
+......   paragraph Example 6.4:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-160">Example 6.4:</span>
+<a id="stm0005-notes-autopage-160"></a>
+Consider a vehicle of mass \(1200\text {kg}\) passing over a circular bridge whose radius of curvature is \(15\text {m}\) at a speed of \(10\text {m/s}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The centripetal acceleration of the vehicle on the bridge,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The support force on the vehicle when it is at the top of the bridge,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The critical velocity at which the vehicle will lose contact with the road.
+</p>
+</li>
+</ul>
+
+<p>
+a) The centripetal acceleration is found by solving
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                                mv 2
+                                                                                                                 ma = Fc =           ,
+                                                                                                                                 r
+
+-->
+
+<p>
+
+\begin{equation*}
+ma=F_{c}=\frac {mv^{2}}{r},
+\end{equation*}
+
+</p>
+
+<p>
+for \(a\). In other words
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                                v2   102          2
+                                                                                                        a=         =     = 6.67m/s .
+                                                                                                                r    15
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v^{2}}{r}=\frac {10^{2}}{15}=6.67\text {m/s}^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The support force is given by the difference between the cars weight and the centripetal force,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                        mv 2
+                                                                             S = mg −        = mg − ma = m (g − a) = 1200 (9.8 − 6.67) = 3756N ∼ 3.8kN.
+                                                                                         r
+
+-->
+
+<p>
+
+\begin{equation*}
+S=mg-\frac {mv^{2}}{r}=mg-ma=m\left (g-a\right )=1200\left (9.8-6.67\right )=3756\text {N}\sim 3.8\text {kN}.
+\end{equation*}
+
+</p>
+
+<p>
+c) At the critical velocity we have that \(S=0\) and \(v_{0}=\sqrt {gr}\) so can just substitute the given value of \(r\) into this expression to find
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                            √          √
+                                                                                                     v0 =       gr =       9.8 × 15 = 12.1m/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+v_{0}=\sqrt {gr}=\sqrt {9.8\times 15}=12.1\text {m/s}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Amusement rides.        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-161">Amusement rides.</span>
+<a id="stm0005-notes-autopage-161"></a>
+Consider the sort of rides that you may find at a fairground or at a theme park. Many of these involve circular motion in some way. The prime example would be a Ferris wheel or a big sightseeing wheel like the London Eye.<br />
+
+</p>
+
+<p>
+Examples of these sort of rides include:
+</p>
+
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> The Big Dipper: You are taken at high speed through a big dip and feel pushed up out of your seat. This is essentially the opposite of crossing the top of a hill, with the support force now
+acting upwards, since that is towards the centre of the circle. At the bottom of the dip the difference between \(S\) and the weight again gives the centripetal force and from that we can determine the velocity:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+<!--
+
+                                                                                                                        mv 2
+                                                                                                             S − mg =        .
+                                                                                                                         r
+-->
+<p>
+
+\begin{equation*}
+S-mg=\frac {mv^{2}}{r}.
+\end{equation*}
+
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> A very long swing: Imagine a person of mass \(m\) on a very long swing of length \(L\) released from a height of \(h\) above the ground. At the start of the swing all of the energy is
+potential energy \(E_{P}=mgh\) at the bottom of the swing all of the energy is kinetic \(E_{K}=\frac {1}{2}mv^{2}\). This is when the swing passes through equilibrium. The speed is maximum when the swing is going through
+equilibrium and the kinetic energy is equal to the initial potential energy:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+<!--
+                                                                                                        1
+                                                                                                          mv 2 = EK = EP = mgh.
+                                                                                                        2
+-->
+<p>
+
+\begin{equation*}
+\frac {1}{2}mv^{2}=E_{K}=E_{P}=mgh.
+\end{equation*}
+
+</p>
+<p>
+This leads to \(v=\sqrt {2gh}\). If \(h=L\), so that the swing touches the ground at the bottom then the centripetal force is
+</p>
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+<!--
+
+                                                                                                               mv 2   2mgh
+                                                                                                    S − mg =        =      = 2mg,
+                                                                                                                L      L
+-->
+<p>
+
+\begin{equation*}
+S-mg=\frac {mv^{2}}{L}=\frac {2mgh}{L}=2mg,
+\end{equation*}
+
+</p>
+<p>
+so \(S=3mg\).
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> The Big Wheel: Consider a big wheel, sometimes called a <b>Gravitron</b>, which takes passengers around in a vertical circle on the inside of the circumference of the circle. The wheel
+needs to turn fast enough to stop the passengers falling out. When the passenger is at the top of the circle the reaction force \(R\) acts downwards parallel to the weight such that the resultant force is \(R+mg\). This resultant force
+is a centripetal force which determines the velocity necessary so that the passengers stick to the outside:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+<!--
+
+                                                                                                                        mv 2
+                                                                                                             mg + R =        .
+                                                                                                                         r
+-->
+<p>
+
+\begin{equation*}
+mg+R=\frac {mv^{2}}{r}.
+\end{equation*}
+
+</p>
+<p>
+At a particular speed \(v_{0}^{2}=gr\) the reaction force vanishes, \(R=0\). This makes the person feel weightless.
+</p>
+</li>
+</ul>
+<!--
+......    paragraph Example 6.5:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-162">Example 6.5:</span>
+<a id="stm0005-notes-autopage-162"></a>
+Consider a very long swing with length \(L=32\text {m}\). A person of mass \(m=69\text {kg}\) is on the swing and descends from a position where the swing is horizontal. Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The speed of the person at the lowest point,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The centripetal acceleration at the lowest point,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The support force on the person at the lowest point.
+</p>
+</li>
+</ul>
+
+<p>
+a) We are starting from \(90^{\circ }\) so can take \(h=L=32\text {m}\). Thus the speed at the lowest point is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                       p     √
+                                                                                                  v=    2gh = 2 × 9.8 × 32 = 25m/s.
+
+-->
+
+<p>
+
+\begin{equation*}
+v=\sqrt {2gh}=\sqrt {2\times 9.8\times 32}=25\text {m/s}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The centripetal acceleration is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                             v2   252          2
+                                                                                                        a=      =     = 19.6m/s ,
+                                                                                                             L    32
+
+-->
+
+<p>
+
+\begin{equation*}
+a=\frac {v^{2}}{L}=\frac {25^{2}}{32}=19.6\text {m/s}^{2},
+\end{equation*}
+
+</p>
+
+<p>
+this is also twice the acceleration due to gravity or \(2g\).
+</p>
+
+<p>
+c) The support force at the lowest point is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{7.}{5}\)</span>
+
+<!--
+
+                                                                                                       2mgh
+                                                                                            S = mg +        = 3mg = 3 × 9.8 × 69 = 2030N.
+                                                                                                        L
+
+-->
+
+<p>
+
+\begin{equation*}
+S=mg+\frac {2mgh}{L}=3mg=3\times 9.8\times 69=2030\text {N}.
+\end{equation*}
+
+</p>
+
+<p>
+The basic ideas of circular motion that we have seen here are also useful in situations that may at first appear to have nothing to do with moving in a circle. In the next section we will study oscillating objects like springs and
+pendulums and find the hidden circles that helps us to describe their motion.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-163"></a>
+<p>
+<sup>1</sup>&nbsp;There are actually two types of coefficients of friction: static and dynamic. In this module we do not make a distinction between them, but it is important to be aware that there is a difference as some books
+will use different names in different contexts.
+</p>
+
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

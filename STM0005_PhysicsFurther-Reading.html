@@ -1,0 +1,1218 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Further Reading</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-312"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Further Reading ......
+-->
+<h3 id="autosec-313">Chapter&nbsp;<span class="sectionnumber">12&#x2003;</span>Further Reading</h3>
+<a id="stm0005-notes-autopage-313"></a>
+<a id="stm0005-notes-autofile-12"></a>
+
+<p>
+What we discuss in the lectures is just a whistle stop tour of many interesting areas of physics. If you are interested in learning more about particular topics or exploring the world of physics beyond what you met in this course I
+will provide links to further resources and suggestions for further reading.<br />
+
+</p>
+
+<p>
+The material linked to in this section may be more advanced than what we discussed during the module so do not feel that you need to understand everything here. The links are grouped together to correspond with the week of the
+course that they most closely relate to.<br />
+
+</p>
+
+<p>
+A nice complement to this module focussing on the concepts behind the physical phenomena rather than the the computational details can be found in the <b>Physics playlist</b> on the Crash Course YouTube channel linked to
+<a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank" >here</a>. The videos in the playlist goes beyond the content of this module but they should all be at an
+accessible level for you.<br />
+
+</p>
+
+<p>
+Another great general resource for physics is the website <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/index.html" target="_blank" >Hyper Physics</a>. This is a great resource to find out more about basically
+any topic in physics, from the mechanics and circuits problems that we have discussed in this module, through to thermodynamics and statistical physics.<br />
+
+</p>
+
+<p>
+If you want a more advanced book about <b>classical mechanics</b>, which is what physicists call the sort of physics that we have been studying in this module, then (Hrabovsky &amp; Susskind 2020) can be an enjoyable read.
+It is based on a lecture course that Leonard Susskind gave at Stanford university aimed at the general public. To get the most out of this book you would need to be comfortable using calculus. However, you can still get a lot out of
+it even without going through all of the computations. The book is split into chapters corresponding to the different lectures within the course with interludes between some of the lectures providing some extra background
+information. Lectures 1, 2, 3, and 5 correspond most closely to what we have discussed in this module, though there is not a perfect overlap. I would recommend taking a look at this book if you are finding this module too easy and
+want to explore more physics. Personally, I think it can make for some nice bedtime reading.<br />
+
+</p>
+
+<p>
+A good book for general problem solving tips is <b>Feynman’s Tips on Physics</b>, (Feynman et&nbsp;al. 2013), which is a companion book to the famous “big red books” of the Feynman lectures, (Feynman et&nbsp;al.
+2011a,b,c), and contains lots of tips on how to solve physics problems. Much of the content is at the same level as this module, though the scope of the book goes beyond what we have discussed here. The full Feynman lectures,
+available in the library, can also be a nice complement to this module as they cover all of the topics that Richard Feynman thought were essential for a first year physic course to cover. They go much more in depth than we needed
+to in this module. However, they contain some wonderful explanations and if you are going to study any more physics later in your degree then you should have a look at these.<br />
+
+</p>
+
+<p>
+The <b>Fun to Imagine</b> <a href="https://www.youtube.com/playlist?app=desktop&amp;list=PL2D30B1DEFFDA0310" target="_blank" >playlist</a> on Youtube is a collection of videos of Feynman giving
+explanations of various physical phenomena and expanding on his philosophy for understanding physics. The videos are all quite short and are clips taken from a BBC programme. I think that they are great fun to listen to, and
+contain lots of great explanations.
+</p>
+<!--
+...... section What is Physics Extra Reading ......
+-->
+<h4 id="autosec-314"><span class="sectionnumber">12.1&#x2003;</span>What is Physics Extra Reading</h4>
+<a id="stm0005-notes-autopage-314"></a>
+
+
+<p>
+A standard reference for powers of ten and scales of measurement is the <a href="https://www.youtube.com/watch?v=0fKBhvDjuy0" target="_blank" >Powers of Ten</a> video from 1977 that we saw in the lectures.<br />
+
+</p>
+
+<p>
+For more on the question of “What is Physics?” you can look at the <a href="https://www.tntech.edu/cas/physics/aboutphys/about-physics.php" target="_blank" >Tennessee Tech</a> page about physics and its
+different subfields. You can also look at the <a href="https://www.iop.org/about" target="_blank" >about</a> page on the IOP website. The IOP (Institute of Physics) is the learned society and professional body
+responsible for the promotion of physics in the UK and Ireland.
+</p>
+<!--
+...... section Kinematics in 1D Extra Reading ......
+-->
+<h4 id="autosec-315"><span class="sectionnumber">12.2&#x2003;</span>Kinematics in 1D Extra Reading</h4>
+<a id="stm0005-notes-autopage-315"></a>
+
+
+<p>
+For more details on motion in one dimension have a look at any of the textbooks on the course reading list. The material in (Breithaupt 2016a) and (Breithaupt 2016b) are at exactly the same level as this module and contain
+explanations and examples of the kinematic equations.<br />
+
+</p>
+
+<p>
+If you want more detail at a slightly more advanced level then I recommend chapters 1 and 2 of (Young &amp; Freedman 2019). The book (Mansfield &amp; O’Sullivan 2020) has some more advanced examples where you need to use
+ideas from calculus to solve problems from mechanics. If you have already done A-level mathematics and you want to see how it enables you to understand more complicated problems from Physics, then I recommend having at look
+at this.<br />
+
+</p>
+<!--
+...... section Kinematics in 2D Extra Reading ......
+-->
+<h4 id="autosec-316"><span class="sectionnumber">12.3&#x2003;</span>Kinematics in 2D Extra Reading</h4>
+<a id="stm0005-notes-autopage-316"></a>
+
+
+<p>
+The resources for this week are the same as last week, again if you want to explore mechanics further it is useful to have had some exposure to calculus. Chapter 3 of (Young &amp; Freedman 2019) is an especially good resource as
+it starts around the same level as this module before discussing some more complicated problems including motion in three dimensions.<br />
+
+</p>
+
+<p>
+There are lots of extra examples and exercise on both one dimensional and two dimensional kinematics in (Sadler &amp; Thorning 1996). Some of the tutorial problems come from this book so it is a great source of problems at the
+right difficulty level for this module.
+</p>
+<!--
+...... section Forces and Freebody Diagrams Extra Reading ......
+-->
+<h4 id="autosec-317"><span class="sectionnumber">12.4&#x2003;</span>Forces and Freebody Diagrams Extra Reading</h4>
+<a id="stm0005-notes-autopage-317"></a>
+
+
+<p>
+For more information on how to draw free body diagrams and what they can be used for check out this <a href="https://www.physicsclassroom.com/class/newtlaws/Lesson-2/Drawing-Free-Body-Diagrams"
+target="_blank" >website</a>. The website <a href="https://www.phyley.com/" target="_blank" >Phyley</a> also has more information about free body diagrams and some worked examples of resolving forces. This
+includes a version of the mass hanging from two strings problem which sketches how to solve the problem for an arbitrary mass and angle, this examples is found <a
+href="https://www.phyley.com/mass-hanging-from-two-ropes" target="_blank" >here</a>.
+</p>
+<!--
+...... section Energy Extra Reading ......
+-->
+<h4 id="autosec-318"><span class="sectionnumber">12.5&#x2003;</span>Energy Extra Reading</h4>
+<a id="stm0005-notes-autopage-318"></a>
+
+
+<p>
+The kinetic energy shows up often enough that it may be worth having a formula triangle to help you remember the equation. This is shown in fig.&nbsp;<a
+href="STM0005_PhysicsFurther-Reading.html#fig: Kmv triangle">12.1</a>.<br />
+
+</p>
+<figure id="autoid-65" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-49"
+    class="lateximagesource"
+><!--
+EK
+m
+2 ×v
+     2
+--><img
+     src="stm0005-notes-images\image-49.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;12.1: The formula triangle for constant velocity, kinetic energy, and mass.
+
+</div>
+
+<a id="fig:    Kmv triangle"></a>
+
+</div>
+
+</figure>
+
+<p>
+The hyperphysics page about <a href="https://hyperphysics.phy-astr.gsu.edu/hbase/enecon.html" target="_blank" >energy</a> is a good place to look for extra information.
+</p>
+<!--
+...... section Circular Motion and Oscillations Extra Reading ......
+-->
+<h4 id="autosec-322"><span class="sectionnumber">12.6&#x2003;</span>Circular Motion and Oscillations Extra Reading</h4>
+<a id="stm0005-notes-autopage-322"></a>
+
+
+<p>
+Since the topics in these two weeks are closely related we have grouped them together here.<br />
+
+</p>
+
+<p>
+There is a lot more information about circular motion on the Hyper Physics page <a href="https://hyperphysics.phy-astr.gsu.edu/hbase/circ.html#circ" target="_blank" >here</a>. There is also a very interesting
+YouTube video available <a href="https://www.youtube.com/watch?v=AL2Chc6p\_Kk&amp;ab\_channel=AllThingsPhysics" target="_blank" >here</a> which talks about what happens to an object undergoing circular
+motion if the centripetal force is removed.<br />
+
+</p>
+
+<p>
+If you want to see a more mathematical description of oscillations, then Chapter 13 of (Young &amp; Freedman 2019) is where you should look. It explains everything that we discussed in this section of the module, but adds a bit
+more mathematical sophistication to the discussion. In particular, it shows what happens for the pendulum beyond the simple approximation that we have been working in and explains how to think about energy in a damped
+system.<br />
+
+</p>
+
+<p>
+If you want to learn more about the collapse of the Tacoma bridge then there is a video explaining it <a href="https://www.youtube.com/watch?v=3mclp9QmCGs" target="_blank" >here</a>.
+</p>
+<!--
+...... section Electric Circuits Extra Reading ......
+-->
+<h4 id="autosec-323"><span class="sectionnumber">12.7&#x2003;</span>Electric Circuits Extra Reading</h4>
+<a id="stm0005-notes-autopage-323"></a>
+
+
+<p>
+The webpage <b>All About Circuits</b>, available <a href="https://www.allaboutcircuits.com/textbook/" target="_blank" >here</a>, is full of information about electric circuits that should nicely compliment what
+we have seen in these lectures. It also has descriptions of lots of experiments that can be carried out to test the basic concepts. Two of these are essentially the same as experiments that you will see in the lab sessions.<br />
+
+</p>
+
+<p>
+There are also lots of books about electric circuits in the library. These books are primarily aimed at engineering students and those of you who are going on to do electronic engineering, or who will take Electrical and Electronic
+Engineering Fundamentals module next year would probably find it useful to familiarise yourselves with at least one of these books.
+</p>
+<!--
+...... section Modern Physics Extra Reading ......
+-->
+<h4 id="autosec-324"><span class="sectionnumber">12.8&#x2003;</span>Modern Physics Extra Reading</h4>
+<a id="stm0005-notes-autopage-324"></a>
+
+
+<p>
+The content of this section is essentially all further reading as it is a non-examinable part of the module which has been included to give you some context about how the topics that you met in this module relate to the current state
+of physics. Rather than any detailed topics I want to point you towards some of my favourite popular science books. In particular, I want to recommend:
+</p>
+
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> <b>Through Two Doors at Once</b>, (Ananthaswamy 2020), is a wonderful description of the double slit experiment and the profound consequences that it has on how we think about
+physics at the smallest scales. If you want to know more about quantum physics then this is a great place to start.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Storm in a Teacup</b>, (Czerski 2016), this is a great book which shows how to use physics to understand everyday phenomena like how slugs and snails can climb walls and why
+when you spill coffee it leaves a ring on the table or piece of paper. If you are struggling to know why you should care about physics then this is the book for you.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Particle Physics</b>, (Close 2023), the whole “A Very Short Introduction” series from Oxford University Press is a fantastic place to learn about new topics if you are not sure where
+to start. The book on particle physics is a great overview of one of the “big” disciplines in modern physics where gigantic machines are built to probe the universe at the smallest scale. Particle physics was one the topics that
+originally got me hooked on physics and I challenge anyone not to find a lot of interesting topics in this book.
+</p>
+</li>
+</ul>
+<!--
+...... chapter Bibliography ......
+-->
+<h3 id="autosec-325">Bibliography</h3>
+<a id="stm0005-notes-autopage-325"></a>
+
+
+<ul class="list" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker"></span> Ananthaswamy, A. (2020), <i>Through Two Doors at Once: The Elegant Experiment that Captures the Enigma of our Quantum Reality</i>, Duckworth Books.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Breithaupt, J. (2016<i>a</i>), <i>AQA Physics: A Level</i>, OUP Oxford.<br />
+<b>URL:</b> <i>https://books.google.co.uk/books?id=rs3KDwAAQBAJ</i>
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Breithaupt, J. (2016<i>b</i>), <i>AQA Physics: A Level Year 1 and AS</i>, OUP Oxford.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Close, F. (2023), <i>Particle Physics: A Very Short Introduction</i>, Very Short Introductions Series, Oxford University Press.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Czerski, H. (2016), <i>Storm in a Teacup: The Physics of Everyday Life</i>, Transworld.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Feynman, R., Gottlieb, M. &amp; Leighton, R. (2013), <i>Feynman’s Tips on Physics: Reflections, Advice, Insights, Practice</i>, Basic Books.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Feynman, R., Leighton, R. &amp; Sands, M. (2011<i>a</i>), <i>The Feynman Lectures on Physics, Vol. I: The New Millennium Edition: Mainly Mechanics, Radiation, and Heat</i>, The
+Feynman Lectures on Physics, Basic Books.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Feynman, R., Leighton, R. &amp; Sands, M. (2011<i>b</i>), <i>The Feynman Lectures on Physics, Vol. II: The New Millennium Edition: Mainly Electromagnetism and Matter</i>, The
+Feynman Lectures on Physics, Basic Books.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Feynman, R., Leighton, R. &amp; Sands, M. (2011<i>c</i>), <i>The Feynman Lectures on Physics, Vol. III: The New Millennium Edition: Quantum Mechanics</i>, The Feynman Lectures
+on Physics, Basic Books.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Garrett, E. (2015), <i>Essential Maths Skills for A-level Physics: Study Notes, Examples &amp; Practice Questions</i>, CGP Group.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Hrabovsky, G. &amp; Susskind, L. (2020), <i>Classical Mechanics: The Theoretical Minimum</i>, Penguin Books Limited.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Mansfield, M. &amp; O’Sullivan, C. (2020), <i>Understanding Physics</i>, Wiley.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Rae, A. (2005), <i>Quantum Physics: A Beginner’s Guide</i>, Beginner’s Guides, Oneworld Publications.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Sadler, A. &amp; Thorning, D. (1996), <i>Understanding Mechanics</i>, Oxford University Press.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Vincent, J. (2022), <i>Beyond Measure: The Hidden History of Measurement</i>, Faber &amp; Faber.
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker"></span> Young, H. &amp; Freedman, R. (2019), <i>University Physics with Modern Physics, Global Edition</i>, Pearson Education.
+</p>
+<p>
+
+</p>
+</li>
+</ul>
+
+<a id="stm0005-notes-autofile-last"></a>
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

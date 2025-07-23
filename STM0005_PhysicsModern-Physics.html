@@ -1,0 +1,1518 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Modern Physics</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-289"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Modern Physics ......
+-->
+<h3 id="autosec-290">Chapter&nbsp;<span class="sectionnumber">10&#x2003;</span>Modern Physics</h3>
+<a id="stm0005-notes-autopage-290"></a>
+<a id="stm0005-notes-autofile-10"></a>
+
+<p>
+Note that this section of the module is non examinable. It is included to provide some context about how the material we have met in the earlier sections connects to physics in more diverse settings. IN particular we will see a brief
+discussion of two of the major pillars of twentieth century physics.<br />
+
+</p>
+
+<p>
+So far most of what we have covered is physics that has been taught in the same way for a long time, in this final section I want to make a link between the physics that we have seen in this module and what physicists actually
+study. Some of these topics will still be fairly old, for example I want to give a whistle stop discussion of quantum physics and that has been known about for over a hundred years. However, what I want you to takeaway is that
+what you have learnt in this module is related to modern topics in physics. In particular, some of the examples that we have seen of springs and pendulums turn out to be useful in the most unexpected of places.<br />
+
+</p>
+
+<p>
+It may seem strange to refer to physics from a hundred years ago as modern, but as explained on this University of Virginia <a href="https://galileo.phys.virginia.edu/classes/252/home.html" target="_blank"
+>webpage</a>, <b>Modern Physics</b> means physics based on relativity and quantum physics, the two major advances of the twentieth century.<br />
+
+</p>
+
+<p>
+These two advances are the physics of the very fast and energetic, known as <b>relativity</b>, and the physics of the very small, known as <b>quantum physics</b>. These are both gigantic subjects in their own right, and
+there is no way that we will do them justice in this one small section. What we can do is get a taste of what their consequences are and how they build on the physics you are familiar with.
+</p>
+<!--
+...... section Rapid Relativity ......
+-->
+<h4 id="autosec-291"><span class="sectionnumber">10.1&#x2003;</span>Rapid Relativity</h4>
+<a id="stm0005-notes-autopage-291"></a>
+
+
+<p>
+Throughout this module we have treated space and time as absolute quantities that re independent of the objects that we are studying, and how they are moving. It turns out that this is not true. For sufficiently fast
+objects<sup>1</sup>, the length of the object and how it experiences time can change.<br />
+
+</p>
+
+<figure id="autoid-58" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/James-Clerk-Maxwell.jpg" target="_blank" ><img
+     src="figures/James-Clerk-Maxwell.jpg"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;10.1: A picture of the Scottish physicist and mathematician from <a href="https://upload.wikimedia.org/wikipedia/commons/b/b0/James-Clerk-Maxwell-1831-1879.jpg" target="_blank" >Wikimedia com-
+mons</a>.
+
+</div>
+
+</div>
+
+</figure>
+
+<p>
+If this confuses you then you are not alone. In the 1800’s the Scottish Physicist James Clerk Maxwell had given a mathematical description of electricity and magnetism that unified them into the theory of
+<b>electromagnetism</b>. A consequence of this theory is that there are waves in the electromagnetic field, with light being an example of an electromagnetic wave. The theory also tells us that light always travels at the same
+speed, known as the speed of light \(c=3\times 10^{8}\text {m/s}\).<br />
+
+</p>
+
+<p>
+Usually when we have waves they are travelling in a given medium. For example, water waves require water to move through, while sound waves are really pressure waves in the air or another substance. This meant that many
+physicists expected there to be a medium, referred to as the <b>luminiferous aether</b> that light was a wave in. However, a range of experiments carried out by the American Physicists Michelson and Morley, showed that there
+was no such medium. This meant that an alternative explanation was needed for why light always travelled at the same speed regardless of how fast the object emitting light is travelling.<br />
+
+</p>
+
+<figure id="autoid-59" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg" target="_blank" ><img
+     src="figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;10.2: A picture of the German physicist Albert Einstein from <a href="https://upload.wikimedia.org/wikipedia/commons/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg" target="_blank" >Wiki-
+media commons</a>.
+
+</div>
+
+</div>
+
+</figure>
+
+<p>
+The eventual explanation was Einstein’s theories of relativity, both <b>special relativity</b> and <b>general relatvity</b>. Special relativity is based on two postulates:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">First:</span> The laws of physics are the same in all inertial frames.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">Second:</span> The speed of light in vacuum is the same in all inertial frames.
+</p>
+</li>
+</ul>
+
+<p>
+The second postulate implies that nothing can travel faster than the speed of light in vacuum \(c=3\times 10^{8}\text {m/s}\). An important phrase in the postulates is <b>inertial frame</b>, this means that whoever is
+making the measurements is not accelerating. The word frame in the above postulates may seem confusing but it is just away of referring to a set of coordinate axes that move with an observer. So far in the module we have treated
+the coordinates \(x,y,z\) and the time \(t\) as absolute quantities that everyone performing measurements agrees on. However, a consequence of relativity is that this is not true, and the measurements that you make depend on
+how fast you are travelling.<br />
+
+</p>
+
+<p>
+This means that the Newtonian mechanics we studied throughout this module breaks down at high speeds. Do not despair about this, it does not mean that you should just bin everything that you have learnt so far. Everything
+that you have learnt is still valid, as long as you are not interested in very fast or massive objects. We will make this more precise shortly.<br />
+
+</p>
+
+<p>
+Consider a person moving with speed \(v\) in the \(x\) direction. fig.&nbsp;<a href="STM0005_PhysicsModern-Physics.html#fig: moving frames">10.3</a> shows the difference between the coordinates that our moving
+observer would use, and the coordinates that a stationary observer would use. By inspection of the figure we see that since the observer is only moving in the \(x\)-direction anything measured in \(y\) and \(z\) remains the same,
+this means that \(y&apos;=y,\,z&apos;=z\).<br />
+
+</p>
+
+<figure id="autoid-60" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-47"
+    class="lateximagesource"
+><!--
+z axis                     z ′ axis
+
+
+         y axis                           y ′ axis
+
+
+                  x axis              v              x′ axis
+--><img
+     src="stm0005-notes-images\image-47.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;10.3: Comparison of a fixed frame with a frame moving at speed \(v\) in the \(x\)-direction.
+
+</div>
+
+<a id="fig:    moving frames"></a>
+
+</div>
+
+</figure>
+
+<p>
+At slow speeds this is actually known as <b>Galilean relativity</b>, and we have that \(x&apos;=x-vt\). That is to convert from what is measured by the stationary observer to the moving observer we have to take account of
+how far the moving observer has travelled by the time they make the measurement. This sort of relativity does not pose any problems for what we have learnt in this module, the novelty comes if the observer is moving close to the
+speed of light. Then the relationship between \(x\) and \(x&apos;\) is given by a different formula known as a Lorentz transform:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{0}\)</span>
+
+<!--
+
+                                                                       x − vt
+                                                                 x′ = q         .                                                                 (10.1)                              --><a id="eq:     length contraction"></a><!--
+                                                                              2
+                                                                        1 − vc2
+
+-->
+
+<p>
+
+\begin{equation}
+x&apos;=\frac {x-vt}{\sqrt {1-\frac {v^{2}}{c^{2}}}}.             \label {eq:       length contraction}
+\end{equation}
+
+</p>
+
+<p>
+More surprisingly, if the moving observer is carrying a clock, this will measure time at a different rate than a clock held by a stationary observer. This is something new and does not happen for Galilean relativity. If the clock held
+by a stationary observer shows a time \(t\), then if they look at the clock held by the moving observer it will show a time
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{1}\)</span>
+
+<!--
+
+                                                                         t − v2 x
+                                                                    t′ = q c       .                                                                       (10.2)                           --><a id="eq:     time dilation"></a><!--
+                                                                                 2
+                                                                           1 − vc2
+
+-->
+
+<p>
+
+\begin{equation}
+t&apos;=\frac {t-\frac {v}{c^{2}}x}{\sqrt {1-\frac {v^{2}}{c^{2}}}}.                   \label {eq:   time dilation}
+\end{equation}
+
+</p>
+
+<p>
+The new part of these expressions is so important that it is called the <b>Lorentz factor</b>, or sometimes the gamma factor, and is given the symbol
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{2}\)</span>
+
+<!--
+
+                                                                                                                       1
+                                                                                                              γ= q             ,                                                                                                    (10.3)
+                                                                                                                           2
+                                                                                                                     1 − vc2
+
+-->
+
+<p>
+
+\begin{equation}
+\upgamma =\frac {1}{\sqrt {1-\frac {v^{2}}{c^{2}}}},
+\end{equation}
+
+</p>
+
+<p>
+some books will also call the ratio of the speed \(v\) to the speed of light \(\upbeta =v/c\).<br />
+
+</p>
+
+<p>
+An immediate consequence of these expressions is that a stationary observer will see the moving observer shrink<sup>2</sup><a id="stm0005-notes-autopage-296"></a>, in the direction they are moving in, and will see the
+moving clock speeding up<sup>3</sup>. The second phenomena is usually phrased from the point of view of the moving observer who will see the stationary observers clock moving more slowly than their own.<br />
+
+</p>
+
+<p>
+With length contraction, we can phrase it in a different way by. The length is the difference between two positions \(x_{1}&apos;\) and \(x_{2}&apos;\), we call the length measured in the moving frame
+\(L_{0}=x_{2}&apos;-x_{1}&apos;\) and the length measured in the stationary frame \(L\).
+</p>
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+
+<!--
+
+
+
+                                                                                                       L0 = x′2 − x′1
+                                                                                                             x2 − vt    x1 − vt
+                                                                                                          =q           −q
+                                                                                                                    v2          2
+                                                                                                                1 − c2    1 − vc2
+                                                                                                           x2 − x1
+                                                                                                          =q
+                                                                                                                   2
+                                                                                                             1 − vc2
+                                                                                                          = γ L.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+L_{0}&amp;=x_{2}&apos;-x_{1}&apos;\\ &amp;=\frac {x_{2}-vt}{\sqrt {1-\frac {v^{2}}{c^{2}}}}-\frac {x_{1}-vt}{\sqrt {1-\frac {v^{2}}{c^{2}}}}\\ &amp;=\frac {x_{2}-x_{1}}{\sqrt {1-\frac
+{v^{2}}{c^{2}}}}\\ &amp;=\upgamma L.
+\end{align*}
+
+</p>
+<!--
+......   paragraph Example 9.1:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-297">Example 9.1:</span>
+<a id="stm0005-notes-autopage-297"></a>
+The Voyager spacecraft has a length of \(4\text {m}\) and is moving at \(12 260\text {m/s}\). How long does it appear to an observer on Earth?<br />
+
+</p>
+
+<p>
+We are given the length in the moving frame \(L_{0}=4\text {m}\) so we just need to compute
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+<!--
+
+                                                                                        1                   1                           1
+                                                                                γ= q             =q                     =                        = 1.000000001655042.
+                                                                                             2
+                                                                                       1 − vc2
+                                                                                                           (17260)2
+                                                                                                       1 − (3×10                 0.9999999834496
+                                                                                                                 8 )2
+
+
+
+
+-->
+
+<p>
+
+\begin{equation*}
+\upgamma =\frac {1}{\sqrt {1-\frac {v^{2}}{c^{2}}}}=\frac {1}{\sqrt {1-\frac {(17260)^{2}}{(3\times 10^{8})^{2}}}}=\frac {1}{0.9999999834496}=1.000000001655042.
+\end{equation*}
+
+</p>
+
+<p>
+We then know that \(L_{0}=L\upgamma \) or \(L=L_{0}/\upgamma \) so
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+<!--
+
+                                                                                                 L0
+                                                                                            L=        = 4 × 0.9999999834496 = 3.99999999337981m.
+                                                                                                 γ
+
+-->
+
+<p>
+
+\begin{equation*}
+L=\frac {L_{0}}{\upgamma }=4\times 0.9999999834496=3.99999999337981\text {m}.
+\end{equation*}
+
+</p>
+
+<p>
+This is a very small difference, and shows you just how fast an object has to be travelling for there to be an observable difference in the length. To find when the change in length is considerable we can compute the gamma factor for
+\(v=c/2\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+<!--
+
+                                                                                                                    1       2
+                                                                                                           γ= q          = √ = 1.1547,
+                                                                                                                    1− 1     3
+                                                                                                                             4
+
+
+-->
+
+<p>
+
+\begin{equation*}
+\upgamma =\frac {1}{\sqrt {1-\frac {1}{4}}}=\frac {2}{\sqrt {3}}=1.1547,
+\end{equation*}
+
+</p>
+
+<p>
+and for \(v=9c/10\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+<!--
+
+                                                                                                                        1             10
+                                                                                                          γ= q                     = √ = 2.29.
+                                                                                                                        81
+                                                                                                                   1 − 100             19
+
+
+-->
+
+<p>
+
+\begin{equation*}
+\upgamma =\frac {1}{\sqrt {1-\frac {81}{100}}}=\frac {10}{\sqrt {19}}=2.29.
+\end{equation*}
+
+</p>
+
+<p>
+What do these mean for the observed length of voyager from Earth:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+
+<!--
+
+
+                                                                                                                                  L0
+                                                                                                                                   4
+                                                                                                      for v = c/2       L=             = 3.46m,
+                                                                                                                                       =
+                                                                                                                                1.1547
+                                                                                                                                   γ
+                                                                                                                           L0    4
+                                                                                                 for v = 9c/10          L=    =      = 1.74m,
+                                                                                                                            γ   2.29
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+\text {for } v=c/2 \quad L&amp;=\frac {L_{0}}{\upgamma }=\frac {4}{1.1547}=3.46\text {m},\\ \text {for } v=9c/10 \quad L&amp;=\frac {L_{0}}{\upgamma }=\frac {4}{2.29}=1.74\text {m},
+\end{align*}
+so at both of these speeds we see a much more significant change in the length.<br />
+
+</p>
+
+<p>
+So far we have just been sketching out what happens when objects are moving very quickly. Another consequence of special relativity is the relationship of mass and energy through,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+<!--
+
+
+                                                                                                                            E = mc2 .                                                                                                  (10.4)
+
+-->
+
+<p>
+
+\begin{equation}
+E=mc^{2}.
+\end{equation}
+
+</p>
+
+<p>
+This is another of Einstein’s famous results, and says that every object has an intrinsic energy associated with its mass. This is a very important relationship if you are interested in nuclear energy as it is this intrinsic mass energy
+which is accessed via fission and fusion.<br />
+
+</p>
+
+<p>
+There is also general relativity which is Einstein’s theory of gravitation, but this is a much more complicated story and we will not say anything about it here.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-298"></a>
+<p>
+<sup>1</sup>&nbsp;Where here fast means close to the <b>speed of light</b> \(c=3\times 10^{8}\text {m/s}\)
+</p>
+
+<p>
+<sup>2</sup>&nbsp;This is known as <b>length contraction</b>
+</p>
+
+<p>
+<sup>3</sup>&nbsp;This is known as <b>time dilation</b>
+</p>
+
+
+</div>
+<!--
+...... section Quantum Quandaries ......
+-->
+<h4 id="autosec-299"><span class="sectionnumber">10.2&#x2003;</span>Quantum Quandaries</h4>
+<a id="stm0005-notes-autopage-299"></a>
+
+
+<p>
+Now we turn from the very fast to the very small. For an introduction to the wonderful world of quantum physics I recommend the 43rd and 44th videos from the crash course physics playlist available <a
+href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UA0ldZJdhwkoV" target="_blank" >here</a>. The book <b>Quantum Physics: A Beginner’s Guide </b> by Rae, (Rae 2005), is available in the
+library and is a good jumping off point if you want to learn more about the counter intuitive world of quantum physics.<br />
+
+</p>
+
+<p>
+Quantum physics deals with the very smallest objects. These are fundamental particles like the electron, which we met as the charge carrier responsible for electric current. In most of this module we have thought in terms of balls
+rolling down slopes, juggling balls moving along a parabola, springs pendulums oscillating backwards and forwards. You may also have seen artists impressions of atoms where they are represented as being mini solar systems with
+the electrons orbiting around a central positively charged nucleus. However, this is not really what is going on.<br />
+
+</p>
+
+<p>
+At the smallest scale, particles are waves and waves are particles!<br />
+
+</p>
+
+<p>
+You are probably asking “what does this mean?” The answer is that what you observe when you look at something depends on how you look at it.<br />
+
+</p>
+
+<p>
+The most famous example of this is what is known as the double slit experiment. If we imagine having two screens set up, one with two slits cut in it so that can pass through the holes in the first screen and then hit the second
+screen. This is shown for classical particles and waves in figs.&nbsp;<a href="STM0005_PhysicsModern-Physics.html#fig: double slit particle">10.4</a> and&nbsp;<a
+href="STM0005_PhysicsModern-Physics.html#fig: double slit waves">10.5</a> respectively. For classical particles they either pass through one slit or the other and will strike the second screen in line with the slits. This
+would result in the pattern shown in fig.&nbsp;<a href="STM0005_PhysicsModern-Physics.html#fig: double slit particle">10.4</a>.<br />
+
+</p>
+
+<figure id="autoid-61" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/Two-Slit_Experiment_Particles.png" target="_blank" ><img
+     src="figures/Two-Slit_Experiment_Particles.png"
+     style="
+     width:217pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;10.4: A picture of the double slit experiment for particles from <a href="https://commons.wikimedia.org/wiki/File:Two-Slit_Experiment_Particles.svg" target="_blank" >Wikimedia commons</a>.
+
+</div>
+
+<a id="fig:    double slit particle"></a>
+
+</div>
+
+</figure>
+
+<p>
+When a wave passes through a slit it <b>diffracts</b><sup>4</sup><a id="stm0005-notes-autopage-300"></a>. When there are two slits the wave passes through both and diffracts so we have two sets of wavefronts one
+emerging from each of the slits. These wavefronts then <b>interfere</b><sup>5</sup> with each other, and we see an interference pattern on the second screen. This means that there is an intensity peak in the middle of the
+screen, with a sequence of peaks of decreasing brightness spread out on the screen. This is shown in fig.&nbsp;<a href="STM0005_PhysicsModern-Physics.html#fig: double slit waves">10.5</a>.<br />
+
+</p>
+
+<figure id="autoid-62" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/Two-Slit_Experiment_Light.png" target="_blank" ><img
+     src="figures/Two-Slit_Experiment_Light.png"
+     style="
+     width:217pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;10.5: A picture of the double slit experiment for waves from <a href="https://commons.wikimedia.org/wiki/File:Two-Slit_Experiment_Light.svg" target="_blank" >Wikimedia commons</a>.
+
+</div>
+
+<a id="fig:    double slit waves"></a>
+
+</div>
+
+</figure>
+
+<p>
+The double slit experiment was first performed by Thomas Young in 1801 and was taken as a demonstration that light behaved like a wave, as Young observed the wave-like interference pattern. However, at the turn of the
+twentieth century both Max Planck and Albert Einstein gave theoretical evidence that light should be treated as a particle in certain circumstances. Planck did this to explain <b>black-body radiation</b>, the radiation emitted
+by a body in thermal equilibrium with its environment. While Einstein presented a solution to the <b>photoelectric effect</b>, the emission of electrons from a material when light with a specific wavelength is shone on the
+material. Both of these explanations rely on thinking of light as being made up of <b>quanta</b>, or lumps, of energy known as <b>photons</b>. This is the first evidence of what is known as <b>wave-particle duality</b>,
+the fact that some objects can behave like a wave or a particle depending how you look at them.<br />
+
+</p>
+
+<p>
+In the 1920’s the French Physicists Louis de Broglie took this a step further and proposed that objects like electrons and protons that were thought of as being particles, could behave like waves in certain circumstances. This was
+then tested by carrying out a double slit experiment for electrons, see fig.&nbsp;<a href="STM0005_PhysicsModern-Physics.html#fig: double slit electrons">10.6</a> for a schematic of this. It turns out that even if you
+slow this down so much that only one electron at a time is being emitted, you still see an interference pattern so somehow the electron is interfering with itself.<br />
+
+</p>
+
+<p>
+It is natural to ask if we can just watch one of the slits and see does the electron pass through or not. If we do this then we will either see an electron pass through or not, but now on the second screen we observe the particle like
+picture from fig.&nbsp;<a href="STM0005_PhysicsModern-Physics.html#fig: double slit particle">10.4</a>. The surprising results is that if you try to observe a particle like property of an electron, or any other sub
+atomic particle, you get a particle like answer, while if you try to observe a wave like property you get a wave like answer.<br />
+
+</p>
+
+<figure id="autoid-63" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/double_slit_electrons.png" target="_blank" ><img
+     src="figures/double_slit_electrons.png"
+     style="
+     width:217pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;10.6: A picture of the double slit experiment for electrons from <a href="https://commons.wikimedia.org/wiki/File:Double-slit.svg" target="_blank" >Wikimedia commons</a>.
+
+</div>
+
+<a id="fig:    double slit electrons"></a>
+
+</div>
+
+</figure>
+
+<p>
+If this sounds completely crazy to you then you are not alone. It is an incredibly counter intuitive observation, in the everyday world a football does not swap between being a solid ball and a wave depending on how I observe it.
+However on the quantum scale this really does happen. Discoveries like this lead the physicist Richard Feynman to say “Nobody understands quantum mechanics”, and leads on to a school of thought called “shut up and calculate”.
+This point of view is essentially that you should forget about trying to draw pictures of what is going on and trying to describe complete trajectories. Instead focus on what you can observe, and let the mathematics guide you.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-303"></a>
+<p>
+<sup>4</sup>&nbsp;This means that it bends as it passes through the aperture. Diffraction is one of the hallmark behaviour of waves.
+</p>
+
+<p>
+<sup>5</sup>&nbsp;Interference is another hallmark behaviour of waves. It means that when two waves overlap they add together so if a peak lies on top of a peak this leads to a wave with an even bigger peak, if a trough lies on
+top of a trough it leads to an even deeper trough, both called constructive interference. While if a peak lies on top of a trough they cancel out, called destructive interference..
+</p>
+
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

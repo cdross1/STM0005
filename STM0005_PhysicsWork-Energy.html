@@ -1,0 +1,2211 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Work and Energy</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-113"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Work and Energy ......
+-->
+<h3 id="autosec-114">Chapter&nbsp;<span class="sectionnumber">6&#x2003;</span>Work and Energy</h3>
+<a id="stm0005-notes-autopage-114"></a>
+<a id="stm0005-notes-autofile-6"></a>
+
+<a id="sec:   work and energy"></a>
+<!--
+...... section Forces and Work ......
+-->
+<h4 id="autosec-115"><span class="sectionnumber">6.1&#x2003;</span>Forces and Work</h4>
+<a id="stm0005-notes-autopage-115"></a>
+
+
+<p>
+In principle using the contents of the previous sections, Newton’s laws, momentum, and the kinematic equations, we can solve pretty much any problem in mechanics. However, Newton’s laws are not always easy to apply. We say
+before that working with momentum gave us one way to study objects in motion without using Newton’s laws directly. Another approach is to think in terms of <b>work</b> and <b>energy</b>.<br />
+
+</p>
+
+<p>
+Energy is another quantity that is conserved, though it can change form so the energy of a given type is not conserved as we will see when we study collisions later. We will concentrate on three types of energy:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> <b>Work</b> – the use/absorption of energy by movement.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Kinetic energy</b> – Mechanical energy or energy of motion.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Potential energy</b> – the energy that an object has due to its position.
+</p>
+</li>
+</ul>
+<!--
+......   paragraph Work:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-116">Work:</span>
+<a id="stm0005-notes-autopage-116"></a>
+Work is done on an object when a force acts on it making it move, an object can also do work if energy is transferred away from an object through the application of a force. The work depends on the force and the distance the
+object moves, as well as the path the object moves along. The greater the force, or the distance moved, the greater the work done. By this we mean that Work = Force \(\times \) distance.<br />
+
+</p>
+
+<p>
+The unit of work is the <b>Joule</b> (J) defined as the work done when a \(1\)N force moves an object a distance of \(1\)m. As an equation we have:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+
+                                                                                                                W = F s.
+
+-->
+
+<p>
+
+\begin{equation*}
+W=Fs.
+\end{equation*}
+
+</p>
+
+<p>
+However, both force and displacement are vectors so what happens if they are not in the same direction? Then we are taking the vector product of \(F\) and \(s\) so a factor of \(\cos \theta \), where \(\theta \) is the angle
+between the two vectors appears,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+
+                                                                                                              W = F s cos θ.
+
+-->
+
+<p>
+
+\begin{equation*}
+W=Fs\cos \theta .
+\end{equation*}
+
+</p>
+
+<p>
+To see this consider a yacht being acted on by the wind with a force \(F\). There is an angle \(\theta \) between the direction that the yacht moves in and the direction of the wind. This means that the force has a component
+\(F\cos \theta \) in the direction of motion, and a component \(F\sin \theta \) perpendicular to the motion. If the yacht moves a distance \(s\) then the work done is \(W=Fs\cos \theta \) as given above. What do you
+think happens is \(\theta =90^{\circ }\)?
+</p>
+
+<p>
+What we have said so far is only really true for a constant force. If the force depends on position or on time, then we need to be more careful. For a constant force, if we plot force against distance we see that the work done is the
+area under the curve, as they are both \(Fs\).<br />
+
+</p>
+
+<p>
+The relationship between the work done and the area under a force distance plot still holds true even if the force is not constant, in fact what is actually going on is that the work done is the <b>integral</b> of the force along the
+path. As integration is beyond the scope of this module we mainly work with either constant forces, or forces with particularly simple position dependence.
+</p>
+
+<figure id="autoid-23" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/SHO_lagrangian_mech.png" target="_blank" ><img
+     src="figures/SHO_lagrangian_mech.png"
+     style="
+     width:260pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;6.1: A spring with a mass on the end oscillating around equilibrium at \(x=0\).
+
+</div>
+
+</div>
+
+</figure>
+<!--
+......   paragraph Example 5.1:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-118">Example 5.1:</span>
+<a id="stm0005-notes-autopage-118"></a>
+Consider the work done to stretch a spring. The greater the force, the more the spring stretches. The force needed to stretch the spring is proportional to its extension, \(F= kx\), this is a version<sup>1</sup> of what is called
+<b>Hooke’s Law</b>. We will return to Hooke’s law in detail later in the module. The constant of proportionality \(k\) that appears in Hooke’s law is called the <b>spring constant</b> and it is a measure of how stiff, or
+difficult to stretch a spring is. If we plotted force against extension for Hooke’s law we get a straight line, and the area under the line is the area of a triangle of base \(x\) and height \(F\). Thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                                                    1      1
+                                                                                                        Wspring =     F x = kx2 .
+                                                                                                                    2      2
+
+-->
+
+<p>
+
+\begin{equation*}
+W_{\text {spring}}=\frac {1}{2}F x=\frac {1}{2}k x^{2}.
+\end{equation*}
+
+</p>
+
+<figure id="autoid-24" class="figure ">
+<div class="center">
+
+<p>
+
+<a href="figures/spring_work.png" target="_blank" ><img
+     src="figures/spring_work.png"
+     style="
+     width:173pt;
+     "
+     class="inlineimage"
+     alt="(image)"
+></a>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;6.2: A plot of applied force against extension for a spring.
+
+</div>
+
+<a id="fig:    spring extension"></a>
+
+</div>
+
+</figure>
+<!--
+......   paragraph Kinetic Energy:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-120">Kinetic Energy:</span>
+<a id="stm0005-notes-autopage-120"></a>
+Kinetic energy is the energy of an object due to its motion. The faster an object moves the more kinetic energy it has. Kinetic energy is denoted by \(K\) or \(E_{K}\) and is also measured in Joules. We will make a lot of use of it
+when understanding how objects are moving. Note that for our purposes we can think of energy as a book keeping tool in the same way as momentum, though it plays quite a fundamental roll in understanding many areas of
+physics.<br />
+
+</p>
+
+<p>
+We can derive an equation for kinetic energy by making use Newton’s second law, the formula for work, and one of the kinematic equations. Consider an object of mass \(m\) starting at rest and acted on by a force \(F\), resulting
+in it having a velocity \(v\) after a time \(t\). While accelerating the object has travelled
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                                             1            1
+                                                                                                        s=     (u + v) t = vt,
+                                                                                                             2            2
+
+-->
+
+<p>
+
+\begin{equation*}
+s=\frac {1}{2}\left (u+v\right )t=\frac {1}{2}vt,
+\end{equation*}
+
+</p>
+
+<p>
+and has an acceleration of \(a=\frac {v}{t}\). From Newton’s second law we know that the force is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                                                       mv
+                                                                                                           F = ma =       .
+                                                                                                                        t
+
+-->
+
+<p>
+
+\begin{equation*}
+F=ma=\frac {mv}{t}.
+\end{equation*}
+
+</p>
+
+<p>
+Thus the work done is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                                                      1
+                                                                                                          W = Fs =      mv 2 .
+                                                                                                                      2
+
+-->
+
+<p>
+
+\begin{equation*}
+W=Fs=\frac {1}{2}mv^{2}.
+\end{equation*}
+
+</p>
+
+<p>
+The object has gained energy from the work being done on it.
+</p>
+
+<p>
+This expression holds true more generally and we call
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                        1
+                                                                 EK =     mv 2                                                                 (6.1)                                    --><a id="eq:     kinetic energy"></a><!--
+                                                                        2
+
+-->
+
+<p>
+
+\begin{equation}
+E_{K}=\frac {1}{2}mv^{2} \label {eq:         kinetic energy}
+\end{equation}
+
+</p>
+
+<p>
+the kinetic energy.
+</p>
+<!--
+......   paragraph Potential Energy:         ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-121">Potential Energy:</span>
+<a id="stm0005-notes-autopage-121"></a>
+Another type of energy that is relevant to the study of moving objects is the <b>potential energy</b>. This is the energy that an object has due to its position. Think of an object at rest at the top of a hill. It has no kinetic
+energy, but a lot of potential energy as it could gain potential energy by rolling down the hill. Sometime we would say that the object has the potential to do work.<br />
+
+</p>
+
+<p>
+If an object of mass \(m\) is raised a vertical height \(\Delta h\) as a steady speed, the force needed to raise the object is equal and opposite to its weight \(W=mg\). Think of picking up an apple or a bag of sugar, you have to exert
+a force that balances teh weight of teh object to pick it up. The work done is then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{1}\)</span>
+
+<!--
+
+
+                                                                                                             W = F s = mg∆h.
+
+-->
+
+<p>
+
+\begin{equation*}
+W=Fs=mg\Delta h.
+\end{equation*}
+
+</p>
+
+<p>
+The object now has the potential to do work if it falls so the (gravitational) potential energy is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{1}\)</span>
+
+<!--
+
+
+                                                                  EP = mg∆h.                                                                     (6.2)                                    --><a id="eq:      potential energy"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+E_{P}=mg\Delta h.      \label {eq:     potential energy}
+\end{equation}
+
+</p>
+
+<p>
+Note that some places will use \(K\) for kinetic energy and \(U\) or \(V\) for potential energy. In this module we will try to stick with \(E_{K}\) and \(E_{P}\) but be warned that not every book uses this notation.<br />
+
+</p>
+
+<p>
+<b>Warning:</b> Energy is a scalar quantity and as such is always positive<sup>2</sup>, you may object to this saying that in \(E_{P}\) we have \(g\) and that is negative. However, when working with potential energy we are
+really working with \(\vert g\vert =9.8\text {m/s}^{2}\). The formula is almost never quoted with the modulus signs and it is usually left to the reader to understand what is going on. Here, we will try to make clear the
+situations when we are really talking about \(g\) and when we are talking about \(\vert g\vert \).<br />
+
+</p>
+
+<p>
+Energy can change form between kinetic and potential, and other forms of energy that you may meet later on. This was already suggested when we discussed how an object with potential energy at the top of a hill can lose potential
+energy, but gain kinetic energy by rolling down the hill. Consider an object of mass \(m\) that has been raised to a height \(h\), such that it has potential energy \(E_{P}=mgh\). If the object is released it will accelerate as it falls,
+and the potential energy will become kinetic energy. After falling a distance \(s\) it has kinetic energy equal to the change in kinetic energy
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                                                                               1
+                                                                                                                 mv 2 = mgh.
+                                                                                                               2
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {1}{2}mv^{2}=mg h.
+\end{equation*}
+
+</p>
+
+<p>
+Note that since \(g\) is only approximately constant <b>near</b> the surface of the Earth, if an object falls a great distance, or from a very great height, we will need to take account of the change in \(g\).<br />
+
+</p>
+
+<p>
+Note that the conversion between kinetic and potential energy will not always be perfect, if there is air resistance, or friction of some kind then energy can be lost to heat or sound, and the gain in kinetic energy will be less than the
+loss of potential energy. We think of this loss as being due to an average frictional force acting over the whole of the objects motion. This force is found by associating the difference between the potential and kinetic energy with a
+work done by the object on the air or on the track that it is moving along. Then the average frictional force is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                                                                                 W   EP − E K
+                                                                                                           F =     =          .
+                                                                                                                 s      s
+
+-->
+
+<p>
+
+\begin{equation*}
+F=\frac {W}{s}=\frac {E_{P}-E_{K}}{s}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Example 5.2:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-122">Example 5.2:</span>
+<a id="stm0005-notes-autopage-122"></a>
+Consider a fairground ride whose track descends a vertical drop of \(55\text {m}\) over a section of rails of length \(120\text {m}\). A train of mass \(2500\text {kg}\) on the track reaches a speed of \(30\text {m/s}\) at
+the bottom of the descent after being at rest at the top. Find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The potential energy lost by the train after descending.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The gain in potential energy after the train has reached the bottom.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The average frictional force on the train during the descent.
+</p>
+</li>
+</ul>
+
+<p>
+a) The loss in potential energy is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+
+                                                                                                 EP = mg∆h = 2500 × 9.8 × 55 = 1.35 × 106 J.
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{P}=mg\Delta h=2500\times 9.8\times 55=1.35\times 10^{6}\text {J}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The kinetic energy starts as \(0\text {J}\) since the train is at rest, at the bottom it is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                                                                      1       1
+                                                                                             EK =       mv 2 = × 2500 × (30)2 = 1.13 × 106 J.
+                                                                                                      2       2
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{K}=\frac {1}{2}mv^{2}=\frac {1}{2}\times 2500\times (30)^{2}=1.13\times 10^{6}\text {J}.
+\end{equation*}
+
+</p>
+
+<p>
+c) The work done by the train on the rails and on the air is the difference between \(E_{K}\) and \(E_{P}\), \(W=E_{P}-E_{K}=2.2\times 10^{5}\text {J}\), so the average frictional force is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                                                                              W   2.2 × 105
+                                                                                                        F =     =           = 1830N.
+                                                                                                              s      120
+
+-->
+
+<p>
+
+\begin{equation*}
+F=\frac {W}{s}=\frac {2.2\times 10^{5}}{120}=1830\text {N}.
+\end{equation*}
+
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-123"></a>
+<p>
+<sup>1</sup>&nbsp;For completeness note that here the force is a force acting on the spring to extend it, thus the force is pointing in the positive direction, when we return to Hooke’s law in later weeks we will be discussing the
+springs natural restoring force which always points towards equilibrium, in that case the sign in Hooke’s law will be negative.
+</p>
+
+<p>
+<sup>2</sup>&nbsp;At least in most conventions, though you may find some older books that do not follow this approach.
+</p>
+
+
+</div>
+<!--
+...... section Power and Efficiency ......
+-->
+<h4 id="autosec-124"><span class="sectionnumber">6.2&#x2003;</span>Power and Efficiency</h4>
+<a id="stm0005-notes-autopage-124"></a>
+
+
+<p>
+Energy can be transferred from one object to another in several ways. We have already seen that when an object rolls down a hill or falls down that the gravitational potential energy is transferred into kinetic energy. Energy is also
+transferred when an object does work, for example it causes a force to act on another object and transfers its energy to the other object, we will meet examples of this later when we discuss what happens to energy during a
+collision.<br />
+
+</p>
+
+<p>
+In the example that we saw earlier of potential energy swapping to kinetic energy imperfectly we said that the object lost energy to friction with the track and air resistance. This energy has not disappeared but has become heat
+energy or sound energy. Since heat is a kind of energy<sup>3</sup>, the transfer of heat between objects is another kind of energy transfer. Heat can be transferred in essentially three ways: <b>Conduction</b>,
+<b>Convection</b>, <b>Radiation</b>. In addition, electricity, sound waves, and electromagnetic radiation<sup>4</sup> will all transfer energy.<br />
+
+</p>
+
+<p>
+<b>Power</b> is the rate of transfer of energy, or the rate of change of energy. The unit of power is the Watt, with \(1\text {W}=1 \text {J}/\text {s}\). The units is named after James Watt a Scottish inventor and engineer
+who was an early pioneer of steam engines. Mathematically the relationship between power, \(P\), energy, \(E\), and time, is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                                          ∆E
+                                                                    P =      .                                                                     (6.3)                                    --><a id="eq:     PET equation"></a><!--
+                                                                          ∆t
+
+-->
+
+<p>
+
+\begin{equation}
+P=\frac {\Delta E}{\Delta t}.        \label {eq:     PET equation}
+\end{equation}
+
+</p>
+
+<p>
+As was the case with the other rates of change we have met, this formula just gives the average power. The instantaneous power is given by the derivative of the energy. The formula is often given without the deltas as shown in the
+frmula triangle in fig.&nbsp;<a href="STM0005_PhysicsWork-Energy.html#fig: PEt triangle">6.3</a>. If a force does work then the power is the work done per second or
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                                     ∆W
+                                                                                                               P =      .
+                                                                                                                     ∆t
+
+-->
+
+<p>
+
+\begin{equation*}
+P=\frac {\Delta W}{\Delta t}.
+\end{equation*}
+
+</p>
+
+<figure id="autoid-25" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-15"
+    class="lateximagesource"
+><!--
+ E
+P× t
+--><img
+     src="stm0005-notes-images\image-15.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;6.3: The formula triangle for power, change in energy, and change in time.
+
+</div>
+
+<a id="fig:    PEt triangle"></a>
+
+</div>
+
+</figure>
+<!--
+......   paragraph Example 5.3:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-128">Example 5.3:</span>
+<a id="stm0005-notes-autopage-128"></a>
+Consider a person of weight \(690\text {N}\) who climbs a slight of stairs with height \(10\text {m}\) in \(12\text {s}\). What is the power of their leg muscles?<br />
+
+</p>
+
+<p>
+The work done is:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+
+<!--
+
+
+
+                                                                                                     W = Fs
+                                                                                                        = 690 × 10 = 6900J.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+W &amp;=Fs\\ &amp;=690\times 10=6900 \text {J}.
+\end{align*}
+The power due to this work done is then
+</p>
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+
+<!--
+
+
+                                                                                                                W
+                                                                                                           P =
+                                                                                                                 t
+                                                                                                                6900
+                                                                                                              =
+                                                                                                                 12
+                                                                                                              = 575W.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+P&amp;=\frac {W}{t}\\ &amp;=\frac {6900}{12}\\ &amp;=575\text {W}.
+\end{align*}
+Thus each leg has a muscle power of \(287.5\text {W}\).<br />
+
+</p>
+
+<p>
+For an engine the output power is sometimes called the <b>motive power</b>, as it is power available to cause motion, such as a steam engine on a train where the output power of the engine is used to move the train. For a
+powered vehicle driven by a constant force \(F\) to move at a speed \(v\), the power is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                            P = F v.
+
+-->
+
+<p>
+
+\begin{equation*}
+P=Fv.
+\end{equation*}
+
+</p>
+
+<p>
+Can you see how to derive this from eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsWork-Energy.html#eq:               PET equation">6.3</a>)</span> given the relationship between work done and force?
+</p>
+<!--
+......   paragraph Example 5.4:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-129">Example 5.4:</span>
+<a id="stm0005-notes-autopage-129"></a>
+Consider an aircraft powered by engines which exert a force of \(40\text {kN}\). The aircraft is in level flight at a constant velocity of \(80\text {m/s}\). Calculate the power output of the engines at this speed.<br />
+
+</p>
+
+<p>
+First note that since we know a force and a velocity we will want to use \(P=Fv\) to compute the power. We are given that \(F=40\text {kN}=40000\text {N}\), and \(v=80\text {m/s}\), thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                P = F v = 40000 × 80 = 3.2 × 106 W.
+
+-->
+
+<p>
+
+\begin{equation*}
+P=Fv=40000\times 80 = 3.2\times 10^{6}\text {W}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Example 5.5:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-130">Example 5.5:</span>
+<a id="stm0005-notes-autopage-130"></a>
+A person of weight \(450\text {N}\) climbed \(2.5\text {m}\) up a rope in \(18\text {s}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The gain in potential energy.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The useful energy transfer per second, this is another name for the power.
+</p>
+</li>
+</ul>
+
+<p>
+a) Use \(E_{P}=mg\Delta h\) with \(mg =450\text {N}\) and \(\Delta h= 2.5\) so that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                        EP = mg∆h = 450 × 2.5 = 1125J ≃ 1.1kJ.
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{P}=mg\Delta h=450\times 2.5 =1125\text {J}\simeq 1.1\text {kJ}.
+\end{equation*}
+
+</p>
+
+<p>
+b) The useful energy transfer is the power and \(P=W/t\) so
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                      EP   1125
+                                                                                                P =      =      = 62.5W.
+                                                                                                       t    18
+
+-->
+
+<p>
+
+\begin{equation*}
+P=\frac {E_{P}}{t}=\frac {1125}{18}=62.5\text {W}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Example 5.6:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-131">Example 5.6:</span>
+<a id="stm0005-notes-autopage-131"></a>
+An electric motor operating a sliding door exerts a force of \(125\text {N}\) on the door causing it to open at a constant speed of \(0.4 \text {m/s}\). What is the output power of the motor?<br />
+
+</p>
+
+<p>
+The output power is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                      P = F v = 125 × 0.4 = 50W.
+
+-->
+
+<p>
+
+\begin{equation*}
+P=Fv=125\times 0.4 =50\text {W}.
+\end{equation*}
+
+</p>
+
+<p>
+The motor must transfer \(50\text {J}\) of energy to the door every second while it is being opened.<br />
+
+</p>
+
+<p>
+Does all the energy supplied to the motor get used to open the doors? No, friction in the motor’s bearings and electrical resistance in the wires mean that some of the electrical energy supplied to the motor is wasted. There will also
+be energy wasted if the motor makes a noise while it is working. For example, if the motor gets electrical energy at a rate of \(150\text {J/s}\) and transfers \(50\text {J/s}\) to the door then \(100\text {J/s}\) is wasted
+due to friction, resistance, and sound. The fact that not all of the energy used is useful brings us on to the concept of <b>efficiency</b>.<br />
+
+</p>
+
+<p>
+The efficiency is the ratio of the useful energy to the total energy. It is often given the symbol \(\epsilon \) and is given by the formula
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                               Useful energy
+                                                                                                       ϵ=                         .
+                                                                                                            Total energy supplied
+
+-->
+
+<p>
+
+\begin{equation*}
+\epsilon =\frac {\text {Useful energy}}{\text {Total energy supplied}}.
+\end{equation*}
+
+</p>
+<!--
+......    paragraph Example 5.7:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-132">Example 5.7:</span>
+<a id="stm0005-notes-autopage-132"></a>
+A \(500\text {W}\) electric winch raises a \(150\text {N}\) weight by \(6\text {m}\) in \(10\text {s}\). How much energy is wasted and what is the efficiency of the winch?<br />
+
+</p>
+
+<p>
+The electrical energy supplied to the winch while it is opperating is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                    E = P t = 500 × 10 = 5000J = 5kJ.
+
+-->
+
+<p>
+
+\begin{equation*}
+E=Pt=500\times 10=5000\text {J} = 5\text {kJ}.
+\end{equation*}
+
+</p>
+
+<p>
+However, the useful energy is the energy required to lift the weight, i.e. the potential energy gain of the weight which is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                 ∆EP = mg∆h = 150 × 6 = 900J = 0.9kJ.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Delta E_{P}=mg \Delta h=150\times 6=900\text {J}=0.9\text {kJ}.
+\end{equation*}
+
+</p>
+
+<p>
+The diffrence between these two is the wasted energy
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                    ∆E = E − ∆EP = 5 − 0.9 = 4.1kJ,
+
+-->
+
+<p>
+
+\begin{equation*}
+\Delta E= E-\Delta E_{P}=5-0.9=4.1\text {kJ},
+\end{equation*}
+
+</p>
+
+<p>
+the efficiency is thus
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                                   0.9
+                                                                                                              ϵ=       = 0.18.
+                                                                                                                    5
+
+-->
+
+<p>
+
+\begin{equation*}
+\epsilon =\frac {0.9}{5}=0.18.
+\end{equation*}
+
+</p>
+
+<p>
+As well as expressing the efficiency using \(\epsilon \), sometimes you will come across the percentage efficiency. This is just \(\epsilon \times 100\%\). So in the last example the efficiency is \(18\%\). We can also talk about
+efficiency whenever we have a change of energy, for example when we discussed the frictional force acting on moving objects we could also have phrased that as an efficiency.<br />
+
+</p>
+
+<p>
+A problem that people often study, particularly in material science of branches of engineering, is how to boost the efficiency when transferring energy. This is often rephrased as saying “Is it possible to stop energy being lost as heat
+or sound?”<br />
+
+</p>
+
+<p>
+Consider a petrol or diesel engine in a car. This loses a lot of energy to heat as well as to sound. We could stop the engine loosing heat to the environment by insulating it, but then the engine would heat up itself until it stops
+working. A similar example is a filament light bulb. These work by passing a current through a piece of wire, the filament, with a high resistance so that the wire will heat up and glow, creating light. In a sense the light is just a by
+product of the filament heating up. For example a filament bulb is around \(12\%\) efficient with most of the energy wasted as heat, a fluorescent lamp is around \(80\%\) efficient, and LED lights can be even better.<br />
+
+</p>
+
+<p>
+We can also think about the different sources of energy that we use to power our homes, in particular the renewable sources of energy like wind, solar, and hydro. In <b>STM0002 Group Project</b> the computer science and
+engineering students will see more about this and one of the project options is to explore different types of renewable energy generation. The important point here is that different types of energy generation will have different
+efficiencies, for example a wind turbine can be at most \(60\%\) efficient, this is known as Betz’s law and it can be fun to think about why there is this theoretical efficiency limit and what it means.<br />
+
+</p>
+
+<p>
+Since power is energy per second we can also think of the efficiency as the ratio of the usable power to the total power produced. This is particularly useful when thinking about power stations as the usable power will be the
+electrical power generated, while the total power is the energy supplied per second by the fuel, e.g. by burning coal or gas, or from the wind.
+</p>
+<!--
+......    paragraph Example 5.8:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-133">Example 5.8:</span>
+<a id="stm0005-notes-autopage-133"></a>
+Consider a power station with an overall efficiency of \(35\%\) which produces \(200\text {MW}\) of electrical power. The fuel used in the power station releases \(80\text {MJ}\) per kilogram of fuel burned. Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The energy per second supplied by the fuel,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The mass of fuel that is burned per day.
+</p>
+</li>
+</ul>
+
+<p>
+a) The energy per second supplied by the fuel is the total power, recall that \(P=E/t\). We know that the power station is \(35\%\) efficient so
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                                    200MW
+                                                                                                  0.35 =
+                                                                                                           energy supplied per second
+
+-->
+
+<p>
+
+\begin{equation*}
+0.35=\frac {200\text {MW}}{\text {energy supplied per second}}
+\end{equation*}
+
+</p>
+
+<p>
+so
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                                          200000       MJ
+                                                                                           energy supplied per second =          = 570    .
+                                                                                                                           0.35         s
+
+-->
+
+<p>
+
+\begin{equation*}
+\text {energy supplied per second}=\frac {200000}{0.35}=570\frac {\text {MJ}}{\text {s}}.
+\end{equation*}
+
+</p>
+
+<p>
+b) We get \(80\text {MJ}\) for every kilogram of fuel burned so we need to burn \(570/80=7.125\text {kg}\) every second to supply the claimed power. Thus we need to burn
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                  7.125 × 60 × 60 × 24 = 6.2 × 105 kg
+
+-->
+
+<p>
+
+\begin{equation*}
+7.125\times 60\times 60\times 24=6.2\times 10^{5}\text {kg}
+\end{equation*}
+
+</p>
+
+<p>
+of fuel every day.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-134"></a>
+<p>
+<sup>3</sup>&nbsp;The study of heat is known a <b>thermodynamics</b> and is a major area of physics. Those of you on engineering and physics degrees will learn more about thermodynamics in future modules.
+</p>
+
+<p>
+<sup>4</sup>&nbsp;like light
+</p>
+
+
+</div>
+<!--
+...... section Energy and Collisions ......
+-->
+<h4 id="autosec-135"><span class="sectionnumber">6.3&#x2003;</span>Energy and Collisions</h4>
+<a id="stm0005-notes-autopage-135"></a>
+
+
+<p>
+In the last section we analysed collisions using conservation of momentum, at the end we said that there are two types of collision:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> Elastic collisions where both momentum and kinetic energy are conserved.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> Inelastic collisions where momentum is conserved but the kinetic energy is not.
+</p>
+</li>
+</ul>
+
+<p>
+Sometimes a distinction is made between inelastic collisions where the kinetic energy decreases, just called inelastic, and where the kinetic energy increases, called <b>explosions</b>.<br />
+
+</p>
+
+<p>
+In an inelastic collision either some of the kinetic energy is transferred into another kind of energy such as heat, or a different kind of energy, such as chemical energy, is transferred into kinetic energy. If we looked at the total energy
+rather than just the kinetic energy we would see that the total energy is conserved.<br />
+
+</p>
+<!--
+......   paragraph Example 5.9:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-136">Example 5.9:</span>
+<a id="stm0005-notes-autopage-136"></a>
+A ball of mass \(m\) falls from a height \(H\) and rebounds off the floor to a height \(h\). How does the kinetic energy change during the motion?<br />
+
+</p>
+
+<p>
+The kinetic energy before the impact is the loss of potential energy when the ball falls from its original height, \(E_{P}=mgH\). While the kinetic energy after the impact will be equal to the potential energy that the ball has when it
+reaches the new height \(h\), \(E_{P}=mgh\). If the kinetic energy is conserved (ie the collision is elastic) then \(h=H\) and the ball returns to the height it started at. However, if the collision with the floor produces sound or the
+floor heats up the the final height will be less than the initial height, \(h&lt;H\) and the collision was inelastic.
+</p>
+<!--
+......    paragraph Example 5.10:           ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-137">Example 5.10:</span>
+<a id="stm0005-notes-autopage-137"></a>
+Consider a railway wagon of mass \(8000\text {kg}\) moving at \(3.0\text {m/s}\) before colliding with an initially stationary wagon of mass \(5000\text {kg}\). The two wagons separate after the collision, and the
+\(8000\text {kg}\) wagon moves at a speed of \(1\text {m/s}\) without changing its direction. Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The speed and direction of the \(5000\text {kg}\) wagon after the collision,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The change in kinetic energy of the wagons due to the collision.
+</p>
+</li>
+</ul>
+
+<p>
+a) The initial momentum is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                                                  kg m
+                                                                                               pi = 8000 × 3 + 5000 × 0 = 24000        .
+                                                                                                                                    s
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{i}=8000\times 3 +5000\times 0=24 000\frac {\text {kg m}}{\text {s}}.
+\end{equation*}
+
+</p>
+
+<p>
+Let us call the final velocity of the \(5000\text {kg}\) wagon \(v_{B}\), then the final momentum is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                            pf = 8000 × 1 + 5000 × vB = 8000 + 5000vB .
+
+-->
+
+<p>
+
+\begin{equation*}
+p_{f}=8000\times 1 +5000\times v_{B}=8000+5000v_{B}.
+\end{equation*}
+
+</p>
+
+<p>
+Conservation of momentum implies that \(p_{i}=p_{f}\) or that
+</p>
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+
+<!--
+
+
+
+                                                                                                      24000 = 8000 + 5000vB ,
+                                                                                                              24000 − 8000
+                                                                                                      ⇒ vB =
+                                                                                                                  5000
+                                                                                                              16000
+                                                                                                            =       = 3.2m/s.
+                                                                                                               5000
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+24 000&amp;=8000+5000v_{B},\\ \Rightarrow v_{B}&amp;=\frac {24000-8000}{5000}\\ &amp;=\frac {16000}{5000}=3.2\text {m/s}.
+\end{align*}
+So the \(5000\text {kg}\) wagon is moving in the same direction as the \(8000\text {kg}\) wagon but at a speed of \(3.2\text {m/s}\).<br />
+
+</p>
+
+<p>
+b) Now we repeat the same analysis but calculate the kinetic energies rather than the momentum. The inital kinetic energy is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                  1                1
+                                                                                          EKi =     × 8000 × (3)2 + × 5000 × 0 = 36000J.
+                                                                                                  2                2
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{K_{i}}=\frac {1}{2}\times 8000\times (3)^2 +\frac {1}{2}\times 5000\times 0=36000\text {J}.
+\end{equation*}
+
+</p>
+
+<p>
+After the collision the kinetic energy is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                                                                1              1
+                                                                                        EKf =     × 8000 × 12 + × 5000 × (3.2)2 = 29600J.
+                                                                                                2              2
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{K_{f}}=\frac {1}{2}\times 8000\times 1^{2}+\frac {1}{2}\times 5000\times (3.2)^{2}=29 600\text {J}.
+\end{equation*}
+
+</p>
+
+<p>
+The change in kinetic energy is then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+
+                                                                                                EKi − EKf = 36000 − 29600 = 6400J.
+
+-->
+
+<p>
+
+\begin{equation*}
+E_{K_{i}}-E_{K_{f}}=36000-29600=6400\text {J}.
+\end{equation*}
+
+</p>
+
+<p>
+Thus the total kinetic energy of the system has decreased by \(6400\text {J}\).<br />
+
+</p>
+
+<p>
+Several of the problems on the tutorial sheet will get you to revisit collisions that you have previously studied using momentum so that you can see what happens to the mechanical energy in these cases.
+</p>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

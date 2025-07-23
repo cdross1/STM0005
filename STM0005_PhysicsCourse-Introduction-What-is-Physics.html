@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Course Introduction and What is Physics</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-4"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Course Introduction and What is Physics ......
+-->
+<h3 id="autosec-5">Chapter&nbsp;<span class="sectionnumber">1&#x2003;</span>Course Introduction and What is Physics</h3>
+<a id="stm0005-notes-autopage-5"></a>
+<a id="stm0005-notes-autofile-1"></a>
+<!--
+...... section Course Overview ......
+-->
+<h4 id="autosec-6"><span class="sectionnumber">1.1&#x2003;</span>Course Overview</h4>
+<a id="stm0005-notes-autopage-6"></a>
+
+
+<p>
+These lecture notes contain the same content as was covered during the lectures for <b>STM0005 Physics</b>, I will likely be updating them during the course so please check back regularly for the latest version. In particular,
+more figures will be added as these notes are updated. Many of the figures used in the lectures are hand drawn and it takes some time to produce good quality versions of them.<br />
+
+</p>
+
+<p>
+The lecture slides for week one contained information about the organisation of the module including a rough schedule for the module, an overview of how you will be assessed, and how to contact me. I will not duplicate all of that
+here. If you have any questions during the module then you can send me an <a href="mailto:rossc@edgehill.ac.uk" target="_blank" >email</a> or come by my office during the office hour times. The recommended and
+supplementary reading for the course are included in the reading list available on the module’s virtual learning environment (VLE) page. I will occasionally cite one of the books in these notes if it is particularly relevant to look at it
+for that topic. The main reference for the course is (Breithaupt 2016a) which covers the whole of the A-level physics curriculum.<br />
+
+</p>
+
+<p>
+This module does not cover the whole of A-level physics and we will mainly use the following chapters from (Breithaupt 2016a): 6, 7, 8, 9, 10, 12, 13, 17, and 18. For more background on some of the practical skills useful for the lab
+sessions chapters 14, 15, and 16 may be useful to look at as well.
+</p>
+<!--
+...... section What is Physics ......
+-->
+<h4 id="autosec-7"><span class="sectionnumber">1.2&#x2003;</span>What is Physics</h4>
+<a id="stm0005-notes-autopage-7"></a>
+
+
+<p>
+<b>Physics</b> is the study of the natural world. It is the most basic of the sciences and underpins all of the others. It is typically pursued through constructing mathematical models of real world phenomena, using these to make
+predictions, then testing the predictions by carrying out experiments.<br />
+
+</p>
+
+<p>
+In this module we will spend time on both the theoretical and computational aspects of physics and carrying out experiments. Hopefully you will find that the simple (and sometimes dull) problems that we will study in the lectures
+and tutorials are useful for building you intuition about real life phenomena. This is partly what the practical sessions are there for.<br />
+
+</p>
+
+<p>
+In the lab sessions you will carry out the experiments outlined in the lab manual. The goal is to collect data and then compare this against the theoretical description.<br />
+
+</p>
+
+<p>
+As physics is a rational discipline, it teaches you a way to approach problems and construct arguments that will be useful to you in your subject specific modules in semester two and during the rest of your degree. In particular, you
+will learn how to unpack information from the statement of a problem and how to identify the relevant mathematical techniques needed to solve the problem.
+</p>
+<!--
+...... section Measurements and Units ......
+-->
+<h4 id="autosec-8"><span class="sectionnumber">1.3&#x2003;</span>Measurements and Units</h4>
+<a id="stm0005-notes-autopage-8"></a>
+
+
+<p>
+We said above that one aim of physics is to describe the world by constructing predictive models, then test these models via experiment. To carry out experiments, and then match our computations to experiment, we need to
+understand how to describe these measurements.<br />
+
+</p>
+
+<p>
+Measurement is a process of computing the amount of an unknown quantity using a known quantity. For example when we want to measure the length of an object we use a ruler of a known length. How do we know the length of
+the ruler? Well, when the ruler was made it was made to a standard size and compared against a standard ruler. Where does the standard come from? Organisations like the <a
+href="https://www.npl.co.uk/products-services/instruments/standard" target="_blank" >National Physical Laboratory</a> are involved in defining standards for measurements, including defining the meter. It used to
+be that the meter was defined in terms of the circumference of the Earth and there was a platinum bar kept in a vault in Paris. This was the international standard for a meter with every other country taking their standard meter
+over to compare the length and check that what they called a meter was really a meter long. Now a meter is defined in terms of the speed of light and the distance that light travels in a second. This is much easier to check against
+as you no longer have to travel, though the visits to Paris must have been nice.<br />
+
+</p>
+
+<p>
+If you want to know more about the history of measurement and where the units that we use come from then I recommend reading (Vincent 2022).
+</p>
+
+<p>
+There are standards like this for all of the physical quantities that we want to measure: length, mass, charge, and all the others.<br />
+
+</p>
+
+<p>
+This reference standard tells us the physical units that we will use, for length this is the meter or m, we then get another part of the measurement which is the number of things with the size of the standard unit that we need to make
+the object we are measuring. For example. if we measure a table to be 2m long it means that we need two standard meters next to each other to get something as long as the table. The two parts of the measurement are also called:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> the magnitude or numerical value, in this case 2,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> and the reference standard or unit of measurement, in this case the meter.
+</p>
+</li>
+</ul>
+
+<p>
+It is important to know that in physics, if you quote a measured value and do not include the units of measurement then the measurement is <b>meaningless</b>. This is because anyone that you tell this measurement to will not
+know what the appropriate units are. For example if you quoted the length of a table to be 2. How do we know whether this means 2 m, 2 cm, 2 yd, or if you have created your own unit of measurement<sup>1</sup>. In this
+module you need to always include the correct units when providing numerical answers to questions.<br />
+
+</p>
+
+<p>
+Importantly there are different types of units. Units like the meter for length, the second for time, the kilogram for mass, etc, are called <b>fundamental units</b> as they are defined independently of other quantities. There are
+also <b>derived units</b>, like the Joule for energy, the Newton for force, and many others. Derived units are expressed in terms of fundamental units, for example a force is a mass times an acceleration (See Newton’s second law
+in Week 4) so the Newton is equal to kilograms meters per second squared. In symbols this is expressed as \(\text {N}=\frac {\text {Kg m}}{\text {s}^{2}}\).<br />
+
+</p>
+
+<p>
+There are also <b>supplementary units</b> which are measurements of angles like radians (rad) and steradians (Sr.).<br />
+
+</p>
+
+<p>
+The system of units used in this module, and almost everywhere, is known as the <b>International System of Units</b> or SI. It has base units including seconds, meters, and kilograms. There are other systems of units such as
+cgs, where cm, grams, and seconds are used as the base units.<br />
+
+</p>
+
+<p>
+When measuring length we are also familiar with using different units depending on the scale of the quantity. For example small objects may be measured in cm while large objects would be measured in m or km. The prefix has an
+important roll as it tells us the power of ten that is in front of the unit. Everyone is likely to know that there are 100 centimetres in 1 metre and 1000 metres in a kilometre. In terms of symbols we would write this as:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{1.}{0}\)</span>
+
+
+<!--
+
+
+
+                                                                                                      100cm = 1 m,
+                                                                                                     1000m = 1 × 103 m = 1km,
+                                                                                                        1cm = 0.01m = 1 × 10−2 m.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+100 \text {cm} &amp;=1 \text { m},\\ 1000 \text {m} &amp;= 1\times 10^{3} \text {m} = 1 \text {km},\\ 1 \text {cm} &amp;= 0.01 \text {m} = 1\times 10^{-2} \text {m}.
+\end{align*}
+
+</p>
+
+<p>
+This is what the k in kilograms stands for, 1 kg = 1000 g. There are many more prefixes for orders of magnitude, they are summarised in Table table&nbsp;<a
+href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#table:1">1.1</a>.
+</p>
+
+<figure id="autoid-1" class="table ">
+<div class="center">
+
+
+<div class="figurecaption">
+Table&nbsp;1.1: The powers of ten along with their names and the symbol used as a prefix. The usual rule of thumb is positive powers of ten have capital letter prefixes while negative powers of ten have lower case prefixes. the use
+of k for kilo is the only exception to this pattern.
+
+</div>
+
+<a id="table:1"></a>
+<table>
+
+<tr style="display:none"><th>.</th></tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black"><b>Power of Ten</b></td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black"><b>Name</b></td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black"><b>Symbol</b></td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{15}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">Peta</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">P</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{12}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">Tera</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">T</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{9}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">Giga</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">G</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{6}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">Mega</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">M</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{3}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">Kilo</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">k</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{-2}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">centi</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">c</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{-3}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">milli</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">m</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{-6}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">micro</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">\(\mu \)</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{-9}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">Nano</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">\(\eta \) or n</td>
+</tr>
+
+<tr class="hline">
+<td class="tdc tvertbarl tvertbarr" style="border-left: 1px solid black; border-right:                  1px solid black">\(10^{-12}\)</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">pico</td>
+<td class="tdc tvertbarr" style="border-right: 1px solid black">p</td>
+</tr>
+
+<tr class="hline" aria-hidden="true">
+<td class="tdc"></td>
+<td class="tdc"></td>
+<td class="tdc"></td>
+</tr>
+</table>
+
+</div>
+
+</figure>
+
+<p>
+Recall that sometimes \(10^{\text {number}}\) is called <b>Scientific notation</b>. The superscript is called the <b>index</b> or <b>exponent</b>. It is important to remember how to work with indices mathematically
+(see the first tutorial sheet for questions about this). The most important rules to remember are that:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{0}\)</span>
+
+<!--
+
+                                                                                                                          1
+                                                                                                      a0 = 1,     a−b =      .
+                                                                                                                          ab
+
+-->
+
+<p>
+
+\begin{equation*}
+a^{0}=1, \qquad a^{-b}=\frac {1}{a^{b}}.
+\end{equation*}
+
+</p>
+
+<p>
+These say that any number raised to the power of zero is one, and a number raised to a negative power is the same as one over the same number raised to the positive power.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-11"></a>
+<p>
+<sup>1</sup>&nbsp;This may sound ridiculous but an MIT student called Oliver Smoot did just this when measuring the length of a bridge in Boston. See <a href="https://en.wikipedia.org/wiki/Smoot" target="_blank"
+>here</a> for the story.
+</p>
+
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>

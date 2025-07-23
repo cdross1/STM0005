@@ -1,0 +1,6 @@
+\CustomizeMathJax{\newcommand{\LWRsubmultirow}[2][]{#2}}
+\CustomizeMathJax{\newcommand{\LWRmultirow}[2][]{\LWRsubmultirow}}
+\CustomizeMathJax{\newcommand{\multirow}[2][]{\LWRmultirow}}
+\CustomizeMathJax{\newcommand{\mrowcell}{}}
+\CustomizeMathJax{\newcommand{\mcolrowcell}{}}
+\CustomizeMathJax{\newcommand{\STneed}[1]{}}

@@ -1,0 +1,3391 @@
+
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+<meta charset="UTF-8" />
+<meta name="author" content="Calum Ross" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="description" content="Lecture notes for STM0005 Physics." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STM0005 Physics: Lecture Notes — Electric Circuits</title>
+<link rel="stylesheet" type="text/css" href="lwarp.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+    subequations: "0",
+    section: "",
+    loader: {
+        load: ['[tex]/tagformat', '[tex]/textmacros'],
+    },
+    startup: {
+        ready() {
+            //      These would be replaced by import commands if you wanted to make
+            //      a proper extension.
+            const Configuration = MathJax._.input.tex.Configuration.Configuration;
+            const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+            const Macro = MathJax._.input.tex.Symbol.Macro;
+            const TexError = MathJax._.input.tex.TexError.default;
+            const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+            const expandable = MathJax._.util.Options.expandable;
+
+
+            //      Insert the replacement string into the TeX string, and check
+            //      that there haven't been too many maxro substitutions (prevents
+            //      infinite loops).
+            const useArgument = (parser, text) => {
+                parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+                parser.i = 0;
+                if (++parser.macroCount > parser.configuration.options.maxMacros) {
+                    throw new TexError('MaxMacroSub1',
+                    'MathJax maximum macro substitution count exceeded; ' +
+                    'is there a recursive macro call?');
+                }
+            }
+
+
+            //      Create the command map for:
+            //          \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+            new CommandMap('Lwarp-macros', {
+                ifstar: 'IfstarFunction',
+                ifnextchar: 'IfnextcharFunction',
+                ifblank: 'IfblankFunction',
+                ifstrequal: 'IfstrequalFunction',
+                gsubstitute: 'GsubstituteFunction',
+                seteqnumber: 'SeteqnumberFunction'
+            }, {
+                //      This function implements an ifstar macro.
+                IfstarFunction(parser, name) {
+                    const resultstar = parser.GetArgument(name);
+                    const resultnostar = parser.GetArgument(name);
+                    const star = parser.GetStar();                      // true if there is a *
+                    useArgument(parser, star ? resultstar : resultnostar);
+                },
+
+
+                //      This function implements an ifnextchar macro.
+                IfnextcharFunction(parser, name) {
+                    let whichchar = parser.GetArgument(name);
+                    if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+                        // $ syntax highlighting
+                        whichchar = String.fromCodePoint(parseInt(whichchar));
+                    }
+                    const resultnextchar = parser.GetArgument(name);
+                    const resultnotnextchar = parser.GetArgument(name);
+                    const gotchar = (parser.GetNext() === whichchar);
+                    useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+                },
+
+
+                // This function implements an ifblank macro.
+                IfblankFunction(parser, name) {
+                    const blankarg = parser.GetArgument(name);
+                    const resultblank = parser.GetArgument(name);
+                    const resultnotblank = parser.GetArgument(name);
+                    const isblank = (blankarg.trim() == "");
+                    useArgument(parser, isblank ? resultblank : resultnotblank);
+                },
+
+
+                // This function implements an ifstrequal macro.
+                IfstrequalFunction(parser, name) {
+                    const strequalfirst = parser.GetArgument(name);
+                    const strequalsecond = parser.GetArgument(name);
+                    const resultequal = parser.GetArgument(name);
+                    const resultnotequal = parser.GetArgument(name);
+                    const isequal = (strequalfirst == strequalsecond);
+                    useArgument(parser, isequal ? resultequal : resultnotequal);
+                },
+
+
+                // This function implements a gsub macro.
+                GsubstituteFunction(parser, name) {
+                    const gsubfirst = parser.GetArgument(name);
+                    const gsubsecond = parser.GetArgument(name);
+                    const gsubthird = parser.GetArgument(name);
+                    let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+                    useArgument(parser, gsubresult);
+                },
+
+
+                //      This function modifies the equation numbers.
+                SeteqnumberFunction(parser, name) {
+                        //   Get the macro parameters
+                        const star = parser.GetStar();                    // true if there is a *
+                        const optBrackets = parser.GetBrackets(name);     // contents of optional brackets
+                        const newsubequations = parser.GetArgument(name);    // the subequations argument
+                        const neweqsection = parser.GetArgument(name);    // the eq section argument
+                        const neweqnumber = parser.GetArgument(name);     // the eq number argument
+                        MathJax.config.subequations=newsubequations ;     // a string with boolean meaning
+                        MathJax.config.section=neweqsection ;             // a string with numeric meaning
+                        parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+                }
+
+
+            });
+
+
+            //      Create the Lwarp-macros package
+            Configuration.create('Lwarp-macros', {
+                handler: {macro: ['Lwarp-macros']}
+            });
+
+
+            MathJax.startup.defaultReady();
+
+
+            // For forward references:
+            MathJax.startup.input[0].preFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        MathJax.config.subequations = math.inputData.recompile.subequations;
+                        MathJax.config.section = math.inputData.recompile.section;
+                }
+            });
+            MathJax.startup.input[0].postFilters.add(({math}) => {
+                if (math.inputData.recompile){
+                        math.inputData.recompile.subequations = MathJax.config.subequations;
+                        math.inputData.recompile.section = MathJax.config.section;
+                }
+            });
+
+
+                // For \left, \right with unicode-math:
+                const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+                const {Symbol} = MathJax._.input.tex.Symbol;
+                const {MapHandler} = MathJax._.input.tex.MapHandler;
+                const delimiter = MapHandler.getMap('delimiter');
+                delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+                delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+                delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+                delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+                delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+                delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+                delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+                delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+                delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+                delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+                delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+                delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+                delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+                delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+                delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+                delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+                delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+                delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+                delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+                delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+                delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+                delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+                delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+                delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+                delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+                delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+                delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+                delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+                delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+                delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+                delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+                delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+                delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+                delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+                delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+                delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+                delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+                delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+                delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+        }        // ready
+    },          // startup
+
+
+    tex: {
+        packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+        tags: "ams",
+                tagformat: {
+                        number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                 return(MathJax.config.section + n);
+                             else
+                                 return(MathJax.config.section + String.fromCharCode(96+n));
+                        },
+                },
+    }
+}
+</script>
+
+
+<script
+        id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="stm0005-notes-autopage-192"></a>
+<nav class="topnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+
+<div class="bodyandsidetoc">
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">STM0005 Physics: Lecture Notes</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-5" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Course Introduction and What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-6" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Course Overview</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-7" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;What is Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsCourse-Introduction-What-is-Physics.html#autosec-8" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Measurements and Units</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-13" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Fermi Problems and Approximations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFermi-Problems-Approximations.html#autosec-18" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;The Scientific Method</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-27" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Motion in One Dimension and SUVAT</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-28" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Mechanics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-35" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Motion in 1D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-One-Dimension-SUVAT.html#autosec-53" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Kinematic Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-57" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Freefall and Projectile Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-58" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Freefall</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-62" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Vectors</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFreefall-Projectile-Motion.html#autosec-75" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Motion in 2D</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-84" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Forces and Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-85" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Force and Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-96" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Newton’s Laws</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-104" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Momentum and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsForces-Momentum.html#autosec-109" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Impact and Conservation of Momentum</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-114" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Work and Energy</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-115" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Forces and Work</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-124" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Power and Efficiency</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsWork-Energy.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Energy and Collisions</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-139" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Motion in a Circle</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-140" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Radians and Degrees</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-147" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Circular Motion</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Centripetal forces</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMotion-in-Circle.html#autosec-157" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Circular motion in action</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-165" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Oscillations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-166" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;SHM and Sine Waves</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-181" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Springs and Pendulums</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsOscillations.html#autosec-190" class="tocsection" >
+<span class="sectionnumber">8.3</span>&#x2003;Damping, Forcing, and Resonance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-193" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Electric Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-194" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Voltage, Current, and Resistance</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-218" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Series and Parallel Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-276" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;AC Circuits</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsElectric-Circuits.html#autosec-285" class="tocsection" >
+<span class="sectionnumber">9.4</span>&#x2003;Circuit Component Symbols</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-290" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Modern Physics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-291" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Rapid Relativity</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsModern-Physics.html#autosec-299" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Quantum Quandaries</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-305" class="tocchapter" >
+<span class="sectionnumber">11</span>&#x2003;Mathematical Basics</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-306" class="tocsection" >
+<span class="sectionnumber">11.1</span>&#x2003;Background and References</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-307" class="tocsection" >
+<span class="sectionnumber">11.2</span>&#x2003;Trigonometry Primer</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsMathematical-Basics.html#autosec-311" class="tocsection" >
+<span class="sectionnumber">11.3</span>&#x2003;Rearranging Equations</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-313" class="tocchapter" >
+<span class="sectionnumber">12</span>&#x2003;Further Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-314" class="tocsection" >
+<span class="sectionnumber">12.1</span>&#x2003;What is Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-315" class="tocsection" >
+<span class="sectionnumber">12.2</span>&#x2003;Kinematics in 1D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-316" class="tocsection" >
+<span class="sectionnumber">12.3</span>&#x2003;Kinematics in 2D Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-317" class="tocsection" >
+<span class="sectionnumber">12.4</span>&#x2003;Forces and Freebody Diagrams Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-318" class="tocsection" >
+<span class="sectionnumber">12.5</span>&#x2003;Energy Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-322" class="tocsection" >
+<span class="sectionnumber">12.6</span>&#x2003;Circular Motion and Oscillations Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-323" class="tocsection" >
+<span class="sectionnumber">12.7</span>&#x2003;Electric Circuits Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-324" class="tocsection" >
+<span class="sectionnumber">12.8</span>&#x2003;Modern Physics Extra Reading</a>
+</p>
+
+
+<p>
+<a href="STM0005_PhysicsFurther-Reading.html#autosec-325" class="tocchapter" >
+Bibliography</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>STM0005 Physics: Lecture Notes</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+    style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\require {upgreek}\)
+
+\(\require {cancel}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\def \ud {\mathrm {d}}\)
+
+\(\def \ui {\mathrm {i}}\)
+
+\(\def \uj {\mathrm {j}}\)
+
+\(\def \uh {\mathrm {h}}\)
+
+\(\newcommand {\R }{\mathbb {R}}\)
+
+\(\newcommand {\N }{\mathbb {N}}\)
+
+\(\newcommand {\C }{\mathbb {C}}\)
+
+\(\newcommand {\Z }{\mathbb {Z}}\)
+
+\(\newcommand {\CP }{\mathbb {C}P}\)
+
+\(\newcommand {\RP }{\mathbb {R}P}\)
+
+\(\def \bk {\vec {k}}\)
+
+\(\def \bm {\vec {m}}\)
+
+\(\def \bn {\vec {n}}\)
+
+\(\def \be {\vec {e}}\)
+
+\(\def \bE {\vec {E}}\)
+
+\(\def \bx {\vec {x}}\)
+
+\(\def \uL {\mathrm {L}}\)
+
+\(\def \uU {\mathrm {U}}\)
+
+\(\def \uW {\mathrm {W}}\)
+
+\(\def \uE {\mathrm {E}}\)
+
+\(\def \uT {\mathrm {T}}\)
+
+\(\def \uV {\mathrm {V}}\)
+
+\(\def \uM {\mathrm {M}}\)
+
+\(\def \uH {\mathrm {H}}\)
+
+\(\DeclareMathOperator {\sech }{sech}\)
+
+\(\DeclareMathOperator {\csch }{csch}\)
+
+\(\DeclareMathOperator {\arcsec }{arcsec}\)
+
+\(\DeclareMathOperator {\arccot }{arcCot}\)
+
+\(\DeclareMathOperator {\arccsc }{arcCsc}\)
+
+\(\DeclareMathOperator {\arccosh }{arcCosh}\)
+
+\(\DeclareMathOperator {\arcsinh }{arcsinh}\)
+
+\(\DeclareMathOperator {\arctanh }{arctanh}\)
+
+\(\DeclareMathOperator {\arcsech }{arcsech}\)
+
+\(\DeclareMathOperator {\arccsch }{arcCsch}\)
+
+\(\DeclareMathOperator {\arccoth }{arcCoth}\)
+
+\(\def \re {\textup {Re}}\)
+
+\(\def \im {\textup {Im}}\)
+
+\(\newcommand {\up }{\uppi }\)
+
+\(\newcommand {\ut }{\uptheta }\)
+
+\(\newcommand {\uw }{\upomega }\)
+
+\(\newcommand {\uph }{\upphi }\)
+
+\(\newcommand {\uvph }{\upvarphi }\)
+
+</div>
+
+<!--
+...... chapter Electric Circuits ......
+-->
+<h3 id="autosec-193">Chapter&nbsp;<span class="sectionnumber">9&#x2003;</span>Electric Circuits</h3>
+<a id="stm0005-notes-autopage-193"></a>
+<a id="stm0005-notes-autofile-9"></a>
+
+<p>
+The penultimate section of this module changes tack and explores the basic physics of electric circuits and their components. <span
+     class="textcolor"
+     style="color:#FF0000"
+>This section involves lots of pictures some of which will be added in later, initially it may be hard to read parts of this section and you should use the handwritten lecture notes to see the relevant figures.</span>
+</p>
+<!--
+...... section Voltage, Current, and Resistance ......
+-->
+<h4 id="autosec-194"><span class="sectionnumber">9.1&#x2003;</span>Voltage, Current, and Resistance</h4>
+<a id="stm0005-notes-autopage-194"></a>
+<!--
+......   paragraph Current:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-195">Current:</span>
+<a id="stm0005-notes-autopage-195"></a>
+Electricity is the flow of charge around a circuit, this is known as an <b>electrical current</b>. Usually we are thinking of a flow of electrons<sup>1</sup>, but these could also be positively charged protons or charged ions. We
+call the particles flowing round the circuit <b>charge carriers</b>.<br />
+
+</p>
+
+<p>
+By convention we say that a <b>current</b> flows from a positive charge to a negative charge<sup>2</sup>, even if the charge carriers are travelling in the opposite direction. This means that in an electrical circuit the current is
+in the opposite direction to the flow of electrons.<br />
+
+</p>
+
+<p>
+If we look at a battery, which is often called a <b>cell</b> in electronics, the two ends of the battery are marked with a \(+\) and a \(-\), we call these ends terminals and when we connect wires to the battery we can think of
+electrons as flowing from the \(-\) terminal through the wire, and anything else that is connected to it, and then going back into the \(+\) terminal. A current will only flow if the circuit is closed, if there are any breaks then a
+current will not flow.<br />
+
+</p>
+
+<p>
+Current is give the symbol \(I\) and is measured in Amperes, often shortened to Amps<sup>3</sup>, with the symbol \(\text {A}\).<br />
+
+</p>
+
+<p>
+There are two types of circuit that we care about in this module:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> <b>Direct Current:</b> This is where a cell produces a constant current which points in the same direction, this is the case where our cartoon picture of a flow of electrons makes sense.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Alternating Current:</b> The voltage and current in a circuit are periodic and change direction in time. In this case the picture is more like the electrons in the wires are oscillating
+backwards and forwards. We will study AC circuits at the end of this section where we will make use of a lot of the ideas about periodicity and circular motion that we met earlier in the module.
+</p>
+</li>
+</ul>
+
+<p>
+We can formalise some of the concepts that were introduced above. <b>Charge</b><sup>4</sup>, given the symbol \(Q\), is a property of an object which determines how the object responds to an electromagnetic field. Charge is
+measured in units called Coulombs<sup>5</sup> and given the symbol \(\text {C}\). We said above that a current is a flow of charge carriers and this leads us to relate Coulombs to Amps through \(1\text {C}=1\text {A}s\)
+ie one coulomb is one Amp in one second. Alternatively we can write this as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{0}\)</span>
+
+<!--
+
+                                                                     ∆Q
+                                                                I=      ,                                                                 (9.1)                                        --><a id="eq:     current definition"></a><!--
+                                                                     ∆t
+
+-->
+
+<p>
+
+\begin{equation}
+I=\frac {\Delta Q}{\Delta t}, \label {eq:           current definition}
+\end{equation}
+
+</p>
+
+<p>
+or in words, current is the rate of change of charge.<br />
+
+</p>
+
+<p>
+An electron has a tiny charge of \(Q=1.6\time 10^{-19}\text {C}\), so a current of \(1\text {A}\) is due to \(6.25\times 10^{18}\) electrons passing along the wire per second. Note that we have not put a minus sign on the
+charge of an electron, in many places you will see it quoted as \(q_{e}=-1.6\time 10^{-19}\text {C}\), but we are not that concerned with what the charge carriers are in this module so have quoted the charge without a sign in
+this case.<br />
+
+</p>
+
+<p>
+In terms of how they respond to electrical currents physical materials essentially come in three types:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> <b>Conductors:</b> These have free charge carriers and allow a current to flow through them. The wire used to connect circuit components in the lab is an example of a conductor.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Insulators:</b> These do not support conduction of electricity. Think of materials like rubber, wood, or plastic.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> <b>Semiconductors:</b> These are a halfway house where the conduction properties depend on what we do to the material, for example they can depend on the temperature with certain
+materials being insulators at low temperatures and becoming conductors as they heat up. The physics of semiconductors is complicated, but they are integral to many modern technologies.
+</p>
+</li>
+</ul>
+
+<p>
+The important points to remember are that a current delivers energy around the circuit, and the cell or battery has the potential to transfer its chemical energy to the kinetic energy of the charge carriers.
+</p>
+<!--
+......    paragraph Example 8.1:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-196">Example 8.1:</span>
+<a id="stm0005-notes-autopage-196"></a>
+What is the current if \(10\text {C}\) of charge passes along a wire in \(10\text {s}\)?<br />
+
+</p>
+
+<p>
+Use \(I=\frac {Q}{t}\) and substitute in the numbers given in the question:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{1}\)</span>
+
+<!--
+
+                                                                                                                      10
+                                                                                                                 I=      = 1A.
+                                                                                                                      10
+
+-->
+
+<p>
+
+\begin{equation*}
+I=\frac {10}{10}=1\text {A}.
+\end{equation*}
+
+</p>
+
+<p>
+A very useful analogy to have in mind when thinking about electric circuits is of water flowing through pipes. The flow of water is like the flow of charge carriers and the rate that water flows at is the current. We can then ask what
+cells or batteries would be in this analogy? The answer is that these are like the water starting off at the top of a hill where it has potential energy, and as it flows through the circuit this potential energy is converted into the kinetic
+energy of the charge carriers. Then when charge carriers pass through a circuit component this is like a water fall where the water loses potential energy as it falls.<br />
+
+</p>
+<!--
+......   paragraph Voltage:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-197">Voltage:</span>
+<a id="stm0005-notes-autopage-197"></a>
+More formally, each charge carrier does work when it passes through a component. This work done is equal to a loss of energy of the charge carriers. Since in our analogy this would be a loss of potential energy as the water falls, we
+refer to the drop in energy across a component as the <b>potential difference</b>.
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{1}\)</span>
+
+<!--
+
+
+                                                                                     Work done per charge = Potential Difference (pd) = Voltage.
+
+-->
+
+<p>
+
+\begin{equation*}
+\text {Work done per charge} = \text {Potential Difference (pd)} = \text {Voltage}.
+\end{equation*}
+
+</p>
+
+<p>
+The terms potential difference and voltage are used essentially interchangeably and both are measured in units of Volts, \(\text {V}\), with \(1\text {V}=1\text {J/C}\).
+</p>
+<!--
+......   paragraph Example 8.2:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-198">Example 8.2:</span>
+<a id="stm0005-notes-autopage-198"></a>
+If \(30\text {J}\) of work is done when \(5\text {C}\) of charge passes through a circuit component, find the voltage.<br />
+
+</p>
+
+<p>
+We are told both the charge and the work done so can use
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{1}\)</span>
+
+<!--
+
+                                                                                                                 W   30
+                                                                                                           V =     =    = 6V.
+                                                                                                                 Q   5
+
+-->
+
+<p>
+
+\begin{equation*}
+V=\frac {W}{Q}=\frac {30}{5}=6\text {V}.
+\end{equation*}
+
+</p>
+
+<p>
+The voltage supplied by a cell or battery is often called the <b>electromotive force</b> or EMF and is given the symbol \(\mathcal {E}\). We saw above that voltage was a measure of the energy per charge, this means that the
+product of voltage and charge is a measure of energy. In other words
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{1}\)</span>
+
+<!--
+
+
+                                                                                                      Electrical Energy = E = EQ,                                                                                                     (9.2)
+
+-->
+
+<p>
+
+\begin{equation}
+\text {Electrical Energy}=E=\mathcal {E}Q,
+\end{equation}
+
+</p>
+
+<p>
+where here electrical energy means the energy supplied to the circuit by the cell.<br />
+
+</p>
+
+<p>
+In our water analogy, the electrical energy is like the initial potential energy determined by the height that the water starts of at. This energy will decrease every time we pass through a circuit component as that is analogous to the
+water going down a drop and turning some of its potential energy into kinetic energy, heat energy, or sound.<br />
+
+</p>
+
+<p>
+Charge carriers lose energy when they pass through circuit components like bulbs as their energy is used to make the component work, ie light up in the case of a bulb. However, they will also lose energy as they pass through the
+wires in a circuit, since the cause the wire to heat up slightly. This is known as <b>resistance</b>, and we normally ignore the resistance of the wires in a circuit as it is so much smaller than the resistance of the circuit
+components. In the water analogy, the resistance is like the width of the pipe. If a pipe narrows this slows down the flow of water and reduces its kinetic energy.<br />
+
+</p>
+
+<p>
+Certain circuit components like resistance heaters and filament bulbs have high resistances. In fact a filament bulb is more of a heater than a light, it only produces light as a by-product of the filament heating up.<br />
+
+</p>
+
+<p>
+Combining all of the ideas we have seen so far, consider a circuit component with a potential difference \(V\) across it and a current \(I\) passing through it for a time \(t\) We can then compute the charge that flows through the
+component in that times \(Q=It\) and the work done by the charges is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{2}\)</span>
+
+<!--
+
+
+                                                                                                             W = QV = ItV,
+
+-->
+
+<p>
+
+\begin{equation*}
+W=QV=ItV,
+\end{equation*}
+
+</p>
+
+<p>
+but we know that Power is work divided by time, so we get a measure of electrical power from
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{2}\)</span>
+
+<!--
+
+                                                                                                                    W
+                                                                                                              P =     = IV.
+                                                                                                                    t
+
+-->
+
+<p>
+
+\begin{equation*}
+P=\frac {W}{t}=IV.
+\end{equation*}
+
+</p>
+
+<p>
+This is another equation you can use a formula triangle to help you remember, see fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: PIV triangle">9.1</a>. When you buy a bulb in a shop the power
+rating corresponds to the electrical power that needs to be supplied for the bulb to illuminate. As in the case of mechanical power we use Watts, \(\text {W}\), as the unit of power.
+</p>
+
+<figure id="autoid-35" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-24"
+    class="lateximagesource"
+><!--
+  P
+I ×V
+--><img
+     src="stm0005-notes-images\image-24.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.1: The formula triangle for power, voltage, and current.
+
+</div>
+
+<a id="fig:    PIV triangle"></a>
+
+</div>
+
+</figure>
+<!--
+......   paragraph Example 8.3:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-202">Example 8.3:</span>
+<a id="stm0005-notes-autopage-202"></a>
+A \(6\text {V}\), \(12\text {W}\) bulb is connected to a \(6\text {V}\) battery. Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The current through the bulb,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The energy transferred to the bulb in \(1800\text {s}\).
+</p>
+</li>
+</ul>
+
+<p>
+Note that when we quote a voltage associated with a circuit component we mean that this is the potential difference needed for the component to work.<br />
+
+</p>
+
+<p>
+a) Use \(P=IV\) and rearrange it to give
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{2}\)</span>
+
+<!--
+
+                                                                                                           P   12
+                                                                                                      I=     =    = 2A.
+                                                                                                           V   6
+
+-->
+
+<p>
+
+\begin{equation*}
+I=\frac {P}{V}=\frac {12}{6}=2\text {A}.
+\end{equation*}
+
+</p>
+
+<p>
+b) We know that \(E=Pt\) so can substitute in \(P\) and \(t\) to calculate
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{2}\)</span>
+
+<!--
+
+
+                                                                                             E = P t = 12 × 1800 = 21600J ≃ 22kJ.
+
+-->
+
+<p>
+
+\begin{equation*}
+E=Pt=12\times 1800=21600\text {J}\simeq 22\text {kJ}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Resistance:       ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-203">Resistance:</span>
+<a id="stm0005-notes-autopage-203"></a>
+The resistance is a measure of how difficult it is to make a current flow through a circuit component. At a microscopic level we can think of it as being caused by collisions between the charge carriers. It is given as the ration of the
+voltage across a component to the current passing through it and we give it the symbol \(R\). The unit of resistance is the Ohm<sup>6</sup> \(\Omega \).<br />
+
+</p>
+
+<p>
+This relationship between voltage, current, and resistance is known as Ohm’s law and is not true for every material, in fact we call materials where Ohm’s law holds Ohmic materials. Unless explicitly stated, in this module we are
+assuming that all materials are Ohmic. As in the case of Hooke’s law, Ohm’s law describes how a material behaves under certain conditions, if we put too big a current or too high a voltage through a material we can find that
+Ohm’s law will break down above a certain point. As an equation Ohm’s law is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{2}\)</span>
+
+<!--
+
+
+                                                                       V = IR.                                                                         (9.3)                                       --><a id="eq:     Ohms law"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+V=IR. \label {eq:      Ohms law}
+\end{equation}
+
+</p>
+
+<p>
+The formula triangle in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:              Ohms law">9.2</a> can help you remember how to rearrange Ohm’s law. This relationship shows us how to define the Ohm as a
+unit with \(1\Omega =1\text {V/A}\).
+</p>
+
+<figure id="autoid-36" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-25"
+    class="lateximagesource"
+><!--
+  V
+I ×R
+--><img
+     src="stm0005-notes-images\image-25.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.2: The formula triangle for Ohm’s law.
+
+</div>
+
+<a id="fig:   Ohms law"></a>
+
+</div>
+
+</figure>
+
+<p>
+One of the lab experiments involves you testing a circuit component called a resistor and checking that Ohm’s law is satisfied for this component. A consequence of eq.&nbsp;<span class="textup">(<a
+href="STM0005_PhysicsElectric-Circuits.html#eq: Ohms law">9.3</a>)</span> is that if we plot voltage against current, for a material where Ohm’s law is valid, we will get a straight line graph whose gradient is the
+resistance.
+</p>
+<!--
+......   paragraph Example 8.4:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-207">Example 8.4:</span>
+<a id="stm0005-notes-autopage-207"></a>
+The current through a circuit component is \(2\text {mA}\) when the potential difference is \(12\text {V}\). Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> Its resistance,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The voltage across the component if the current is \(50\mu \text {A}\).
+</p>
+</li>
+</ul>
+
+<p>
+a) Use Ohm’s law to write \(R=V/I\) and substitute in the numbers that we are given:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+                                                                                                         V     12
+                                                                                                    R=     =        = 6000Ω = 6kΩ.
+                                                                                                         I   0.0002
+
+-->
+
+<p>
+
+\begin{equation*}
+R=\frac {V}{I}=\frac {12}{0.0002}=6000\Omega = 6\text {k}\Omega .
+\end{equation*}
+
+</p>
+
+<p>
+b) Resistance is a property of a material so remains constant, unless we are told that the material has special properties where its resistance depends on the temperature or on the light level. We have changed \(I\) and are keeping
+\(R\) fixed so can use Ohm’s law to find \(V\) through
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+
+                                                                                                 V = IR = 50 × 10−6 × 6 × 103 = 0.3V.
+
+-->
+
+<p>
+
+\begin{equation*}
+V=IR=50\times 10^{-6}\times 6\times 10^{3}=0.3\text {V}.
+\end{equation*}
+
+</p>
+
+<p>
+There is a special circuit component, called a <b>resistor</b>, whose purpose is just to add particular resistance to a circuit. In one of the lab sessions you will look at several resistors in a circuit and test Ohm’s law by measuring
+the voltage across all of the resistors. There are two circuit symbols that re used to stand for a resistor, both are shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: resistors">9.3</a>.
+</p>
+
+<figure id="autoid-37" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-26"
+    class="lateximagesource"
+><!--
+--><img
+     src="stm0005-notes-images\image-26.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.3: The two symbols for a resistor in a circuit
+
+</div>
+
+<a id="fig:    resistors"></a>
+
+</div>
+
+</figure>
+
+<p>
+A natural question after what we have seen in this section is “How do we measure current and voltage?” The answer is that there are two specific circuit components that we add to a circuit to do this. To measure the current
+through a circuit we connect a device called an <b>ammeter</b> into the circuit as shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: ammeter">9.4</a>.
+</p>
+
+<figure id="autoid-38" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-27"
+    class="lateximagesource"
+><!--
+A
+--><img
+     src="stm0005-notes-images\image-27.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.4: An ammeter is connected in series to measure the current through a circuit.
+
+</div>
+
+<a id="fig:    ammeter"></a>
+
+</div>
+
+</figure>
+
+<p>
+Voltage is measured using a different device called a <b>voltmeter</b>, which is connected across a circuit component, rather than being inserted beside the resistor. This is shown in fig.&nbsp;<a
+href="STM0005_PhysicsElectric-Circuits.html#fig: voltmeter">9.5</a>. In the next subsection we will learn about why these two circuits look different. We say that the ammeter and resistor are in series while the
+voltmeter and resistor are in parallel. If you look in an older book you may find a generic meter being referred to as a <b>galvanometer</b>, this is a device that can be set up to measure current or voltage, it can even be used to
+measure resistance.
+</p>
+
+<figure id="autoid-39" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-28"
+    class="lateximagesource"
+><!--
+V
+--><img
+     src="stm0005-notes-images\image-28.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.5: A voltmeter is connected in series to measure the voltage across a circuit component.
+
+</div>
+
+<a id="fig:    voltmeter"></a>
+
+</div>
+
+</figure>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-217"></a>
+<p>
+<sup>1</sup>&nbsp;Fundamental particles that carry a negative electrical charge.
+</p>
+
+<p>
+<sup>2</sup>&nbsp;I believe that we can blame Benjamin Franklin for picking this convention and it is now so ingrained that nobody is campaigning to change it.
+</p>
+
+<p>
+<sup>3</sup>&nbsp;Named after Andre&#x0301;-Marie Amp‘ere.
+</p>
+
+<p>
+<sup>4</sup>&nbsp;Here we use charge and electric charge synonymously, however there are other types of charge that show up in other contexts. For example mass can be thought of as being gravitational charge since it
+quantifies how an object responds to a gravitational field.
+</p>
+
+<p>
+<sup>5</sup>&nbsp;These are named after Charles-Augustin de Coulomb.
+</p>
+
+<p>
+<sup>6</sup>&nbsp;After Georg Ohm.
+</p>
+
+
+</div>
+<!--
+...... section Series and Parallel Circuits ......
+-->
+<h4 id="autosec-218"><span class="sectionnumber">9.2&#x2003;</span>Series and Parallel Circuits</h4>
+<a id="stm0005-notes-autopage-218"></a>
+
+
+<p>
+It turns out that there are a set of rules that govern how current and voltage behave in a circuit. These are known as <b>Kirchhoff’s laws</b><sup>7</sup>, and understanding how an electric circuit will behave is often just a
+case of applying these rules. It is natural to separate these rules into the current laws and the voltage laws, when we state these it should become clear why we connect ammeters and voltmeters in different ways as that comes from
+these rules.<br />
+
+</p>
+<!--
+......   paragraph Current rules:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-219">Current rules:</span>
+<a id="stm0005-notes-autopage-219"></a>
+There are two current rules.
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">1)</span> When multiple wires meet at a junction the total current entering the junction is equal to the total current leaving the junction. As an example consider the diagram in fig.&nbsp;<a
+href="STM0005_PhysicsElectric-Circuits.html#fig: K1">9.6</a>. Here the current rule says that \(1.5\text {A}=0.5\text {A}+I\) which means that \(I=1\text {A}\) going in to the junction.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">2)</span> For components in series, ie components that are side by side, the current entering a component is equal to the current leaving a component. So in the fig.&nbsp;<a
+href="STM0005_PhysicsElectric-Circuits.html#fig: K2">9.7</a> below the reading on both ammeters will be the same.
+</p>
+</li>
+</ul>
+
+<figure id="autoid-40" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-29"
+    class="lateximagesource"
+><!--
+       1.5A
+0.5A
+
+       I =?
+--><img
+     src="stm0005-notes-images\image-29.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.6: The current entering the junction is equal to the current leaving the junction.
+
+</div>
+
+<a id="fig:    K1"></a>
+
+</div>
+
+</figure>
+
+<figure id="autoid-41" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-30"
+    class="lateximagesource"
+><!--
+A   A
+--><img
+     src="stm0005-notes-images\image-30.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.7: The current entering a circuit component is the same as the current leaving it.
+
+</div>
+
+<a id="fig:    K2"></a>
+
+</div>
+
+</figure>
+
+<p>
+The second current rule can also be interpreted as saying that for components in series the current passing through them is the same. If we have components in parallel then we need to use rule 1) to say how the current splits up at
+the junction.
+</p>
+<!--
+......   paragraph Voltage rules:        ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-226">Voltage rules:</span>
+<a id="stm0005-notes-autopage-226"></a>
+There are three voltage rules. Before stating them it is useful to recall that the voltage between two points in a circuit is equal to the energy transfer per coulomb of charge flowing between the two points. For example in
+fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: voltage rule 0">9.8</a> we have two circuit components that we can consider the potential difference across.
+</p>
+
+<figure id="autoid-42" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-31"
+    class="lateximagesource"
+><!--
+a   b
+
+
+c   d
+--><img
+     src="stm0005-notes-images\image-31.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.8: \(V_{ab}\)= voltage across the bulb and \(V_{cd}\)= voltage across the resistor
+
+</div>
+
+<a id="fig:     voltage rule 0"></a>
+
+</div>
+
+</figure>
+
+<p>
+If the charge carriers gain energy then there will be a potential rise, such as in a cell. While if they lose energy then there is a potential drop. For most circuit components there will be a potential drop as the charge carriers do work
+on the circuit component.<br />
+
+</p>
+
+<p>
+Kirchhoff’s three voltage rules are:
+</p>
+
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">1)</span> Voltages in series add, so in a circuit with two resistors in series as in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:                   voltage rule 1">9.9</a> the voltage
+supplied by the cell is equal to the sum of the potential differences across the resistors, or \(V_{0}=V_{1}+V_{2}\).
+</p>
+<figure id="autoid-43" class="figure ">
+<div class="center">
+<p>
+<span
+    id="lateximage-stm0005-notes-32"
+    class="lateximagesource"
+><!--
+     V0
+
+
+
+
+V2        V1
+--><img
+     src="stm0005-notes-images\image-32.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+<div class="figurecaption">
+Figure&nbsp;9.9: Voltages in series add , \(V_{0}=V_{1}+V_{2}\).
+</div>
+<a id="fig: voltage rule 1"></a>
+</div>
+</figure>
+</li>
+<li>
+
+<p>
+<span class="listmarker">2)</span> Voltages in parallel are the same. So for a circuit with two resistors in parallel as in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:   voltage rule 2">9.10</a>,
+the voltage across both resistors is the same, and this is also the same as the voltage supplied by the cell. Or in symbols \(V_{0}=V_{1}=V_{2}\).
+</p>
+<figure id="autoid-44" class="figure ">
+<div class="center">
+<p>
+<span
+    id="lateximage-stm0005-notes-33"
+    class="lateximagesource"
+><!--
+V0
+
+
+
+
+V1
+
+
+V2
+--><img
+     src="stm0005-notes-images\image-33.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+<div class="figurecaption">
+Figure&nbsp;9.10: Voltages in parallel are the same , \(V_{0}=V_{1}=V_{2}\).
+</div>
+<a id="fig: voltage rule 2"></a>
+</div>
+</figure>
+</li>
+<li>
+
+<p>
+<span class="listmarker">3)</span> For a loop the sum of voltage gains is equal to the sum of voltage loses. This is a version of the conservation of energy as it is saying that for a closed loop the energy that leaves the circuit is
+equal to the energy that enters the circuit. For the circuit shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: voltage rule 3">9.11</a> this means that \(V_{0}+V_{1}=V_{2}+V_{3}\)
+</p>
+<figure id="autoid-45" class="figure ">
+<div class="center">
+<p>
+<span
+    id="lateximage-stm0005-notes-34"
+    class="lateximagesource"
+><!--
+     V0
+
+
+
+V3        V2
+
+
+
+     V1
+--><img
+     src="stm0005-notes-images\image-34.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+<div class="figurecaption">
+Figure&nbsp;9.11: For a closed loop the total voltage gain is equal to the total voltage loss.
+</div>
+<a id="fig: voltage rule 3"></a>
+</div>
+</figure>
+</li>
+</ul>
+<!--
+......   paragraph Example 8.5:    ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-239">Example 8.5:</span>
+<a id="stm0005-notes-autopage-239"></a>
+Consider the circuit shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: car charging">9.12</a> which describes a car battery being jump started. There are two batteries with an emf and an
+internal resistance, denoted by the resistors next to the batteries, and two resistors standing for the resistance in the jump leads. Find the current \(I\) in the circuit.<br />
+
+</p>
+
+<figure id="autoid-46" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-35"
+    class="lateximagesource"
+><!--
+          R1 = 2Ω   V0 = 12V
+
+
+
+R2 = 3Ω                        R5 = 7Ω
+
+
+
+          R3 = 4Ω   V4 = 4V
+--><img
+     src="stm0005-notes-images\image-35.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.12: A circuit describing a car battery being charged. Since the car batteries are oriented oppositely the upper one is a potential gain, while the lower battery is a potential drop as it is being charged.
+
+</div>
+
+<a id="fig:    car charging"></a>
+
+</div>
+
+</figure>
+
+<p>
+To analyse this circuit we use a combination of the voltage rules and Ohm’s Law. Voltage rule 3 tells us that the sum of the voltage across all of the resistors plus the voltage across the charging battery is equal to \(12\text {V}\),
+or
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+
+
+                                                                                               12V = V0 = V1 + V2 + V3 + V4 + V5
+                                                                                                          = R1 I + R2 I + R3 I + 4V + R5 I
+                                                                                                          = 2I + 3I + 4I + 4V + 7I
+                                                                                                          = 16I + 4V.
+
+-->
+
+<p>
+
+\begin{equation*}
+\begin{split} 12\text {V}=V_{0}&amp;=V_{1}+V_{2}+V_{3}+V_{4}+V_{5}\\ &amp;=R_{1}I+R_{2}I+R_{3}I+4\text {V}+R_{5}I\\ &amp;=2I+3I+4I+4\text {V}+7I\\ &amp;=16I+4\text {V}.                                      \end {split}
+\end{equation*}
+
+</p>
+
+<p>
+Here we have use the second current law to say that the current is the same through all of the resistors, and made use of Ohm’s law to convert the voltage across each resistor into the product of \(I\) and the resistance. Now we
+can solve the linear equation for \(I\) as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+
+                                                                                                       12 = 16I + 4,    ⇒ 16I = 8,
+
+-->
+
+<p>
+
+\begin{equation*}
+12=16I+4, \quad \Rightarrow \, 16I=8,
+\end{equation*}
+
+</p>
+
+<p>
+or \(I=1/2=0.5\text {A}\).<br />
+
+</p>
+
+<p>
+This example is about as complicated a problem as you can expect to find where we are just building a circuit from batteries and resistors. If you can solve this problem then you will be able to solve pretty much any problem that
+you are confronted by.
+</p>
+<!--
+......   paragraph Example 8.6:   ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-243">Example 8.6:</span>
+<a id="stm0005-notes-autopage-243"></a>
+Consider the circuit in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:   2 resistors">9.13</a>, find the current through the circuit.<br />
+
+</p>
+
+<figure id="autoid-47" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-36"
+    class="lateximagesource"
+><!--
+    V0 = 12V
+
+
+
+
+R1 = 4Ω   R2 = 8Ω
+--><img
+     src="stm0005-notes-images\image-36.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.13: A circuit with a single cell and two resistors.
+
+</div>
+
+<a id="fig:    2 resistors"></a>
+
+</div>
+
+</figure>
+
+<p>
+This ii similar to the previous example in that we use Ohm’s law to convert \(R_{1}\) and \(R_{2}\) into a voltage through \(V_{1}=I R_{1}\) and \(V_{2}=I R_{2}\) and then use the second current rule that the total current
+gained in a closed loop is equal to the total current lost in the loop. In other words:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+
+                                                                                             12V = V1 + V2 = (R1 + R2 ) I = 12I,
+
+-->
+
+<p>
+
+\begin{equation*}
+12\text {V}=V_{1}+V_{2}=\left (R_{1}+R_{2}\right )I=12I,
+\end{equation*}
+
+</p>
+
+<p>
+so \(I=12/12 \text {A}=1\text {A}\).
+</p>
+<!--
+......   paragraph Combining resistors:          ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-247">Combining resistors:</span>
+<a id="stm0005-notes-autopage-247"></a>
+A consequence of Kirchhoff’s laws is that we can now combine all the resistance in a circuit and construct an analogous circuit which has the same total resistance but all of it is contained in one resistor. In fact we can start to see
+this in the above example where we have
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+
+                                                                                                            V0 = (R1 + R2 ) I,
+
+-->
+
+<p>
+
+\begin{equation*}
+V_{0}=\left (R_{1}+R_{2}\right )I,
+\end{equation*}
+
+</p>
+
+<p>
+from Ohm’s law this would be like having a single resistor whose resistance is \(R=R_{1}+R_{2}\).<br />
+
+</p>
+
+<p>
+This is exactly what happens for resistors in series, their resistance adds.
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
+
+<!--
+
+
+                                                             R = R1 + R 2 .                                                          (9.4)                                           --><a id="eq:      resistors in series"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+R=R_{1}+R_{2}. \label {eq:          resistors in series}
+\end{equation}
+
+</p>
+
+<p>
+See fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:              resistance in series">9.14</a> for a what this means in terms of circuit diagrams.<br />
+
+</p>
+<figure id="autoid-48" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-37"
+    class="lateximagesource"
+><!--
+R1   R2       R = R1 + R2
+          =
+--><img
+     src="stm0005-notes-images\image-37.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.14: Combining resistance in series the resistance adds.
+
+</div>
+
+<a id="fig:    resistance in series"></a>
+
+</div>
+
+</figure>
+
+<p>
+In the water flowing through pipes analogy, we think of a resistor as being like a drop in height where the water loses potential energy, then this is just saying that if the water drops first a height \(h_{1}\) and then a height
+\(h_{2}\), the change in potential energy is the same as if the water dropped a height of \(h_{1}+h_{2}\) in one go.<br />
+
+</p>
+
+<p>
+Resistors in parallel combine in a more complicated way. This is because we need to use the second voltage rule, that the voltage is the same in parallel paths, and the first current rule, which tells us what happens to the current at
+a junction. Using both of these we find that if we have two resistors \(R_{1}\) and \(R_{2}\) in parallel then the combined resistance is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{4}\)</span>
+
+<!--
+
+                                                          1   1    1
+                                                            =    +    .                                                            (9.5)                                           --><a id="eq:     resistors in parallel"></a><!--
+                                                          R   R1   R2
+
+-->
+
+<p>
+
+\begin{equation}
+\frac {1}{R}=\frac {1}{R_{1}}+\frac {1}{R_{2}}.            \label {eq:     resistors in parallel}
+\end{equation}
+
+</p>
+
+<figure id="autoid-49" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-38"
+    class="lateximagesource"
+><!--
+           I
+I   I1   R1 1   I        I
+                    =
+    I2
+           I2           R = 1 +1 1
+                             R1   R2
+         R2
+--><img
+     src="stm0005-notes-images\image-38.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.15: Combining resistance in parallel the reciprocals of the resistance add.
+
+</div>
+
+<a id="fig:    resistors in parallel"></a>
+
+</div>
+
+</figure>
+
+<p>
+What this means for a circuit diagram can be seen in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: resistors in parallel">9.15</a>. From the first current rule we know that \(I=I_{1}+I_{2}\)
+while from the second voltage rule we know that the voltage across resistor 1 is equal to the voltage across resistor 2. If we use Ohm’s law on each resistor we have that
+</p>
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+
+<!--
+
+
+
+                                                                                                                V1 = I1 R1 ,
+                                                                                                                V2 = I2 R2 ,
+                                                                                                                V1 = V2 = V.
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+V_{1}&amp;=I_{1} R_{1},\\ V_{2}&amp;=I_{2} R_{2},\\ V_{1}&amp;=V_{2}=V.
+\end{align*}
+While for the single big resistor on the other side we have that \(V=IR\). Then we use the first current rule
+</p>
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+
+<!--
+
+
+
+                                                                                                           I = I1 + I 2
+                                                                                                          V    V1      V2
+                                                                                                             =     +
+                                                                                                          R    R1      R2
+                                                                                                                V       V
+                                                                                                             =     +
+                                                                                                               R1      R2
+                                                                                                                             
+                                                                                                                    1      1
+                                                                                                             =V          +      ,
+                                                                                                                    R1     R2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+I&amp;=I_{1}+I_{2}\\ \frac {V}{R}&amp;=\frac {V_{1}}{R_{1}}+\frac {V_{2}}{R_{2}}\\ &amp;=\frac {V}{R_{1}}+\frac {V}{R_{2}}\\ &amp;=V\left (\frac {1}{R_{1}}+\frac {1}{R_{2}}\right ),
+\end{align*}
+which if we cancel the factors of \(V\) gives eq.&nbsp;<span class="textup">(<a href="STM0005_PhysicsElectric-Circuits.html#eq: resistors in parallel">9.5</a>)</span>.
+</p>
+<!--
+......   paragraph Example 8.7:    ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-254">Example 8.7:</span>
+<a id="stm0005-notes-autopage-254"></a>
+Find the combined resistance for the circuit shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:   combining resistance example">9.16</a>. Is it
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> \(11\Omega \),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> \(4\Omega \),
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> \(1\Omega \).
+</p>
+</li>
+</ul>
+
+<figure id="autoid-50" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-39"
+    class="lateximagesource"
+><!--
+          R2 = 3Ω
+
+
+R1 = 2Ω
+          R3 = 6Ω
+--><img
+     src="stm0005-notes-images\image-39.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.16: Combining resistance for both in series and parallel resistors.
+
+</div>
+
+<a id="fig:     combining resistance example"></a>
+
+</div>
+
+</figure>
+
+<p>
+The answer is b) \(R=4\Omega \). To see this we first combine \(R_{2}\) and \(R_{3}\) in parallel as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                                                                1          1     1
+                                                                                                    RPar =   1    1    = 1   1 = 1 = 2Ω.
+                                                                                                             R2 + R3     3 + 6   2
+
+
+-->
+
+<p>
+
+\begin{equation*}
+R_{\text {Par}}=\frac {1}{\frac {1}{R_{2}}+\frac {1}{R_{3}}}=\frac {1}{\frac {1}{3}+\frac {1}{6}}=\frac {1}{\frac {1}{2}}=2\Omega .
+\end{equation*}
+
+</p>
+
+<p>
+Then we can combine \(R_{1}\) and \(R_{\text {Par}}\) in series as
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+
+                                                                                                        R = R1 + RPar = 2 + 2 = 4Ω.
+
+-->
+
+<p>
+
+\begin{equation*}
+R =R_{1}+R_{\text {Par}}=2+2=4\Omega .
+\end{equation*}
+
+</p>
+
+<p>
+Note that a) would be the answer if all the resistors were in series, while c) would be the answer if all three were in parallel.
+</p>
+<!--
+......   paragraph Power:     ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-258">Power:</span>
+<a id="stm0005-notes-autopage-258"></a>
+We saw above that the electrical power through a circuit component is given by \(P=IV\). We motivated discussing power by first introducing resistance so it is no surprise that using Ohm’s law and \(P=IV\) we can express the
+power in terms of the resistance as either
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+
+                                                                                                            P = I 2 R,
+
+-->
+
+<p>
+
+\begin{equation*}
+P=I^{2}R,
+\end{equation*}
+
+</p>
+
+<p>
+or
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                                                                   V2
+                                                                                                             P =      .
+                                                                                                                   R
+
+-->
+
+<p>
+
+\begin{equation*}
+P=\frac {V^{2}}{R}.
+\end{equation*}
+
+</p>
+
+<p>
+Remember that the resistance of a component causes the component to heat up, this is how kettles, irons, and filament bulbs work. For these components the power is then the power radiated to the environment by the hot
+component, either as heat or as light.
+</p>
+<!--
+......   paragraph Example 8.8:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-259">Example 8.8:</span>
+<a id="stm0005-notes-autopage-259"></a>
+The potential difference across a \(1k\Omega \) resistor is measured to be \(6\text {V}\). What is the electrical power supplied to the resistor?<br />
+
+</p>
+
+<p>
+We know the voltage and the resistance so can use \(P=\frac {V^{2}}{R}\) to calculate that the power is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                                                          V2    36
+                                                                                                    P =      =      = 0.036W.
+                                                                                                          R    1000
+
+-->
+
+<p>
+
+\begin{equation*}
+P=\frac {V^{2}}{R}=\frac {36}{1000}=0.036\text {W}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Potential Dividers:          ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-260">Potential Dividers:</span>
+<a id="stm0005-notes-autopage-260"></a>
+We saw in Kirchhoff’s voltage laws that for resistors in series the potential differences add. This means that combining resistors in series enables us to split the supplied voltage and deliver different voltages across each resistor. A
+<b>potential divider</b>, sometimes called a voltage divider, is a circuit which makes use of this property. It is a circuit with a cell and two, or more, resistors. If we put other components in parallel to the resistors then by
+choosing the value of the resistance, we can control the voltage delivered to the component.<br />
+
+</p>
+
+<figure id="autoid-51" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-40"
+    class="lateximagesource"
+><!--
+     V0
+
+
+
+
+R1        R2
+--><img
+     src="stm0005-notes-images\image-40.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.17: A potential divider circuit with two resistors
+
+</div>
+
+<a id="fig:     potential divider"></a>
+
+</div>
+
+</figure>
+
+<p>
+A potential divider circuit has the form shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig: potential divider">9.17</a>. The resistors in the circuit can have a fixed resistance, or they can be
+variable resistors. For fixed resistors, the total resistance in the circuit is \(R=R_{1}+R_{2}\), since the resistors are in parallel. Thus Ohm’s law gives that the current in the circuit is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                                                                            V0
+                                                                                                                I=                .
+                                                                                                                         R1 + R 2
+
+-->
+
+<p>
+
+\begin{equation*}
+I=\frac {V_{0}}{R_{1}+R_{2}}.
+\end{equation*}
+
+</p>
+
+<p>
+Using this we can write the potential differences across the resistors as
+</p>
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+
+<!--
+
+
+                                                                                                                      V 0 R1
+                                                                                                          V1 = IR1 =          ,
+                                                                                                                     R1 + R 2
+                                                                                                                      V 0 R2
+                                                                                                          V2 = IR2 =          .
+                                                                                                                     R1 + R 2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+V_{1}&amp;=IR_{1}=\frac {V_{0}R_{1}}{R_{1}+R_{2}},\\ V_{2}&amp;=IR_{2}=\frac {V_{0}R_{2}}{R_{1}+R_{2}}.
+\end{align*}
+
+</p>
+
+<p>
+If \(R_{1}=5\text {k}\Omega \) and \(R_{2}=10\text {k}\Omega \) then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                                                                1                     2
+                                                                                                         V1 =     V0 ,        V2 =      V0 ,
+                                                                                                                3                     3
+
+-->
+
+<p>
+
+\begin{equation*}
+V_{1}=\frac {1}{3}V_{0}, \qquad V_{2}=\frac {2}{3}V_{0},
+\end{equation*}
+
+</p>
+
+<p>
+and
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                                                      1                               2
+                                                                                               R1 =     (R1 + R2 ) ,          R2 =      (R1 + R2 ) .
+                                                                                                      3                               3
+
+-->
+
+<p>
+
+\begin{equation*}
+R_{1}=\frac {1}{3}\left (R_{1}+R_{2}\right ), \qquad R_{2}=\frac {2}{3}\left (R_{1}+R_{2}\right ).
+\end{equation*}
+
+</p>
+
+<p>
+Comparing the expression for the voltage and the resistance we see that they are split in the same proportions. ie \(V_{1}\) is the same fraction of the supply voltage as \(R_{1}\) is of the total resistance. This means that the ratio
+of voltages is equal to the ratio of resistances:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
+
+<!--
+
+                                                                            V1   R1
+                                                                               =    .                                                                          (9.6)                      --><a id="eq:     voltage ratios"></a><!--
+                                                                            V2   R2
+
+-->
+
+<p>
+
+\begin{equation}
+\frac {V_{1}}{V_{2}}=\frac {R_{1}}{R_{2}}.            \label {eq:     voltage ratios}
+\end{equation}
+
+</p>
+
+<p>
+In a variable potential divider one of the resistors is replaced by a variable resistor, or sliding connection, or a resistor that depends on its surroundings like a thermistor<sup>8</sup><a id="stm0005-notes-autopage-263"></a>
+or light dependent resistor. In this setting as the resistance changes the output voltage across the resistors changes. This is used in devices like volume controls or dimmer switches where we manually adjust the resistance using a
+dial which changes the output voltage and hence the power being supplied to a bulb.<br />
+
+</p>
+<!--
+......   paragraph Example 8.9:    ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-264">Example 8.9:</span>
+<a id="stm0005-notes-autopage-264"></a>
+Consider the circuit shown in fig.&nbsp;<a href="STM0005_PhysicsElectric-Circuits.html#fig:   pd example">9.18</a>.
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> Find the current through the circuit,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> Find the voltage across each resistor.
+</p>
+</li>
+</ul>
+
+<figure id="autoid-52" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-41"
+    class="lateximagesource"
+><!--
+     V0 = 6V
+
+
+
+
+R1 = 4Ω   R2 = 8Ω
+--><img
+     src="stm0005-notes-images\image-41.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.18: A potential divider with \(R_{1}=4\Omega \) and \(R_{2}=8\Omega \).
+
+</div>
+
+<a id="fig:    pd example"></a>
+
+</div>
+
+</figure>
+
+<p>
+a) As the resistors are in series, add the resistance to give \(R=R_{1}+R_{2}=12\Omega \), then use Ohm’s law to find the current:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{6}\)</span>
+
+<!--
+
+                                                                                                          V    6  1
+                                                                                                    I=      =    = A = 0.5A.
+                                                                                                          R   12  2
+
+-->
+
+<p>
+
+\begin{equation*}
+I=\frac {V}{R}=\frac {6}{12}=\frac {1}{2}\text {A}=0.5\text {A}.
+\end{equation*}
+
+</p>
+
+<p>
+b) We can compute \(V_{1}\) and \(V_{2}\) directly using:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{9.}{6}\)</span>
+
+
+<!--
+
+
+                                                                                                         V0 R1    6×4
+                                                                                                   V1 =         =     = 2V,
+                                                                                                        R1 + R2    12
+                                                                                                         V0 R2    6×8
+                                                                                                   V2 =         =     = 4V.
+                                                                                                        R1 + R2    12
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+V_{1}&amp;=\frac {V_{0}R_{1}}{R_{1}+R_{2}}=\frac {6\times 4}{12}=2\text {V},\\ V_{2}&amp;=\frac {V_{0}R_{2}}{R_{1}+R_{2}}=\frac {6\times 8}{12}=4\text {V}.
+\end{align*}
+
+</p>
+<!--
+......   paragraph Capacitors:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-268">Capacitors:</span>
+<a id="stm0005-notes-autopage-268"></a>
+Another type of circuit component that we want to discuss here is a <b>capacitor</b>. This is a circuit component that stores charge its circuit symbol is shown in fig.&nbsp;<a
+href="STM0005_PhysicsElectric-Circuits.html#fig: capacitor">9.19</a>, and looks very similar to the symbol for a battery.
+</p>
+<figure id="autoid-53" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-42"
+    class="lateximagesource"
+><!--
+--><img
+     src="stm0005-notes-images\image-42.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.19: The circuit symbol for a capacitor
+
+</div>
+
+<a id="fig:    capacitor"></a>
+
+</div>
+
+</figure>
+
+<p>
+We can think of a capacitor as being formed from two parallel metal plates separated by some other substance. When the plates are connected to the opposite terminals of a battery the different charges will build up on either plate,
+so one plate becomes negatively charged and the other becomes positively charged. If the battery is disconnected and an different circuit component is connected across the capacitor then it will discharge all of the stored charges
+until the plates have become neutral again.<br />
+
+</p>
+
+<p>
+It is important to note that a capacitor does not charge instantaneously, it takes time for it to build up charge. Recall that, if the current in a circuit is \(I\) then after a time \(t\), the amount of charge that has flowed through a
+circuit component will be \(Q=It\), this means that the rate a capacitor charges at depends on the current in the circuit. The amount of charge that it can build up depends on the potential difference across the capacitor, and a
+quantity known as the <b>capacitance</b>. Capacitance is measured in Farads<sup>9</sup><a id="stm0005-notes-autopage-271"></a> which have the symbol \(\text {F}\). Mathematically capacitance is related to
+potential difference and charge through
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{6}\)</span>
+
+<!--
+
+                                                                             Q
+                                                                        C=     ,                                                                         (9.7)                              --><a id="eq:     capacitance eq"></a><!--
+                                                                             V
+
+-->
+
+<p>
+
+\begin{equation}
+C=\frac {Q}{V}, \label {eq:        capacitance eq}
+\end{equation}
+
+</p>
+
+<p>
+and \(1\text {F}=1\text {C/V}\).<br />
+
+</p>
+
+<p>
+One of the lab experiments looks at the charging and discharging times for a capacitor. The key point is that if we have a circuit like that in fig.&nbsp;<a
+href="STM0005_PhysicsElectric-Circuits.html#fig: RC circuit">9.20</a>, which is known as an RC circuit. If the switch is initially open then the capacitor will start uncharged. Upon closing the switch the capacitor will
+begin to charge up and after a time \(t\) the current in the circuit will be
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                                           
+                                                                                                                V0        t
+                                                                                                         I(t) =    exp −      ,
+                                                                                                                R        RC
+
+-->
+
+<p>
+
+\begin{equation*}
+I(t)=\frac {V_{0}}{R}\exp \left (-\frac {t}{RC}\right ),
+\end{equation*}
+
+</p>
+
+<p>
+this is time dependent as the more charge that builds up on the capacitor the lower the current being drawn will be, if the capacitor becomes fully charged then current will no longer be able to flow round the circuit. From looking
+at the expression we see that the capacitor will only become fully charged when \(\exp \left (-\frac {t}{RC}\right )=0\), which would need \(t\to \infty \). A consequence of this is that the capacitor can become
+arbitrarily close to being full charged but will never actually reach it.<br />
+
+</p>
+
+<figure id="autoid-54" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-43"
+    class="lateximagesource"
+><!--
+    V0
+
+
+
+R
+
+    C
+--><img
+     src="stm0005-notes-images\image-43.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.20: An RC circuit
+
+</div>
+
+<a id="fig:    RC circuit"></a>
+
+</div>
+
+</figure>
+
+<p>
+Using this expression for the current we can obtain an expression for the voltage across the resistor
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                                              
+                                                                                                                           t
+                                                                                                        VR (t) = V0 exp −
+                                                                                                                          RC
+
+-->
+
+<p>
+
+\begin{equation*}
+V_{R}(t)=V_{0}\exp \left (-\frac {t}{RC}\right )
+\end{equation*}
+
+</p>
+
+<p>
+and by Kirchhoff’s voltage laws , the voltage across the capacitor is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                                           
+                                                                                                                           t
+                                                                                                    VC (t) = V0 1 − exp −       .
+                                                                                                                          RC
+
+-->
+
+<p>
+
+\begin{equation*}
+V_{C}(t)=V_{0}\left (1-\exp \left (-\frac {t}{RC}\right )\right ).
+\end{equation*}
+
+</p>
+
+<p>
+Notice that as time goes on the voltage across the resistor drops and the voltage across the capacitor increases.<br />
+
+</p>
+
+<p>
+A natural time scale is given by \(\uptau =RC\) which is known as the <b>time constant</b>. This is the time required for the voltage across the resistor to fall by \(V_{0}/e\).<br />
+
+</p>
+
+<p>
+If you go on to study more about circuits you will meet the concept of <b>impedence</b> which is a generalisation of resistance that takes account of all of the opposition to the flow of current. This includes contributions from
+resistance, capacitance, and inductance<sup>10</sup><a id="stm0005-notes-autopage-274"></a>.
+</p>
+<div role="note" class="footnotes">
+
+<a id="stm0005-notes-autopage-275"></a>
+<p>
+<sup>7</sup>&nbsp;Named for Gustav Kirchhoff
+</p>
+
+<p>
+<sup>8</sup>&nbsp;The resistance of a thermistor depends on the temperature.
+</p>
+
+<p>
+<sup>9</sup>&nbsp;Named after Michael Faraday.
+</p>
+
+<p>
+<sup>10</sup>&nbsp;A concept related to a circuit component called an inductor that we will not meet in this module.
+</p>
+
+
+</div>
+<!--
+...... section AC Circuits ......
+-->
+<h4 id="autosec-276"><span class="sectionnumber">9.3&#x2003;</span>AC Circuits</h4>
+<a id="stm0005-notes-autopage-276"></a>
+
+
+<p>
+In a DC circuit the supply voltage is a constant in time, usually denoted by \(V_{0}\). While in an AC circuit, the direction the charge carriers move in changes with time. In fact the current is periodic and follows a sinusoidal wave,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+
+                                                                                                 V (t) = V0 sin(ωt),    I(t) = I0 sin(ωt),
+
+-->
+
+<p>
+
+\begin{equation*}
+V(t)=V_{0}\sin (\uw t),\qquad I(t)=I_{0}\sin (\uw t),
+\end{equation*}
+
+</p>
+
+<p>
+where \(\uw =2\up f=2\up /T\) is the angular frequency. As we saw when studying circular motion the frequency is the number of cycles per second and the period \(T\) is the time taken for one cycle. In the UK \(f=50\text
+{Hz}\) for mains power.<br />
+
+</p>
+
+<figure id="autoid-55" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-44"
+    class="lateximagesource"
+><!--
+    V0
+          t
+Voltage
+  −V0
+--><img
+     src="stm0005-notes-images\image-44.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.21: The voltage in an AC circuit is periodic in time.
+
+</div>
+
+<a id="fig:    AC voltage"></a>
+
+</div>
+
+</figure>
+
+<p>
+We call the amplitude of the current, \(I_{0}\), and voltage, \(V_{0}\), the <b>peak current</b> and <b>peak voltage</b>. The voltage in an AC circuit is shown in fig.&nbsp;<a
+href="STM0005_PhysicsElectric-Circuits.html#fig: AC voltage">9.21</a>. The voltage and current in the circuit can be observed by studying an oscilloscope reading of the current or voltage. The frequency \(f\) can also
+be observed using an oscilloscope. What about the power? Recall that \(P=IV=I^{2}R\), so the power is also periodic but is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                                      2
+                                                                                                   P = I02 R (sin (ωt)) ,
+
+-->
+
+<p>
+
+\begin{equation*}
+P=I_{0}^{2}R\left (\sin \left (\uw t\right )\right )^{2},
+\end{equation*}
+
+</p>
+
+<p>
+which is always greater than zero. We call
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                           1 2   1
+                                                                                                    P̄ =    I R = P0 ,
+                                                                                                           2 0   2
+
+-->
+
+<p>
+
+\begin{equation*}
+\bar {P}=\frac {1}{2}I_{0}^{2}R=\frac {1}{2}P_{0},
+\end{equation*}
+
+</p>
+
+<p>
+the mean power, which is half of the peak power \(P_{0}\).<br />
+
+</p>
+
+<figure id="autoid-56" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-45"
+    class="lateximagesource"
+><!--
+        t
+Power    Current
+--><img
+     src="stm0005-notes-images\image-45.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.22: The Power in an AC circuit is related to the square of the current so is everywhere greater than zero.
+
+</div>
+
+<a id="fig:    AC Power"></a>
+
+</div>
+
+</figure>
+
+<p>
+It is sometimes useful to think about a direct current that produce the same power as the mean power. This current is called the <b>root mean squared</b> current or \(I_{\text {rms}}\) and is defined by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                                           1 2
+                                                                                                       P̄ = (Irms )2 R =    I R.
+                                                                                                                           2 0
+
+-->
+
+<p>
+
+\begin{equation*}
+\bar {P}=(I_{\text {rms}})^{2}R=\frac {1}{2}I_{0}^{2}R.
+\end{equation*}
+
+</p>
+
+<p>
+This relation means that \(I_{\text {rms}}=I_{0}/\sqrt {2}\). It is called the root mean squared current because computing it involves squaring the current, taking its mean, then square rooting this.<br />
+
+</p>
+
+<p>
+Similarly for the voltage we have the rms voltage
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                                   V0
+                                                                                                            Vrms = √ .
+                                                                                                                    2
+
+-->
+
+<p>
+
+\begin{equation*}
+V_{\text {rms}}=\frac {V_{0}}{\sqrt {2}}.
+\end{equation*}
+
+</p>
+
+<p>
+Note that the mean power is given by
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+
+                                                                                                           P̄ = Irms Vrms .
+
+-->
+
+<p>
+
+\begin{equation*}
+\bar {P}=I_{\text {rms}}V_{\text {rms}}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Example 8.10:         ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-283">Example 8.10:</span>
+<a id="stm0005-notes-autopage-283"></a>
+Consider an AC source with \(f=200\text {Hz}\) and peak current \(I_{0}=0.1\text {A}\). Find:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The period,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The rms current
+</p>
+</li>
+</ul>
+
+<p>
+a) Use \(T=1/f\) so that the period is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                 1    1
+                                                                                           T =     =     = 0.005s = 5ms.
+                                                                                                 f   200
+
+-->
+
+<p>
+
+\begin{equation*}
+T=\frac {1}{f}=\frac {1}{200}=0.005\text {s}=5\text {ms}.
+\end{equation*}
+
+</p>
+
+<p>
+b) This time use the expression for \(I_{\text {rms}}\) to find:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                    1     0.1
+                                                                                            Irms = √ I0 = √ = 0.07A.
+                                                                                                     2      2
+
+-->
+
+<p>
+
+\begin{equation*}
+I_{\text {rms}}=\frac {1}{\sqrt {2}}I_{0}=\frac {0.1}{\sqrt {2}}=0.07\text {A}.
+\end{equation*}
+
+</p>
+<!--
+......   paragraph Example 8.11:      ......
+-->
+
+
+<p>
+<span class="paragraph" id="autosec-284">Example 8.11:</span>
+<a id="stm0005-notes-autopage-284"></a>
+An alternating current with peak current \(I_{0}=3\text {A}\) is passing through a \(4\Omega \) resistor. Calculate:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">a)</span> The rms current,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">b)</span> The rms voltage across the resistor,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">c)</span> The peak power,
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">d)</span> The man power.
+</p>
+</li>
+</ul>
+
+<p>
+a) Given \(I_{0}=3\text {A}\) then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                         1      3
+                                                                                                 Irms = √ I0 = √ = 2.12A.
+                                                                                                          2      2
+
+-->
+
+<p>
+
+\begin{equation*}
+I_{\text {rms}}=\frac {1}{\sqrt {2}}I_{0}=\frac {3}{\sqrt {2}}=2.12\text {A}.
+\end{equation*}
+
+</p>
+
+<p>
+b) Use Ohm’s law, \(V_{\text {rms}}=I_{\text {rms}}R\) so that
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                            3×4  12
+                                                                                             Vrms = Irms R = √ = √ = 8.5V.
+                                                                                                              2   2
+
+-->
+
+<p>
+
+\begin{equation*}
+V_{\text {rms}}=I_{\text {rms}}R=\frac {3\times 4}{\sqrt {2}}=\frac {12}{\sqrt {2}}=8.5\text {V}.
+\end{equation*}
+
+</p>
+
+<p>
+c) The peak power is given by \(P_{0}=I_{0}V_{0}=I_{0}^{2}R\) which is
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+
+                                                                                                   P0 = I02 R = 9 × 4 = 36W.
+
+-->
+
+<p>
+
+\begin{equation*}
+P_{0}=I_{0}^{2}R=9\times 4=36\text {W}.
+\end{equation*}
+
+</p>
+
+<p>
+d) The mean power is then
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{9.}{7}\)</span>
+
+<!--
+
+                                                                                                              1
+                                                                                                       P̄ =     P0 = 18W.
+                                                                                                              2
+
+-->
+
+<p>
+
+\begin{equation*}
+\bar {P}=\frac {1}{2}P_{0}=18\text {W}.
+\end{equation*}
+
+</p>
+<!--
+...... section Circuit Component Symbols ......
+-->
+<h4 id="autosec-285"><span class="sectionnumber">9.4&#x2003;</span>Circuit Component Symbols</h4>
+<a id="stm0005-notes-autopage-285"></a>
+
+
+<figure id="autoid-57" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-stm0005-notes-46"
+    class="lateximagesource"
+><!--
+    Resistor
+    Switch
+A   Ammeter
+V   Voltmeter
+    Bulb
+    Capacitor
+    Battery or Cell
+    AC source
+    Diode
+    LED
+    Light dependent resistor
+    Variable resistor
+--><img
+     src="stm0005-notes-images\image-46.svg"
+     alt="(-tikz-&nbsp;diagram)"
+     style=""
+     class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+Figure&nbsp;9.23: Circuit symbols and the components that the represent.
+
+</div>
+
+<a id="fig:    circuit components"></a>
+
+</div>
+
+</figure>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+
+<p>
+Contact calum[dot]ross[at]edgehill[dot]ac[dot]uk if you have any questions. These notes are shared under CC BY 4.0.
+</p>
+
+</footer>
+
+
+<nav class="botnavigation"><a href="STM0005_Physics-index.html" class="linkhome" >
+Home</a></nav>
+
+</body>
+</html>
