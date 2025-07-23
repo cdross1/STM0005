@@ -11,7 +11,7 @@
 \fi
 % --- LWARP IS LOADED NEXT ---
 \usepackage[
- HomeHTMLFilename=STM0005_Physics-index, % Filename of the homepage.
+ HomeHTMLFilename=index, % Filename of the homepage.
 %
  HTMLFilename={STM0005_Physics}, % Filename prefix of other pages.
 % IndexLanguage=english, % Language for xindy index, glossary.
@@ -32,6 +32,10 @@ nottoc,
 \usepackage{calum_lecture}
 \usepackage{geometry}
 \geometry{verbose,tmargin=2.5cm,bmargin=1.5cm,lmargin=2cm,rmargin=3cm,headheight=1cm,headsep=1cm,footskip=1cm}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
 \usepackage{makeidx} \makeindex
 \usepackage{xcolor} % (Demonstration purposes only.)
 \tikzset{every picture/.style={ampersand replacement=\&}}
@@ -167,14 +171,14 @@ These say that any number raised to the power of zero is one, and a number raise
 
 \chapter{Fermi Problems and Approximations}
 
+\begin{center}
 \begin{figure}[ht]
-    \centering
     %\pdftooltip{
     \includegraphics[width=0.4\textwidth, alt={A picture of the Italian-American physicist Enrico Fermi from Wikimedia commons.}]{figures/Enrico_Fermi_1943-49.jpg}
     %}{A picture of the Italian-American physicist Enrico Fermi from Wikimedia commons.}
     \caption{The Italian-American physicist Enrico Fermi from \href{https://commons.wikimedia.org/wiki/File:Enrico_Fermi_1943-49.jpg}{Wikimedia Commons}.}
 \end{figure}
-
+\end{center}
 While much of physics is about making very precise measurements such as the high energy physics experiments being conducted at CERN, or the measurements of the fundamental constants used to define measurement standards. A lot can be understood by working roughly and making approximations. \\
 
 The standard example of this style of estimation is asking how many piano tuners there are in a certain city. In the lectures we treated the case of London and Ormskirk. This style of approximation problem is often called a \textbf{Fermi Problem} after the physicist Enrico Fermi who liked to ask questions like ``How many piano tuners are there in Chicago?'' Famously Fermi estimated the yield of the first atomic bomb by dropping a scrap of paper and seeing how far it was blown and making some estimates. 
@@ -202,16 +206,15 @@ Putting this together we then calculate the number of piano tuners as
 \section{The Scientific Method}
 
 In the earlier sections we have alluded to how physics works, constructing a model and then testing it against experiment. This is a very rough description of the \textbf{Scientific Method} which you will meet again in your subject specific modules in semester two and later in your degree. A schematic representation of the scientific method is given in \cref{fig2: scientific method}.
-
+\begin{center}
 \begin{figure}[ht]
-    \centering
     %\pdftooltip{
     \includegraphics[width=0.6\textwidth,alt={A schematic of the scientific method as a cycle, image from Wikimedia commons.}]{figures/The_Scientific_Method.png}
     %}{A picture showing the scientific method from Wikimedia commons CC BY-SA 4.0 Efbrazil.}
     \caption{A representation of the scientific method from \href{https://commons.wikimedia.org/wiki/File:The_Scientific_Method.svg}{Wikimedia Commons} CC BY-SA 4.0 Efbrazil.}
     \label{fig2: scientific method}
 \end{figure}
-
+\end{center}
 The process of the scientific method involves three main stages:
 \begin{itemize}
 \setlength{\itemsep}{-5pt}
@@ -272,7 +275,7 @@ When writing up your work you need to be aware that scientific writing is not th
     \item The writer should clarify the meaning of any uncommon terms.
     \item The goal of the writing is to clearly explain the work that has been carried out so the results or observations should be summarised in a way that anyone can understand.
     \item The experiment and its results are fully explained.
-    \item A consistent system of units are used and this choice is clearly explained. In this module and almost everywhere this choise of units is the SI system.
+    \item A consistent system of units are used and this choice is clearly explained. In this module and almost everywhere this choice of units is the SI system.
 \end{itemize}
 
 \paragraph{Formal language:}
@@ -383,6 +386,7 @@ The easiest way to remember the difference is to think about motion along a line
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A one dimensional line signifying the x-axis.}
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (-6,0) --(6,0) node[anchor=west]{$x$};
 \filldraw[black] (0,0) circle (2pt) node[anchor=south]{0};
@@ -398,6 +402,7 @@ The difference between displacement and distance is that the distance is always 
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The x-axis with two points marked showing where the object is moving between.}
    % \pdftooltip{
    \begin{tikzpicture}
 \draw[black, ultra thick,->] (-6,0) --(6,0) node[anchor=west]{$x$};
@@ -428,6 +433,7 @@ You may recognise this as the formula for the gradient of a straight line starti
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A displacement time graph for constant velocity motion, a straight line, and changing velocity.}
    % \pdftooltip{
    \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(6,0) node[anchor=west]{$t$ axis};
@@ -454,6 +460,7 @@ In this module we are not assuming any familiarity with calculus so will not nee
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A displacement time graph showing an object moving away from its initial position before turning around and returning.}
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(7,0) node[anchor=west]{$t$ axis};
 \draw[black, ultra thick,->] (0,0) --(0,5) node[anchor=south]{$x$ axis};
@@ -473,6 +480,7 @@ When the velocity is constant we can just use \cref{eq: average velocity} and th
 \begin{figure}[ht]
     \centering
    % \pdftooltip{
+   \ThisAltText{ A velocity time graph showing uniform motion where the velocity follows a straight line.}
    \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(6,0) node[anchor=west]{$t$ axis};
 \draw[black, ultra thick,->] (0,0) --(0,6) node[anchor=south]{$v$ axis};
@@ -626,6 +634,7 @@ In the last section we talked about motion in one dimension, this can be either 
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A picture of the Italian polymath Galileio Galilei.}
     %\pdftooltip{
     \includegraphics[width=0.4\textwidth]{figures/Galileo.jpg}
     %}{A picture of the Italian polymath Galileio Galilei from Wikimedia commons.}
@@ -674,6 +683,7 @@ Now that we have looked at both horizontal and vertical motion it is time to com
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A plot of projectile motion showing vertical displacement against horizontal displacement.}
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(7,0) node[anchor=west]{$x$ axis};
 \draw[black, ultra thick,->] (0,0) --(0,5) node[anchor=south]{$y$ axis};
@@ -722,6 +732,7 @@ Notice that the time is the same in both cases as we are describing the motion o
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A schematic showing how to visualise a vector as a directed line segment.}
     %\pdftooltip{
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(7,0) node[anchor=west]{$x$ axis};
@@ -744,6 +755,7 @@ Another way to think of a vector is as a pair $(x,y)$ of a horizontal position a
 \begin{figure}[ht]
     \centering
    % \pdftooltip{
+   \ThisAltText{ A schematic of vector addition where the two vectors are lined up nose to tail and the straight line from the tail of the first to the nose of the second is the vector sum of the two.}
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(7,0) node[anchor=west]{$x$ axis};
 \draw[black, ultra thick,->] (0,0) --(0,7) node[anchor=south]{$y$ axis};
@@ -764,6 +776,7 @@ Another way to think of a vector is as a pair $(x,y)$ of a horizontal position a
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A schematic of vector subtraction.}
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(7,0) node[anchor=west]{$x$ axis};
 \draw[black, ultra thick,->] (0,0) --(0,7) node[anchor=south]{$y$ axis};
@@ -811,14 +824,14 @@ Note that when the angle goes beyond $90^{\circ}$ it no longer describes a trian
 
 
 \section{Motion in 2D}
-We now turn to motion in two dimensions. The most common example of this is \textbf{projectile motion} which is a combination of freefall in the vertical direction and constant speed motion in the horizontal direction.  Projectile motion describes is a good approximation for many things from golf balls and artillery shells, through to thrown stones. We will meet many examples of it in the tutorial problems and in the recommended books. As was mentioned above it is important to start every problem by writing down what we know about the horizontal and vertical motion then identifying what we can compute with that information. This is just like we did with one dimensional motion, but there we did not need to keep track of as many quantities.
+We now turn to motion in two dimensions. The most common example of this is \textbf{projectile motion} which is a combination of free fall in the vertical direction and constant speed motion in the horizontal direction.  Projectile motion describes is a good approximation for many things from golf balls and artillery shells, through to thrown stones. We will meet many examples of it in the tutorial problems and in the recommended books. As was mentioned above it is important to start every problem by writing down what we know about the horizontal and vertical motion then identifying what we can compute with that information. This is just like we did with one dimensional motion, but there we did not need to keep track of as many quantities.
 
 
 \paragraph{Example 3.2:} Consider an arrow fired from the top of a 20 m tower. If the arrow has a horizontal speed of $25 \text{m/s}$, assuming now air resistance find:
 \begin{itemize}
 \setlength{\itemsep}{-5pt}
     \item[a)] how long the arrow takes to hit the ground,
-    \item[b)] the horizontal distance traveled by the arrow\footnote{This is often called the \textbf{range}.}.
+    \item[b)] the horizontal distance travelled by the arrow\footnote{This is often called the \textbf{range}.}.
 \end{itemize}
 
 
@@ -853,7 +866,7 @@ t&=\sqrt{\frac{2\times 20}{9.8}}=2.02 \text{s}.
 \end{align*}
 If you prefer to rearrange the equation after you have substituted in the numbers then that is ok, just be careful that you do not introduce any rounding errors. Also, note that since the time is always positive we can ignore the negative square root when solving for $t$, if we were solving for a position then we would need to include both\footnote{In the future we will meet examples where $u\neq 0$ and then we have to solve a quadratic equation for $t$ which has two roots, often $t=0$ and another positive value of $t$. }.\\
 
-b) Now we want the horizontal distance traveled and since we know the time that the arrow is in the air for, from part a), and we know that $u_{x}$ is constant, we can use 
+b) Now we want the horizontal distance travelled and since we know the time that the arrow is in the air for, from part a), and we know that $u_{x}$ is constant, we can use 
 \begin{equation*}
 s_{x}=u_{x}t=25\times 2.02=50.5\text{m}.
 \end{equation*}
@@ -863,6 +876,7 @@ Often we will be given the velocity in a given direction, and an angle specifyin
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A velocity vector decomposed into its horizontal and vertical components.}
     \begin{tikzpicture}[scale=2]
   \coordinate [label=left:$\theta$] (C) at (-1.5cm,-1.cm);
   \coordinate (A) at (1.5cm,-1.0cm);
@@ -922,7 +936,7 @@ An alternative way to solve this problem would be to use the first kinematic equ
 \end{itemize}
 This is a complicated question with several stages, if you can solve this problem then you can solve any of the projectile motion questions that you will come across on the tutorial sheet or on the exam. This brings together everything that we have seen so far.
 
-a) Use trigonometry to caluclate the compnents as
+a) Use trigonometry to calculate the components as
 \begin{align*}
 u_{x}&=u\cos\theta =37\times \cos53.1^{\circ}=22.2 \text{m/s},\\
 u_{y}&=u\sin\theta =37\times \sin53.1^{\circ}=29.6 \text{m/s}.
@@ -1004,12 +1018,13 @@ Forces are vectors as they have both a magnitude, how strong the effect of the f
 
 Typically when there are more is more than one force acting on an object we use a \textbf{free body diagram} to help us understand the situation. An example free body diagram for an object hanging on the end of a piece of string is given in \cref{fig: free body diagram}.  A free body diagram is not a detailed scale drawing of the problem, it is a diagram depicting a simplified version of the body, all the forces acting on the object as arrows pointing in the direction that they are acting. When solving a problem involving forces it is often a good idea to start with a free body diagram so that you can work out what the net force is.
 
+\begin{center}
 \begin{figure}[ht]
+\ThisAltText{ A free body diagram showing the forces acting on an object of mass m suspended from a string.}
 \def\iangle{35} % Angle of the inclined plane
-
 \def\down{-90}
 \def\arcr{0.5cm} % Radius of the arc used to indicate angles
-    \centering
+    %\centering
    % \pdftooltip{
    \begin{tikzpicture}[
     force/.style={>=latex,draw=blue,fill=blue},
@@ -1018,8 +1033,7 @@ Typically when there are more is more than one force acting on an object we use 
     m/.style={rectangle,draw=black,fill=white,minimum size=0.3cm,thin},
     plane/.style={draw=black,fill=blue!10},
     string/.style={draw=red, thick},
-    pulley/.style={thick},
-]
+    pulley/.style={thick},]
 \node[m] (m) {$m$};
     \draw[axis,->] (m) -- ++(0,2) node[left] {$+$};
     {[force,->]
@@ -1031,7 +1045,7 @@ Typically when there are more is more than one force acting on an object we use 
     \caption{A free body diagram showing the forces acting on an object of mass $m$ suspended on a string. The weight of the object is pointing down and is given by $W=mg$, and the tension in the string is pointing upwards and is $T$. }
     \label{fig: free body diagram}
 \end{figure}
-
+\end{center}
 
 \paragraph{Example 4.1:} Consider an object of weight $\vec{W}$ on an inclined plane, with angle $\theta$. There are three forces acting on the object:
 \begin{itemize}
@@ -1044,6 +1058,7 @@ Typically when there are more is more than one force acting on an object we use 
 \begin{figure}[ht]
     \centering
    % \pdftooltip{
+   \ThisAltText{A picture of a mass on an inclined plane.}
    \includegraphics[width=0.4\textwidth]{figures/inclined_plane.png}
    %}{An inclined plane with a mass on it.}
     \caption{An inclined plane with a mass on it. The massive block has three forces acting on it, $W$ its weight pointing straight down, the support force of the plane $S$ acting perpendicular to the plane, and friction $F_{r}$. If this was a free body diagram we would not show the plane and just depict the mass with forces acting on it and the angles that they act at.}
@@ -1069,6 +1084,7 @@ To understand how to resolve forces it is best to consider the following example
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A mass hanging from two strings at specified angles from the horizontal.}
     \includegraphics[width=0.3\textwidth]{figures/hanging_mass.png}
     %}{a hanging mass attached to two wires}
     \caption{A $10$ kg mass hanging from two wires.}
@@ -1081,6 +1097,7 @@ This is easiest for the weight since it only points vertically so the horizontal
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A triangle showing how to decompose a force into its horizontal and vertical components.}
     \begin{tikzpicture}[scale=2]
   \coordinate [label=left:$60^{\circ}$] (C) at (-1.5cm,-1.cm);
   \coordinate (A) at (1.5cm,-1.0cm);
@@ -1139,6 +1156,7 @@ There are further examples of resolving forces given in the tutorial problems.
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A picture of Sir Isaac Newton from Wikimedia commons.}
     \includegraphics[width=0.4\textwidth]{figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg}
     %}{A picture of the British mathematician and physicist Isaac Newton from Wikimedia commons.}
     \caption{A picture of the British mathematician and physicist Isaac Newton from \href{https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newton,_1689.jpg}{Wikimedia Commons}.}
@@ -1315,6 +1333,7 @@ this is with the sign convention that towards the wall is positive and away from
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{A ball bouncing off a wall and reflected backwards with the velocity flipping its sign..}
     %\pdftooltip{
     \includegraphics[width=0.4\textwidth]{figures/recoil.png}
     %}{A ball recoiling off a wall}
@@ -1427,6 +1446,7 @@ The relationship between the work done and the area under a force distance plot 
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A mass on the end of a spring oscillating around equilibrium. }
     %\pdftooltip{
     \includegraphics[width=0.6\textwidth]{figures/SHO_lagrangian_mech.png}
     %}{An oscillating spring}
@@ -1440,6 +1460,7 @@ W_{\text{spring}}=\frac{1}{2}F x=\frac{1}{2}k x^{2}.
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A plot of force against extension for a spring showing that there is a linear relationship.}
     %\pdftooltip{
     \includegraphics[width=0.4\textwidth]{figures/spring_work.png}
     %}{force against extension for a spring}
@@ -1538,6 +1559,7 @@ P=\frac{\Delta W}{\Delta t}.
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The formula triangle for energy, power, and time.}
     %\pdftooltip{
     \large \formulatriang[.4]{$E$}{}{$ P$}{}{$ t$}{}
     %}{The formula triangle for power, change in energy, and change in time.}
@@ -1732,6 +1754,7 @@ This means that a full rotation $360^{\circ}$ corresponds to $2\uppi$ radians as
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A circle of radius r demonstrating the relationship between arc length and angle.}
     %\pdftooltip{
     \begin{tikzpicture}
    % \draw[step=1cm,gray,very thin] (3,-3) grid (3,3);
@@ -1758,6 +1781,7 @@ One way to motivate working in radians is to think of unwinding the circle to ge
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ Another circle showing how the arc length and angle can be related to a straight line distance.}
    % \pdftooltip{
     \begin{tikzpicture}
    % \draw[step=1cm,gray,very thin] (3,-3) grid (3,3);
@@ -1787,6 +1811,7 @@ An object rotating at a steady rate is said to be in \textbf{uniform circular mo
 \begin{figure}[ht]
     \centering
   %  \pdftooltip{
+  \ThisAltText{ A rotating wheel with a point and its instantaneous straight line velocity marked.}
     \begin{tikzpicture}
    % \draw[step=1cm,gray,very thin] (3,-3) grid (3,3);
    \filldraw[color = blue, ultra thick](0,0) circle (0.05);
@@ -1883,6 +1908,7 @@ a=\frac{v^{2}}{r}=\upomega^{2}r.
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A rotating wheel with a point, its instantaneous velocity, and its centripetal acceleration marked.}
     %\pdftooltip{
     \begin{tikzpicture}
    % \draw[step=1cm,gray,very thin] (3,-3) grid (3,3);
@@ -1987,7 +2013,7 @@ The weight of the vehicle is still important though. If the vehicle is travellin
 \begin{equation*}
 F_{0}=\frac{mv_{0}^{2}}{r}.
 \end{equation*}
-As $F_{0}$ is a frictional force it can be written as $F_{0}=\upmu mg$ where $\upmu$ is the \textbf{coefficient of friction}\footnote{There are actually two types of coefficients of friction: static and dynamic. In this module we do not make a distinction between them, but it is important to be aware that there is a difference as some books will use different names in different contexts.}.  Using $\upmu$ we can find an expression for $v_{0}$ analagous to that used above. The critical speed is given by
+As $F_{0}$ is a frictional force it can be written as $F_{0}=\upmu mg$ where $\upmu$ is the \textbf{coefficient of friction}\footnote{There are actually two types of coefficients of friction: static and dynamic. In this module we do not make a distinction between them, but it is important to be aware that there is a difference as some books will use different names in different contexts.}.  Using $\upmu$ we can find an expression for $v_{0}$ analogous to that used above. The critical speed is given by
 \begin{equation*}
 v_{0}=\sqrt{\upmu g r},
 \end{equation*}
@@ -2129,6 +2155,7 @@ b) $f=1/T=1/0.48=2.08\text{Hz}$.\\
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ Plots of the displacement, velocity, and acceleration of an oscillating object showing that they follow trigonometric curves with different phases.}
    % \pdftooltip{
     \begin{tikzpicture}[domain=-3.141:3.141, smooth,variable=\x]
      \draw[->] (-3.141,0) -- (3.141,0) node[above] {$t$};
@@ -2169,6 +2196,7 @@ In shm the period is independent of the amplitude! This is something that you wi
 The easiest way to solve this is to draw a picture, \cref{fig: shm with parts}, and see what that tells us. 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The sinusoidal displacement of an oscillating object.}
     %\pdftooltip{
     \begin{tikzpicture}[domain=0:6.282, smooth,variable=\x]
      \draw[->] (0,0) -- (6.4,0) node[above] {$t$};
@@ -2204,6 +2232,7 @@ which is exactly what we expect for simple harmonic motion.
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A plot of a circle showing the decomposition of the radius into horizontal and vertical components. Both of these components will look like they are oscillating if we study them independently.}
   %  \pdftooltip{
     \begin{tikzpicture}
    % \draw[step=1cm,gray,very thin] (3,-3) grid (3,3);
@@ -2309,6 +2338,7 @@ T=2\uppi\sqrt{\frac{m}{k}}=2\uppi\sqrt{\frac{0.2}{25}}=0.56\text{s}.
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A picture of a simple pendulum taken from Wikimedia commons.}
    % \pdftooltip{
    \includegraphics[width=0.6\textwidth]{figures/Simple_gravity_pendulum.png}
    %}{A schematic of the simple pendulum}
@@ -2327,6 +2357,7 @@ F_{\text{par}}&=-mg\sin\uptheta.
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A triangle showing how the weight of the pendulum bob is decomposed into components.}
    % \pdftooltip{
    \begin{tikzpicture}[scale=2]
   \coordinate [label=left:$\theta$] (C) at (-1.5cm,-1.cm);
@@ -2522,6 +2553,7 @@ This is another equation you can use a formula triangle to help you remember, se
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The formula triangle for power, voltage, and current.}
   %  \pdftooltip{
   \large \formulatriang[.4]{$P$}{}{$I$}{}{$ V$}{}
   %}{The formula triangle for power, voltage, and current.}
@@ -2560,6 +2592,7 @@ The formula triangle in \cref{fig: Ohms law} can help you remember how to rearra
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The formula triangle for voltage, current, and resistance.}
    % \pdftooltip{
    \large \formulatriang[.4]{$V$}{}{$I$}{}{$ R$}{}
    %}{The formula triangle for Ohm's law.}
@@ -2591,6 +2624,7 @@ There is a special circuit component, called a \textbf{resistor}, whose purpose 
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The circuit symbols for a resistor.}
    % \pdftooltip{
    \begin{tikzpicture}[circuit ee IEC]
     % Var resistor
@@ -2610,6 +2644,7 @@ A natural question after what we have seen in this section is ``How do we measur
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The circuit symbol for an ammeter which is connected in series with the component that you are measuring the current through.}
     %\pdftooltip{
     \begin{tikzpicture}[circuit ee IEC]
      \draw (0,0) to [battery] (4,0) ;
@@ -2628,6 +2663,7 @@ Voltage is measured using a different device called a \textbf{voltmeter}, which 
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ The circuit symbol for a voltmeter which is connected in parallel to the component that you are measuring the voltage across.}
     \begin{tikzpicture}[circuit ee IEC]
      \draw (-1,0) to [battery] (3,0) ;
     \draw (0,-4) to [voltmeter] (2,-4);
@@ -2654,6 +2690,7 @@ It turns out that there are a set of rules that govern how current and voltage b
    \begin{figure}[ht]
     \centering
    % \pdftooltip{
+   \ThisAltText{ Kirchhoff's first law that the current entering a junction must be equal to the current leaving the junction.}
    \begin{tikzpicture}[circuit ee IEC]
    \draw (0,0) to[current direction={near start,info={$0.5$A}}] (2,0);
      \draw (3,-1) to[current direction={near start,info={$I=?$}}] (2,0);
@@ -2667,6 +2704,7 @@ It turns out that there are a set of rules that govern how current and voltage b
  \begin{figure}[ht]
     \centering
    % \pdftooltip{
+   \ThisAltText{ The current entering a circuit component is the same as the current leaving it.}
    \begin{tikzpicture}[circuit ee IEC]
    \draw (-1,0) to [battery] (3,0) ;
     \draw    (-1,-2) to [bulb] (3,-2);
@@ -2684,6 +2722,7 @@ The second current rule can also be interpreted as saying that for components in
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The voltage across components in parallel is the same.}
    % \pdftooltip{
    \begin{tikzpicture}[circuit ee IEC]
      \draw (-1,0) to [battery] (3,0) ;
@@ -2709,6 +2748,7 @@ Kirchhoff's three voltage rules are:
      \begin{figure}[ht]
     \centering
    % \pdftooltip{
+   \ThisAltText{ Voltages in series add to give the total voltage across the components.}
    \begin{tikzpicture}[circuit ee IEC]
      \draw (-3,0) to [battery ={info={$V_{0}$}}] (3,0) ;
     \draw (-0,-3) to [resistor={info'={$V_{1}$}}] (3,-3);
@@ -2723,6 +2763,7 @@ Kirchhoff's three voltage rules are:
     \item[2)] Voltages in parallel are the same. So for a circuit with two resistors in parallel as in \cref{fig: voltage rule 2}, the voltage across both resistors is the same, and this is also the same as the voltage supplied by the cell. Or in symbols $V_{0}=V_{1}=V_{2}$.
     \begin{figure}[ht]
     \centering
+    \ThisAltText{ Voltages in parallel are the same.}
   %  \pdftooltip{
   \begin{tikzpicture}[circuit ee IEC]
      \draw (-1,0) to [battery ={info={$V_{0}$}}] (3,0) ;
@@ -2740,6 +2781,7 @@ Kirchhoff's three voltage rules are:
     \item[3)] For a loop the sum of voltage gains is equal to the sum of voltage loses. This is a version of the conservation of energy as it is saying that for a closed loop the energy that leaves the circuit is equal to the energy that enters the circuit. For the circuit shown in \cref{fig: voltage rule 3} this means that $V_{0}+V_{1}=V_{2}+V_{3}$
        \begin{figure}[ht]
     \centering
+    \ThisAltText{ In a closed loop the total voltage gain is equal to the total voltage loss.}
   %  \pdftooltip{
   \begin{tikzpicture}[circuit ee IEC]
      \draw (-1,0) to [battery ={info={$V_{0}$}}] (3,0) ;
@@ -2757,6 +2799,7 @@ Kirchhoff's three voltage rules are:
 
   \begin{figure}[ht]
     \centering
+    \ThisAltText{ A circuit diagram corresponding to jump starting a car.}
  %   \pdftooltip{
  \begin{tikzpicture}[circuit ee IEC]
      \draw (-3,0) to [resistor={info={$R_{1}=2\Omega$}}](0,0);
@@ -2792,6 +2835,7 @@ This example is about as complicated a problem as you can expect to find where w
 
   \begin{figure}[ht]
     \centering
+    \ThisAltText{ A circuit with a single cell and two resistors.}
    % \pdftooltip{
    \begin{tikzpicture}[circuit ee IEC]
      \draw (-3,0) to [battery ={info={$V_{0}=12$V}}] (3,0) ;
@@ -2827,6 +2871,7 @@ R=R_{1}+R_{2}.
 See \cref{fig: resistance in series} for a what this means in terms of circuit diagrams.\\
   \begin{figure}[ht]
     \centering
+    \ThisAltText{ For resistors in series the total resistance is the sum of the individual resistances.}
     %\pdftooltip{
     \begin{tikzpicture}[circuit ee IEC]
     \draw (-3,0) to [resistor={info={$R_{1}$}}] (0,0);
@@ -2849,6 +2894,7 @@ Resistors in parallel combine in a more complicated way. This is because we need
 
   \begin{figure}[ht]
     \centering
+    \ThisAltText{ For resistors in parallel the reciprocal of the total resistance is the sum of the reciprocals of the individual resistances.}
    % \pdftooltip{
    \begin{tikzpicture}[circuit ee IEC]
     \draw (0,0) to [resistor={info'={$R_{1}$}}] (2,0);
@@ -2892,6 +2938,7 @@ which if we cancel the factors of $V$ gives \cref{eq: resistors in parallel}.
 
   \begin{figure}[ht]
     \centering
+    \ThisAltText{ A circuit with resistors in parallel and in series.}
     %\pdftooltip{
     \begin{tikzpicture}[circuit ee IEC]
     \draw (0,0) to [resistor={info={$R_{2}=3\Omega$}}] (2,0);
@@ -2942,6 +2989,7 @@ P=\frac{V^{2}}{R}=\frac{36}{1000}=0.036\text{W}.
   \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A potential or voltage divider circuit.}
     \begin{tikzpicture}[circuit ee IEC]
      \draw (-3,0) to [battery ={info={$V_{0}$}}] (3,0) ;
     \draw (3,0) to  (3,-2);
@@ -2989,6 +3037,7 @@ In a variable potential divider one of the resistors is replaced by a variable r
 \end{itemize}  
  \begin{figure}[ht]
     \centering
+    \ThisAltText{ A specific potential divider circuit.}
    % \pdftooltip{
    \begin{tikzpicture}[circuit ee IEC]
      \draw (-3,0) to [battery ={info={$V_{0}=6\text{V}$}}] (3,0) ;
@@ -3019,6 +3068,7 @@ V_{2}&=\frac{V_{0}R_{2}}{R_{1}+R_{2}}=\frac{6\times 8}{12}=4\text{V}.
   \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ The circuit symbol for a capacitor.}
     \begin{tikzpicture}[circuit ee IEC]
      \draw (0,0) to [capacitor] (3,0) ;
 \end{tikzpicture}
@@ -3044,6 +3094,7 @@ this is time dependent as the more charge that builds up on the capacitor the lo
 
      \begin{figure}[ht]
     \centering
+    \ThisAltText{ An RC circuit with a resistor and a capacitor in series.}
     %\pdftooltip{
     \begin{tikzpicture}[circuit ee IEC]
      \draw (-1,0) to [battery ={info={$V_{0}$}}] (3,0) ;
@@ -3067,7 +3118,7 @@ Notice that as time goes on the voltage across the resistor drops and the voltag
  
 A natural time scale is given by $\uptau=RC$ which is known as the \textbf{time constant}. This is the time required for the voltage across the resistor to fall by $V_{0}/e$.\\
 
-If you go on to study more about circuits you will meet the concept of \textbf{impedence} which is a generalisation of resistance that takes account of all of the opposition to the flow of current. This includes contributions from resistance, capacitance, and inductance\footnote{A concept related to a circuit component called an inductor that we will not meet in this module.}.
+If you go on to study more about circuits you will meet the concept of \textbf{impedance} which is a generalisation of resistance that takes account of all of the opposition to the flow of current. This includes contributions from resistance, capacitance, and inductance\footnote{A concept related to a circuit component called an inductor that we will not meet in this module.}.
 
 \section{AC Circuits}
 In a DC circuit the supply voltage is a constant in time, usually denoted by  $V_{0}$. While in an AC circuit, the direction the charge carriers move in changes with time. In fact the current is periodic and follows a sinusoidal wave, 
@@ -3078,6 +3129,7 @@ where $\uw=2\up f=2\up/T$ is the angular frequency. As we saw when studying circ
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The profile of the voltage in an AC circuit is a sinusoidal curve.}
   %  \pdftooltip{
     \begin{tikzpicture}[domain=0:6.282, smooth,variable=\x]
      \draw[->] (0,0) -- (6.4,0) node[above] {$t$};
@@ -3101,6 +3153,7 @@ the mean power, which is half of the peak power $P_{0}$.\\
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The profile of the power in an AC circuit is everywhere positive and follows a sinusoidal curve.}
    % \pdftooltip{
     \begin{tikzpicture}[domain=0:6.282, smooth,variable=\x]
      \draw[->] (0,0) -- (6.4,0) node[above] {$t$};
@@ -3179,6 +3232,7 @@ d) The mean power is then
 \section{Circuit Component Symbols}
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A summary of the symbols for the circuit components that we have used in this module.}
   %  \pdftooltip{
   \begin{tikzpicture}[circuit ee IEC]
     \draw    (0,0) to [resistor] (2,0) node[right]{Resistor};
@@ -3216,6 +3270,7 @@ Throughout this module we have treated space and time as absolute quantities tha
 \begin{figure}[ht]
     \centering
   %  \pdftooltip{
+  \ThisAltText{ A picture of the physicist James Clerk Maxwell from Wikimedia commons.}
   \includegraphics[width=0.4\textwidth]{figures/James-Clerk-Maxwell.jpg}
   %}{A picture of the Scottish physicist and mathematician James Clerk Maxwell from Wikimedia commons.}
     \caption{A picture of the Scottish physicist and mathematician from \href{https://upload.wikimedia.org/wikipedia/commons/b/b0/James-Clerk-Maxwell-1831-1879.jpg}{Wikimedia commons}.}
@@ -3228,6 +3283,7 @@ Usually when we have waves they are travelling in a given medium. For example, w
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A picture of Albert Einstein from Wikimedia commons.}
     \includegraphics[width=0.4\textwidth]{figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg}
     %}{A picture of the German Physicist Albert Einstein from Wikimedia commons.}
     \caption{A picture of the German physicist Albert Einstein from \href{https://upload.wikimedia.org/wikipedia/commons/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg}{Wikimedia commons}.}
@@ -3248,6 +3304,7 @@ Consider a person moving with speed $v$ in the $x$ direction. \cref{fig: moving 
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ The Galilean relativity relationship between moving frames.}
     %\pdftooltip{
     \begin{tikzpicture}
 \draw[black, ultra thick,->] (0,0) --(4,0) node[anchor=west]{$x$ axis};
@@ -3337,6 +3394,7 @@ The most famous example of this is what is known as the double slit experiment. 
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A picture of the double slit experiment for particles taken from Wikimedia commons.}
    % \pdftooltip{
    \includegraphics[width=0.5\textwidth]{figures/Two-Slit_Experiment_Particles.png}
    %}{A picture of the double slit experiment for particles from Wikimedia commons.}
@@ -3348,6 +3406,7 @@ When a wave passes through a slit it \textbf{diffracts}\footnote{This means that
 
 \begin{figure}[ht]
     \centering
+    \ThisAltText{ A picture of the double slit experiment for waves taken from Wikimedia commons.}
     %\pdftooltip{
     \includegraphics[width=0.5\textwidth]{figures/Two-Slit_Experiment_Light.png}
     %}{A picture of the double slit experiment for waves from Wikimedia commons.}
@@ -3364,6 +3423,7 @@ It is natural to ask if we can just watch one of the slits and see does the elec
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A picture of the double slit experiment for quantum objects taken from Wikimedia commons.}
     \includegraphics[width=0.5\textwidth]{figures/double_slit_electrons.png}
     %}{A picture of the double slit experiment for electrons from Wikimedia commons.}
     \caption{A picture of the double slit experiment for electrons from \href{https://commons.wikimedia.org/wiki/File:Double-slit.svg}{Wikimedia commons}.}
@@ -3412,6 +3472,7 @@ For our purposes we will only need trigonometry for right angled triangles. \tex
 \begin{figure}[ht]
     \centering
     %\pdftooltip{
+    \ThisAltText{ A right angle triangle showing the trigonometric relationships between side lengths and angles.}
     \begin{tikzpicture}[scale=2]
   \coordinate [label=left:$\uptheta$] (C) at (-1.5cm,-1.cm);
   \coordinate (A) at (1.5cm,-1.0cm);
@@ -3592,6 +3653,7 @@ For more information on how to draw free body diagrams and what they can be used
 \section{Energy Extra Reading}
 The kinetic energy shows up often enough that it may be worth having a formula triangle to help you remember the equation. This is shown in \cref{fig: Kmv triangle}.\\
 \begin{figure}[ht]
+\ThisAltText{ A formula triangle for kinetic energy, mass, and velocity.}
     \centering
     %\pdftooltip{
     \large \formulatriang[.4]{$E_{K}$}{}{$\frac{m}{2}$}{}{$v^{2}$}{}
@@ -3629,146 +3691,146 @@ The content of this section is essentially all further reading as it is a non-ex
 \end{itemize}  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%\chapter{Formula Sheet}
-%The formulas and symbols given here are the ones that you will be given at the front of your exam paper. If there are formulas that are not included here then these are ones that you will need to learn for the exam.\\
-%
-%Acceleration due to gravity $g=9.8\text{m/s}^{2}$.\\
-%
-%\section*{Algebraic equations}
-%
-%The quadratic formula:
-%\begin{equation*}
-%x=\frac{-b\pm\sqrt{b^{2}-4ac}}{2a}
-%\end{equation*}
-%
-%\section*{Geometrical Equations}
-%
-%Arc length $=r\uptheta$\\
-%
-%Circumference of a circle $=2\uppi r$\\
-%
-%Area of a circle $=\uppi r^{2}$\\
-%
-%Curved surface area of a cylinder $=2\uppi r h$\\
-%
-%Area of a sphere $=4\uppi r^{2}$\\
-%
-%Volume of a sphere $=\frac{4}{3}\uppi r^{3}$\\
-%
-%\section*{Mechanics Equations}
-%Velocity and acceleration
-%\begin{equation*}
-%v=\frac{\Delta s}{\Delta t}, \qquad a=\frac{\Delta v}{\Delta t}
-%\end{equation*}
-%
-%Equations of motion
-%\begin{align*}
-%v&=u+at, \qquad s=\left(\frac{u+v}{2}\right)t,\\
-%v^{2}&=u^{2}+2as, \qquad s=ut+\frac{1}{2}at^{2}
-%\end{align*}
-%
-%Force
-%\begin{equation*}
-%F=ma, \qquad F=\frac{\Delta\left(mv\right)}{\Delta t}
-%\end{equation*}
-%
-%Impulse
-%\begin{equation*}
-%F\Delta t =\Delta \left(mv\right)
-%\end{equation*}
-%
-%Work, energy, and power
-%\begin{align*}
-%W&=Fs\cos\uptheta, \qquad  E_{K}=\frac{1}{2}mv^{2},\\
-%\Delta E_{P}&=mg\Delta h, \qquad P=\frac{\Delta W}{\Delta t},\\
-%P&=Fv, \qquad \text{Efficiency}=\epsilon =\frac{\text{useful output power}}{\text{input power}}
-%\end{align*}
-%
-%\section*{Circular Motion Equations}
-%
-%Angular velocity 
-%\begin{equation*}
-%\uw=\frac{v}{r}, \qquad \upomega=2\up f
-%\end{equation*}
-%
-%Centripetal acceleration
-%\begin{equation*}
-%a=\frac{v^{2}}{r}=\upomega^{2}r
-%\end{equation*}
-%
-%Centripetal force
-%\begin{equation*}
-%F=\frac{mv^{2}}{r}=m\upomega^{2}r
-%\end{equation*}
-%
-%\section*{Simple Harmonic Motion Equations}
-%
-%Acceleration
-%\begin{equation*}
-%a=-\upomega^{2}x
-%\end{equation*}
-%
-%Displacement
-%\begin{equation*}
-%x=A\cos\left(\upomega t+\upphi\right)
-%\end{equation*}
-%
-%Speed
-%\begin{equation*}
-%v=\pm \upomega \sqrt{A^{2}-x^{2}}
-%\end{equation*}
-%
-%Maximum speed
-%\begin{equation*}
-%v_{\text{max}}=\upomega A
-%\end{equation*}
-%
-%Maximum acceleration
-%\begin{equation*}
-%a_{\text{max}}=\upomega^{2}A
-%\end{equation*}
-%
-%Hooke's law
-%\begin{equation*}
-%F=-kx
-%\end{equation*}
-%
-%Mass spring system
-%\begin{equation*}
-%T=2\uppi\sqrt{\frac{m}{k}}
-%\end{equation*}
-%
-%Simple pendulum
-%\begin{equation*}
-%T=2\uppi\sqrt{\frac{l}{g}}
-%\end{equation*}
-%
-%\section*{Electrical circuits Equations}
-%Current and potential difference
-%\begin{equation*}
-%I=\frac{\Delta Q}{\Delta t}, \quad V=\frac{W}{Q}, \quad V=IR
-%\end{equation*}
-%
-%Resistors in series
-%\begin{equation*}
-%R_{T}=R_{1}+R_{2}+R_{3}+\dots
-%\end{equation*}
-%
-%Resistors in parallel
-%\begin{equation*}
-%\frac{1}{R_{T}}=\frac{1}{R_{1}}+\frac{1}{R_{2}}+\frac{1}{R_{3}}+\dots
-%\end{equation*}
-%
-%Power
-%\begin{equation*}
-%P=IV=I^{2}R=\frac{V^{2}}{R}
-%\end{equation*}
-%
-%Capacitance 
-%\begin{equation*}
-%C=\frac{Q}{V}
-%\end{equation*}
+
+\chapter{Formula Sheet}
+The formulas and symbols given here are the ones that you will be given at the front of your exam paper. If there are formulas that are not included here then these are ones that you will need to learn for the exam.\\
+
+Acceleration due to gravity $g=9.8\text{m/s}^{2}$.\\
+
+\section*{Algebraic equations}
+
+The quadratic formula:
+\begin{equation*}
+x=\frac{-b\pm\sqrt{b^{2}-4ac}}{2a}
+\end{equation*}
+
+\section*{Geometrical Equations}
+
+Arc length $=r\uptheta$\\
+
+Circumference of a circle $=2\uppi r$\\
+
+Area of a circle $=\uppi r^{2}$\\
+
+Curved surface area of a cylinder $=2\uppi r h$\\
+
+Area of a sphere $=4\uppi r^{2}$\\
+
+Volume of a sphere $=\frac{4}{3}\uppi r^{3}$\\
+
+\section*{Mechanics Equations}
+Velocity and acceleration
+\begin{equation*}
+v=\frac{\Delta s}{\Delta t}, \qquad a=\frac{\Delta v}{\Delta t}
+\end{equation*}
+
+Equations of motion
+\begin{align*}
+v&=u+at, \qquad s=\left(\frac{u+v}{2}\right)t,\\
+v^{2}&=u^{2}+2as, \qquad s=ut+\frac{1}{2}at^{2}
+\end{align*}
+
+Force
+\begin{equation*}
+F=ma, \qquad F=\frac{\Delta\left(mv\right)}{\Delta t}
+\end{equation*}
+
+Impulse
+\begin{equation*}
+F\Delta t =\Delta \left(mv\right)
+\end{equation*}
+
+Work, energy, and power
+\begin{align*}
+W&=Fs\cos\uptheta, \qquad  E_{K}=\frac{1}{2}mv^{2},\\
+\Delta E_{P}&=mg\Delta h, \qquad P=\frac{\Delta W}{\Delta t},\\
+P&=Fv, \qquad \text{Efficiency}=\epsilon =\frac{\text{useful output power}}{\text{input power}}
+\end{align*}
+
+\section*{Circular Motion Equations}
+
+Angular velocity 
+\begin{equation*}
+\uw=\frac{v}{r}, \qquad \upomega=2\up f
+\end{equation*}
+
+Centripetal acceleration
+\begin{equation*}
+a=\frac{v^{2}}{r}=\upomega^{2}r
+\end{equation*}
+
+Centripetal force
+\begin{equation*}
+F=\frac{mv^{2}}{r}=m\upomega^{2}r
+\end{equation*}
+
+\section*{Simple Harmonic Motion Equations}
+
+Acceleration
+\begin{equation*}
+a=-\upomega^{2}x
+\end{equation*}
+
+Displacement
+\begin{equation*}
+x=A\cos\left(\upomega t+\upphi\right)
+\end{equation*}
+
+Speed
+\begin{equation*}
+v=\pm \upomega \sqrt{A^{2}-x^{2}}
+\end{equation*}
+
+Maximum speed
+\begin{equation*}
+v_{\text{max}}=\upomega A
+\end{equation*}
+
+Maximum acceleration
+\begin{equation*}
+a_{\text{max}}=\upomega^{2}A
+\end{equation*}
+
+Hooke's law
+\begin{equation*}
+F=-kx
+\end{equation*}
+
+Mass spring system
+\begin{equation*}
+T=2\uppi\sqrt{\frac{m}{k}}
+\end{equation*}
+
+Simple pendulum
+\begin{equation*}
+T=2\uppi\sqrt{\frac{l}{g}}
+\end{equation*}
+
+\section*{Electrical circuits Equations}
+Current and potential difference
+\begin{equation*}
+I=\frac{\Delta Q}{\Delta t}, \quad V=\frac{W}{Q}, \quad V=IR
+\end{equation*}
+
+Resistors in series
+\begin{equation*}
+R_{T}=R_{1}+R_{2}+R_{3}+\dots
+\end{equation*}
+
+Resistors in parallel
+\begin{equation*}
+\frac{1}{R_{T}}=\frac{1}{R_{1}}+\frac{1}{R_{2}}+\frac{1}{R_{3}}+\dots
+\end{equation*}
+
+Power
+\begin{equation*}
+P=IV=I^{2}R=\frac{V^{2}}{R}
+\end{equation*}
+
+Capacitance 
+\begin{equation*}
+C=\frac{Q}{V}
+\end{equation*}
 
 
 \clearpage

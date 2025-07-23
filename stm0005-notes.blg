@@ -7,14 +7,14 @@ Reallocating 'name_of_file' (item size: 1) to 8 items.
 Database file #1: physics.bib
 You've used 16 entries,
             2909 wiz_defined-function locations,
-            711 strings with 6630 characters,
-and the built_in function-call counts, 50439 in all, are:
+            710 strings with 6584 characters,
+and the built_in function-call counts, 50436 in all, are:
 = -- 8091
 > -- 660
 < -- 0
 + -- 3798
 - -- 196
-* -- 4155
+* -- 4153
 := -- 10468
 add.period$ -- 16
 call.type$ -- 16
@@ -28,13 +28,13 @@ if$ -- 9014
 int.to.chr$ -- 8
 int.to.str$ -- 0
 missing$ -- 32
-newline$ -- 52
+newline$ -- 51
 num.names$ -- 164
 pop$ -- 125
 preamble$ -- 1
 purify$ -- 240
 quote$ -- 0
-skip$ -- 157
+skip$ -- 158
 stack$ -- 0
 substring$ -- 11219
 swap$ -- 21
@@ -45,4 +45,4 @@ type$ -- 32
 warning$ -- 0
 while$ -- 336
 width$ -- 0
-write$ -- 208
+write$ -- 207

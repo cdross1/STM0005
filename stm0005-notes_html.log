@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.23)  23 JUL 2025 11:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.23)  23 JUL 2025 12:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2221,30 +2221,30 @@ Package cleveref Info: `amsthm' support loaded on input line 3026.
  (stm0005-notes_html.aux)
 \openout1 = `stm0005-notes_html.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Info: Redefining \microtypecontext on input line 58.
-Package microtype Info: Applying patch `item' on input line 58.
-Package microtype Info: Applying patch `toc' on input line 58.
-Package microtype Info: Applying patch `eqnum' on input line 58.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
+LaTeX Font Info:    ... okay on input line 62.
+LaTeX Info: Redefining \microtypecontext on input line 62.
+Package microtype Info: Applying patch `item' on input line 62.
+Package microtype Info: Applying patch `toc' on input line 62.
+Package microtype Info: Applying patch `eqnum' on input line 62.
 
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 58.
+Package microtype Warning: Unable to apply patch `footnote' on input line 62.
 
-Package microtype Info: Applying patch `verbatim' on input line 58.
-LaTeX Info: Redefining \microtypesetup on input line 58.
+Package microtype Info: Applying patch `verbatim' on input line 62.
+LaTeX Info: Redefining \microtypesetup on input line 62.
 Package microtype Info: Generating PDF output.
 Package microtype Info: No character protrusion.
 Package microtype Info: No font expansion.
@@ -2333,17 +2333,17 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 )))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-Package lwarp Info: Removing background hook on input line 58.
+Package lwarp Info: Removing background hook on input line 62.
 \openout5 = `stm0005-notes-images.txt'.
 
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-8.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6
+2.
  (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 File: "lwarp_mathjax.txt"  (verbatim)
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-58.
+62.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -2384,41 +2384,41 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [7]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-03.
+07.
  (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-16.
+20.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-16.
+20.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-116.
+120.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-116.
+120.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 116.
+(Font)              <10> on input line 120.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 116.
+(Font)              <7> on input line 120.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 116.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 116
+(Font)              <5> on input line 120.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 120
 .
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -2427,7 +2427,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 116
+LaTeX Font Info:    Trying to load font information for U+msb on input line 120
 .
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -2437,11 +2437,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 116.
+(Font)              scaled to size 8.99994pt on input line 120.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 116.
+(Font)              scaled to size 6.29996pt on input line 120.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 4.49997pt on input line 116.
+(Font)              scaled to size 4.49997pt on input line 120.
 
 
 [8{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
@@ -2500,13 +2500,13 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [32]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 366.
+(Font)              <17.28> on input line 369.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 366.
+(Font)              <12> on input line 369.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 15.55188pt on input line 366.
+(Font)              scaled to size 15.55188pt on input line 369.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 366.
+(Font)              scaled to size 10.79993pt on input line 369.
 
 
 [33]
@@ -2562,7 +2562,7 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [57]
 
 [58]
-Overfull \hbox (124.82208pt too wide) in paragraph at lines 632--632
+Overfull \hbox (124.82208pt too wide) in paragraph at lines 641--641
 []\T1/lmr/m/n/10 Figure\T1/lmtt/m/n/10 &nbsp;\T1/lmr/m/n/10 4.1: Ital-ian poly-
 math Galileio Galilei, who prob-a-bly did not drop ob-jects off the lean-ing to
 wer of Pisa. The im-age is from \T1/lmtt/m/n/10 <a href="https://commons.wikime
@@ -2627,23 +2627,23 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [84]
 
 [85]
+
+[86]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 1024.
+(Font)              <10.95> on input line 1038.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 1024.
+(Font)              <8> on input line 1038.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 1024.
+(Font)              <6> on input line 1038.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 1024.
+(Font)              scaled to size 9.85492pt on input line 1038.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 1024.
+(Font)              scaled to size 7.19995pt on input line 1038.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 5.39996pt on input line 1024.
+(Font)              scaled to size 5.39996pt on input line 1038.
 
 Missing character: There is no ; in font nullfont!
 
-
-[86]
 
 [87]
 
@@ -2696,12 +2696,12 @@ Missing character: There is no ; in font nullfont!
 [111]
 
 [112]
+
+[113]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[113] (stm0005-notes_html.sidetoc)
-
-[114]
+[114] (stm0005-notes_html.sidetoc)
 
 [115]
 
@@ -2748,12 +2748,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [136]
 
 [137]
+
+[138]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[138] (stm0005-notes_html.sidetoc)
-
-[139]
+[139] (stm0005-notes_html.sidetoc)
 
 [140]
 
@@ -2802,12 +2802,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [162]
 
 [163]
+
+[164]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[164] (stm0005-notes_html.sidetoc)
-
-[165]
+[165] (stm0005-notes_html.sidetoc)
 
 [166]
 
@@ -2860,12 +2860,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [190]
 
 [191]
+
+[192]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[192] (stm0005-notes_html.sidetoc)
-
-[193]
+[193] (stm0005-notes_html.sidetoc)
 
 [194]
 
@@ -3056,12 +3056,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [287]
 
 [288]
+
+[289]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[289] (stm0005-notes_html.sidetoc)
-
-[290]
+[290] (stm0005-notes_html.sidetoc)
 
 [291]
 
@@ -3088,12 +3088,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [302]
 
 [303]
+
+[304]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[304] (stm0005-notes_html.sidetoc)
-
-[305]
+[305] (stm0005-notes_html.sidetoc)
 
 [306]
 
@@ -3106,12 +3106,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [310]
 
 [311]
+
+[312]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[312] (stm0005-notes_html.sidetoc)
-
-[313]
+[313] (stm0005-notes_html.sidetoc)
 
 [314]
 
@@ -3131,9 +3131,27 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [322]
 
-[323] (stm0005-notes_html.bbl
+[323]
 
-[324])
+[324]
+File: "lwarp_mathjax.txt"  (verbatim)
+
+
+[325] (stm0005-notes_html.sidetoc)
+
+[326]
+
+[327]
+
+[328]
+
+[329]
+
+[330]
+
+[331] (stm0005-notes_html.bbl
+
+[332])
 --------------------------------
 Package verifycommand Warning: Definitions have changed.
 Patches for the following macros may need to be updated.
@@ -3148,20 +3166,20 @@ Look for updates to these packages.
 --------------------------------
 
 
-[325] (stm0005-notes_html.aux)
+[333] (stm0005-notes_html.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
  ) ) 
 Here is how much of TeX's memory you used:
- 38207 strings out of 468149
- 857409 string characters out of 5431082
- 1345098 words of memory out of 5000000
- 65540 multiletter control sequences out of 15000+600000
+ 38248 strings out of 468149
+ 858854 string characters out of 5431082
+ 1346391 words of memory out of 5000000
+ 65579 multiletter control sequences out of 15000+600000
  689383 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,18n,137p,1237b,1922s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,18n,137p,1237b,1924s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.
 pfb><C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.
 pfb><C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.
@@ -3179,9 +3197,9 @@ sers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Us
 ers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Us
 ers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt8.pfb><C:/Use
 rs/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb>
-Output written on stm0005-notes_html.pdf (325 pages, 892537 bytes).
+Output written on stm0005-notes_html.pdf (333 pages, 911885 bytes).
 PDF statistics:
- 1154 PDF objects out of 1200 (max. 8388607)
+ 1179 PDF objects out of 1200 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
