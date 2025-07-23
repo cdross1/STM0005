@@ -171,14 +171,15 @@ These say that any number raised to the power of zero is one, and a number raise
 
 \chapter{Fermi Problems and Approximations}
 
-\begin{center}
+
 \begin{figure}[ht]
+\centering
     %\pdftooltip{
     \includegraphics[width=0.4\textwidth, alt={A picture of the Italian-American physicist Enrico Fermi from Wikimedia commons.}]{figures/Enrico_Fermi_1943-49.jpg}
     %}{A picture of the Italian-American physicist Enrico Fermi from Wikimedia commons.}
     \caption{The Italian-American physicist Enrico Fermi from \href{https://commons.wikimedia.org/wiki/File:Enrico_Fermi_1943-49.jpg}{Wikimedia Commons}.}
 \end{figure}
-\end{center}
+
 While much of physics is about making very precise measurements such as the high energy physics experiments being conducted at CERN, or the measurements of the fundamental constants used to define measurement standards. A lot can be understood by working roughly and making approximations. \\
 
 The standard example of this style of estimation is asking how many piano tuners there are in a certain city. In the lectures we treated the case of London and Ormskirk. This style of approximation problem is often called a \textbf{Fermi Problem} after the physicist Enrico Fermi who liked to ask questions like ``How many piano tuners are there in Chicago?'' Famously Fermi estimated the yield of the first atomic bomb by dropping a scrap of paper and seeing how far it was blown and making some estimates. 
@@ -206,15 +207,17 @@ Putting this together we then calculate the number of piano tuners as
 \section{The Scientific Method}
 
 In the earlier sections we have alluded to how physics works, constructing a model and then testing it against experiment. This is a very rough description of the \textbf{Scientific Method} which you will meet again in your subject specific modules in semester two and later in your degree. A schematic representation of the scientific method is given in \cref{fig2: scientific method}.
-\begin{center}
+
+
 \begin{figure}[ht]
+\centering
     %\pdftooltip{
     \includegraphics[width=0.6\textwidth,alt={A schematic of the scientific method as a cycle, image from Wikimedia commons.}]{figures/The_Scientific_Method.png}
     %}{A picture showing the scientific method from Wikimedia commons CC BY-SA 4.0 Efbrazil.}
     \caption{A representation of the scientific method from \href{https://commons.wikimedia.org/wiki/File:The_Scientific_Method.svg}{Wikimedia Commons} CC BY-SA 4.0 Efbrazil.}
     \label{fig2: scientific method}
 \end{figure}
-\end{center}
+
 The process of the scientific method involves three main stages:
 \begin{itemize}
 \setlength{\itemsep}{-5pt}
@@ -805,20 +808,20 @@ The length or modulus of the vector is given by $\vert \vec{r}\vert =\sqrt{x^2 +
 \end{equation*}
 
 We need to be careful which quadrant the vector is in as this formula will always return an angle between $-90^{\circ}$ and $90^{\circ}$, we can tell which quadrant the vector is in by drawing it, to get the correct angle we then need to add or subtract $180^{\circ}$ as is appropriate. This means that when $x$ is negative and $y$ is positive then the angle is $180^{\circ}+\arctan\left(\frac{y}{x}\right)$ and when $x$ and $y$ are both negative the angle is $180^{\circ}-\arctan\left(\frac{y}{x}\right)$. Putting this altogether mathematically gives
-\begin{itemize}
-\setlength{\itemsep}{-5pt}
-    \item $\theta =\arctan\left(\frac{y}{x}\right) $ when $x\geq 0$,
-    \item $\theta =180^{\circ}+\arctan\left(\frac{y}{x}\right) $ when$y\geq 0$ and $x<0$,
-    \item $\theta =180^{\circ}-\arctan\left(\frac{y}{x}\right) $ when $x,y <0$.
-\end{itemize}
-Remember that when if we are working in radians then it will be a $\uppi$ that appears instead of $180^{\circ}$.
-%\begin{equation*}
-%    \theta =\begin{dcases}
-%        &\arctan\left(\frac{y}{x}\right) \quad \text{When $x\geq 0$,}\\
-%        &180^{\circ}+\arctan\left(\frac{y}{x}\right)\quad \text{when $y\geq 0$ and $x<0$,}\\
-%        &180^{\circ}-\arctan\left(\frac{y}{x}\right) \quad \text{When $x,y <0$.}
-%    \end{dcases}
-%\end{equation*}
+%\begin{itemize}
+%\setlength{\itemsep}{-5pt}
+%    \item $\theta =\arctan\left(\frac{y}{x}\right) $ when $x\geq 0$,
+%    \item $\theta =180^{\circ}+\arctan\left(\frac{y}{x}\right) $ when$y\geq 0$ and $x<0$,
+%    \item $\theta =180^{\circ}-\arctan\left(\frac{y}{x}\right) $ when $x,y <0$.
+%\end{itemize}
+%Remember that when if we are working in radians then it will be a $\uppi$ that appears instead of $180^{\circ}$.
+\begin{equation*}
+    \theta =\begin{cases}
+        &\arctan\left(\frac{y}{x}\right) \quad \text{When $x\geq 0$,}\\
+        &180^{\circ}+\arctan\left(\frac{y}{x}\right)\quad \text{when $y\geq 0$ and $x<0$,}\\
+        &180^{\circ}-\arctan\left(\frac{y}{x}\right) \quad \text{When $x,y <0$.}
+    \end{cases}
+\end{equation*}
 
 Note that when the angle goes beyond $90^{\circ}$ it no longer describes a triangle but the mathematical expressions still make sense. To see why either wait until we discuss circular motion in a later week, or have a look at the mathematical background appendix where a partial explanation of this is given.
 

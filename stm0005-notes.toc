@@ -7,7 +7,7 @@
 \contentsline {paragraph}{Question 1:}{6}{section*.5}%
 \contentsline {section}{\numberline {2.1}The Scientific Method}{6}{section.2.1}%
 \contentsline {paragraph}{Example 1.2:}{7}{section*.7}%
-\contentsline {paragraph}{Question 2:}{8}{section*.8}%
+\contentsline {paragraph}{Question 2:}{7}{section*.8}%
 \contentsline {paragraph}{Precision:}{8}{section*.9}%
 \contentsline {paragraph}{Clarity:}{8}{section*.10}%
 \contentsline {paragraph}{Formal language:}{8}{section*.11}%
