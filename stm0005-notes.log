@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.23)  23 JUL 2025 21:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.23)  25 JUL 2025 09:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3283,7 +3283,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3396--3397
 
  []
 
-<figures/Two-Slit_Experiment_Particles.png, id=1090, 2569.6pt x 1798.72pt>
+<figures/Two-Slit_Experiment_Particles.png, id=1089, 2569.6pt x 1798.72pt>
 File: figures/Two-Slit_Experiment_Particles.png Graphic file (type png)
 <use figures/Two-Slit_Experiment_Particles.png>
 Package pdftex.def Info: figures/Two-Slit_Experiment_Particles.png  used on inp
@@ -3294,7 +3294,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3408--3409
 
  []
 
-<figures/Two-Slit_Experiment_Light.png, id=1096, 2569.6pt x 1798.72pt>
+<figures/Two-Slit_Experiment_Light.png, id=1095, 2569.6pt x 1798.72pt>
 File: figures/Two-Slit_Experiment_Light.png Graphic file (type png)
 <use figures/Two-Slit_Experiment_Light.png>
 Package pdftex.def Info: figures/Two-Slit_Experiment_Light.png  used on input l
@@ -3317,7 +3317,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3424--3425
 
  []
 
-<figures/double_slit_electrons.png, id=1110, 2569.6pt x 1230.5975pt>
+<figures/double_slit_electrons.png, id=1109, 2569.6pt x 1230.5975pt>
 File: figures/double_slit_electrons.png Graphic file (type png)
 <use figures/double_slit_electrons.png>
 Package pdftex.def Info: figures/double_slit_electrons.png  used on input line 
@@ -3594,9 +3594,9 @@ cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Users/
 cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/
 cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/c
 dhro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb>
-Output written on stm0005-notes.pdf (116 pages, 8603643 bytes).
+Output written on stm0005-notes.pdf (116 pages, 8603473 bytes).
 PDF statistics:
- 1447 PDF objects out of 1728 (max. 8388607)
+ 1446 PDF objects out of 1728 (max. 8388607)
  409 named destinations out of 1000 (max. 500000)
  59920 words of extra memory for PDF output out of 61914 (max. 10000000)
 
