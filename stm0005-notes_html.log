@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  1 AUG 2025 10:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  1 AUG 2025 10:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2178,6 +2178,72 @@ Package lwarp Info: Replacing package `geometry' with the lwarp version,
 (lwarp)             and discarding options, on input line 21.
 Package: lwarp-geometry 2018/04/16
 )
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime.sty
+Package: datetime 2015/03/20 v2.60 Date Time Package
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fmtcount.sty
+Package: fmtcount 2025/02/09 v3.10 Displaying the values of LaTeX counters (NT,
+VB,NE)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks53
+\XKV@tempa@toks=\toks54
+)
+\XKV@depth=\count400
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcprefix.sty
+Package: fcprefix 2012/09/28
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcnumparser.st
+y
+Package: fcnumparser 2017/06/15
+\fc@digit@counter=\count401
+))
+\c@padzeroesN=\count402
+\fc@tmpcatcode=\count403
+\@DT@modctr=\count404
+\@ordinalctr=\count405
+\@orgargctr=\count406
+\@strctr=\count407
+\@tmpstrctr=\count408
+\@DT@loopN=\count409
+\@DT@X=\count410
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime-defau
+lts.sty
+Package: datetime-defaults 2013/09/10
+)
+\@day=\count411
+\@month=\count412
+\@year=\count413
+\c@HOUR=\count414
+\c@HOURXII=\count415
+\c@MINUTE=\count416
+\c@TOHOUR=\count417
+\c@TOMINUTE=\count418
+\c@SECOND=\count419
+\currenthour=\count420
+\currentminute=\count421
+\currentsecond=\count422
+Package datetime Info: No datetime.cfg file found, using default settings on in
+put line 308.
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\dt-UKenglish.d
+ef
+File: dt-UKenglish.def 2013/09/10
+)
+\@dtctr=\count423
+\dayofyear=\count424
+\dayofweek=\count425
+LaTeX Info: Redefining \today on input line 736.
+\dt@a=\toks55
+\dt@b=\toks56
+)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lwarp\lwarp-makeidx.sty
 Package lwarp Info: Using package `makeidx',
 (lwarp)             and adding lwarp modifications, including options,
@@ -2221,30 +2287,30 @@ Package cleveref Info: `amsthm' support loaded on input line 3026.
  (stm0005-notes_html.aux)
 \openout1 = `stm0005-notes_html.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Info: Redefining \microtypecontext on input line 62.
-Package microtype Info: Applying patch `item' on input line 62.
-Package microtype Info: Applying patch `toc' on input line 62.
-Package microtype Info: Applying patch `eqnum' on input line 62.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Info: Redefining \microtypecontext on input line 63.
+Package microtype Info: Applying patch `item' on input line 63.
+Package microtype Info: Applying patch `toc' on input line 63.
+Package microtype Info: Applying patch `eqnum' on input line 63.
 
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 62.
+Package microtype Warning: Unable to apply patch `footnote' on input line 63.
 
-Package microtype Info: Applying patch `verbatim' on input line 62.
-LaTeX Info: Redefining \microtypesetup on input line 62.
+Package microtype Info: Applying patch `verbatim' on input line 63.
+LaTeX Info: Redefining \microtypesetup on input line 63.
 Package microtype Info: Generating PDF output.
 Package microtype Info: No character protrusion.
 Package microtype Info: No font expansion.
@@ -2302,17 +2368,17 @@ Package lwarp Warning: Lwarp provides emulation for MathJax when used
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count400
+\scratchcounter=\count426
 \scratchdimen=\dimen320
 \scratchbox=\box103
-\nofMPsegments=\count401
-\nofMParguments=\count402
-\everyMPshowfont=\toks53
-\MPscratchCnt=\count403
+\nofMPsegments=\count427
+\nofMParguments=\count428
+\everyMPshowfont=\toks57
+\MPscratchCnt=\count429
 \MPscratchDim=\dimen321
-\MPnumerator=\count404
-\makeMPintoPDFobject=\count405
-\everyMPtoPDFconversion=\toks54
+\MPnumerator=\count430
+\makeMPintoPDFobject=\count431
+\everyMPtoPDFconversion=\toks58
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lwarp\lwarp-epstopdf-ba
 se.sty
@@ -2333,17 +2399,21 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 )))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-Package lwarp Info: Removing background hook on input line 62.
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fc-english.def
+File: fc-english.def 2016/01/12
+)
+Package lwarp Info: Removing background hook on input line 63.
 \openout5 = `stm0005-notes-images.txt'.
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6
-2.
+3.
  (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 File: "lwarp_mathjax.txt"  (verbatim)
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-62.
+63.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -2384,41 +2454,41 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [7]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-07.
+08.
  (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-20.
+21.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-20.
+21.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-120.
+121.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-120.
+121.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 120.
+(Font)              <10> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 120.
+(Font)              <7> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 120.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 120
+(Font)              <5> on input line 121.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 121
 .
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -2427,7 +2497,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 120
+LaTeX Font Info:    Trying to load font information for U+msb on input line 121
 .
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -2437,11 +2507,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 120.
+(Font)              scaled to size 8.99994pt on input line 121.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 120.
+(Font)              scaled to size 6.29996pt on input line 121.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 4.49997pt on input line 120.
+(Font)              scaled to size 4.49997pt on input line 121.
 
 
 [8{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
@@ -2496,13 +2566,13 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [31]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 372.
+(Font)              <17.28> on input line 373.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 372.
+(Font)              <12> on input line 373.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 15.55188pt on input line 372.
+(Font)              scaled to size 15.55188pt on input line 373.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 372.
+(Font)              scaled to size 10.79993pt on input line 373.
 
 
 [32]
@@ -2558,7 +2628,7 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [56]
 
 [57]
-Overfull \hbox (124.82208pt too wide) in paragraph at lines 644--644
+Overfull \hbox (124.82208pt too wide) in paragraph at lines 645--645
 []\T1/lmr/m/n/10 Figure\T1/lmtt/m/n/10 &nbsp;\T1/lmr/m/n/10 3.1: Ital-ian poly-
 math Galileio Galilei, who prob-a-bly did not drop ob-jects off the lean-ing to
 wer of Pisa. The im-age is from \T1/lmtt/m/n/10 <a href="https://commons.wikime
@@ -2626,17 +2696,17 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [85]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 1041.
+(Font)              <10.95> on input line 1042.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 1041.
+(Font)              <8> on input line 1042.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 1041.
+(Font)              <6> on input line 1042.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 1041.
+(Font)              scaled to size 9.85492pt on input line 1042.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 1041.
+(Font)              scaled to size 7.19995pt on input line 1042.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 5.39996pt on input line 1041.
+(Font)              scaled to size 5.39996pt on input line 1042.
 
 Missing character: There is no ; in font nullfont!
 
@@ -3169,10 +3239,10 @@ L3 programming layer <2020/03/25>
  ***********
  ) ) 
 Here is how much of TeX's memory you used:
- 38239 strings out of 468149
- 858468 string characters out of 5431082
- 1346068 words of memory out of 5000000
- 65572 multiletter control sequences out of 15000+600000
+ 39181 strings out of 468149
+ 874627 string characters out of 5431082
+ 1372396 words of memory out of 5000000
+ 66481 multiletter control sequences out of 15000+600000
  689383 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,18n,137p,1237b,1924s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3193,7 +3263,7 @@ sers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Us
 ers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Us
 ers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt8.pfb><C:/Use
 rs/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb>
-Output written on stm0005-notes_html.pdf (332 pages, 904733 bytes).
+Output written on stm0005-notes_html.pdf (332 pages, 904756 bytes).
 PDF statistics:
  1176 PDF objects out of 1200 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
