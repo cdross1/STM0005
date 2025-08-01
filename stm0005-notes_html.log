@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.23)  25 JUL 2025 09:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.7.29)  1 AUG 2025 10:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **./stm0005-notes_html.tex
 (stm0005-notes_html.tex
 LaTeX2e <2025-06-01> patch level 1
-L3 programming layer <2025-07-11>
+L3 programming layer <2025-07-19>
 (stm0005-notes.tex
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
 Document Class: book 2025/01/22 v1.4n Standard LaTeX document class
@@ -96,7 +96,7 @@ Package: verifycommand 2025/03/07 v1.11 Verify definitions have not changed.
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/xpatch\xpatch.sty
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
-Package: expl3 2025-07-11 L3 programming layer (loader) 
+Package: expl3 2025-07-19 L3 programming layer (loader) 
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
@@ -2453,10 +2453,8 @@ LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 [10]
 
 [11]
-File: "lwarp_mathjax.txt"  (verbatim)
 
-
-[12] (stm0005-notes_html.sidetoc)
+[12]
 
 [13]
 
@@ -2481,12 +2479,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [23]
 
 [24]
-
-[25]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[26] (stm0005-notes_html.sidetoc)
+[25] (stm0005-notes_html.sidetoc)
+
+[26]
 
 [27]
 
@@ -2497,8 +2495,6 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [30]
 
 [31]
-
-[32]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <17.28> on input line 372.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -2508,6 +2504,8 @@ LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 (Font)              scaled to size 10.79993pt on input line 372.
 
+
+[32]
 
 [33]
 
@@ -2552,24 +2550,24 @@ LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 [53]
 
 [54]
-
-[55]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[56] (stm0005-notes_html.sidetoc)
+[55] (stm0005-notes_html.sidetoc)
+
+[56]
 
 [57]
-
-[58]
 Overfull \hbox (124.82208pt too wide) in paragraph at lines 644--644
-[]\T1/lmr/m/n/10 Figure\T1/lmtt/m/n/10 &nbsp;\T1/lmr/m/n/10 4.1: Ital-ian poly-
+[]\T1/lmr/m/n/10 Figure\T1/lmtt/m/n/10 &nbsp;\T1/lmr/m/n/10 3.1: Ital-ian poly-
 math Galileio Galilei, who prob-a-bly did not drop ob-jects off the lean-ing to
 wer of Pisa. The im-age is from \T1/lmtt/m/n/10 <a href="https://commons.wikime
 dia.org/wiki/File:Justus_Sustermans_-_Portrait_of_Galileo_Galilei,_1636.jpg"
  []
 
 
+
+[58]
 
 [59]
 
@@ -2585,10 +2583,10 @@ dia.org/wiki/File:Justus_Sustermans_-_Portrait_of_Galileo_Galilei,_1636.jpg"
 
 [65]
 
-[66]
-
-[67{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.e
+[66{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.e
 nc}]
+
+[67]
 
 [68]
 
@@ -2617,18 +2615,16 @@ nc}]
 [80]
 
 [81]
-
-[82]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[83] (stm0005-notes_html.sidetoc)
+[82] (stm0005-notes_html.sidetoc)
+
+[83]
 
 [84]
 
 [85]
-
-[86]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 1041.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -2644,6 +2640,8 @@ LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 
 Missing character: There is no ; in font nullfont!
 
+
+[86]
 
 [87]
 
@@ -2696,12 +2694,12 @@ Missing character: There is no ; in font nullfont!
 [111]
 
 [112]
-
-[113]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[114] (stm0005-notes_html.sidetoc)
+[113] (stm0005-notes_html.sidetoc)
+
+[114]
 
 [115]
 
@@ -2748,12 +2746,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [136]
 
 [137]
-
-[138]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[139] (stm0005-notes_html.sidetoc)
+[138] (stm0005-notes_html.sidetoc)
+
+[139]
 
 [140]
 
@@ -2802,12 +2800,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [162]
 
 [163]
-
-[164]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[165] (stm0005-notes_html.sidetoc)
+[164] (stm0005-notes_html.sidetoc)
+
+[165]
 
 [166]
 
@@ -2860,12 +2858,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [190]
 
 [191]
-
-[192]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[193] (stm0005-notes_html.sidetoc)
+[192] (stm0005-notes_html.sidetoc)
+
+[193]
 
 [194]
 
@@ -3056,24 +3054,16 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [287]
 
 [288]
-
-[289]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[290] (stm0005-notes_html.sidetoc)
+[289] (stm0005-notes_html.sidetoc)
+
+[290]
 
 [291]
 
 [292]
-Overfull \hbox (3.08258pt too wide) in paragraph at lines 3279--3279
-[]\T1/lmr/m/n/10 Figure\T1/lmtt/m/n/10 &nbsp;\T1/lmr/m/n/10 10.1: A pic-ture of
- the Scot-tish physi-cist and math-e-mati-cian James Clerk Maxwell from \T1/lmt
-t/m/n/10 <a href="https://upload.wikimedia.org/wikipedia/commons/b/b0/James-Cle
-rk-Maxwell-1831-1879.jpg" target="_blank"
- []
-
-
 
 [293]
 
@@ -3096,12 +3086,12 @@ rk-Maxwell-1831-1879.jpg" target="_blank"
 [302]
 
 [303]
-
-[304]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[305] (stm0005-notes_html.sidetoc)
+[304] (stm0005-notes_html.sidetoc)
+
+[305]
 
 [306]
 
@@ -3114,12 +3104,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [310]
 
 [311]
-
-[312]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[313] (stm0005-notes_html.sidetoc)
+[312] (stm0005-notes_html.sidetoc)
+
+[313]
 
 [314]
 
@@ -3140,12 +3130,12 @@ File: "lwarp_mathjax.txt"  (verbatim)
 [322]
 
 [323]
-
-[324]
 File: "lwarp_mathjax.txt"  (verbatim)
 
 
-[325] (stm0005-notes_html.sidetoc)
+[324] (stm0005-notes_html.sidetoc)
+
+[325]
 
 [326]
 
@@ -3155,11 +3145,9 @@ File: "lwarp_mathjax.txt"  (verbatim)
 
 [329]
 
-[330]
+[330] (stm0005-notes_html.bbl
 
-[331] (stm0005-notes_html.bbl
-
-[332])
+[331])
 --------------------------------
 Package verifycommand Warning: Definitions have changed.
 Patches for the following macros may need to be updated.
@@ -3174,17 +3162,17 @@ Look for updates to these packages.
 --------------------------------
 
 
-[333] (stm0005-notes_html.aux)
+[332] (stm0005-notes_html.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
  ) ) 
 Here is how much of TeX's memory you used:
- 38250 strings out of 468149
- 858908 string characters out of 5431082
- 1346391 words of memory out of 5000000
- 65581 multiletter control sequences out of 15000+600000
+ 38239 strings out of 468149
+ 858468 string characters out of 5431082
+ 1346068 words of memory out of 5000000
+ 65572 multiletter control sequences out of 15000+600000
  689383 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,18n,137p,1237b,1924s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3205,9 +3193,9 @@ sers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Us
 ers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Us
 ers/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt8.pfb><C:/Use
 rs/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb>
-Output written on stm0005-notes_html.pdf (333 pages, 912781 bytes).
+Output written on stm0005-notes_html.pdf (332 pages, 904733 bytes).
 PDF statistics:
- 1179 PDF objects out of 1200 (max. 8388607)
+ 1176 PDF objects out of 1200 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

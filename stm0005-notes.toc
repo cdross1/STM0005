@@ -2,132 +2,132 @@
 \contentsline {section}{\numberline {1.1}Course Overview}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}What is Physics}{1}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Measurements and Units}{2}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Fermi Problems and Approximations}{5}{chapter.2}%
+\contentsline {section}{\numberline {1.4}Fermi Problems and Approximations}{4}{section.1.4}%
 \contentsline {paragraph}{Example 1.1}{5}{section*.4}%
-\contentsline {paragraph}{Question 1:}{6}{section*.5}%
-\contentsline {section}{\numberline {2.1}The Scientific Method}{6}{section.2.1}%
-\contentsline {paragraph}{Example 1.2:}{7}{section*.7}%
+\contentsline {paragraph}{Question 1:}{5}{section*.5}%
+\contentsline {section}{\numberline {1.5}The Scientific Method}{5}{section.1.5}%
+\contentsline {paragraph}{Example 1.2:}{6}{section*.7}%
 \contentsline {paragraph}{Question 2:}{7}{section*.8}%
-\contentsline {paragraph}{Precision:}{8}{section*.9}%
-\contentsline {paragraph}{Clarity:}{8}{section*.10}%
-\contentsline {paragraph}{Formal language:}{8}{section*.11}%
-\contentsline {paragraph}{Organisation:}{9}{section*.12}%
-\contentsline {chapter}{\numberline {3}Motion in One Dimension and SUVAT}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Mechanics}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Motion in 1D}{12}{section.3.2}%
-\contentsline {paragraph}{Example 2.1:}{15}{section*.20}%
-\contentsline {section}{\numberline {3.3}Kinematic Equations}{15}{section.3.3}%
-\contentsline {paragraph}{Example 2.2:}{16}{section*.21}%
-\contentsline {paragraph}{Example 2.3:}{17}{section*.22}%
-\contentsline {chapter}{\numberline {4}Freefall and Projectile Motion}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Freefall}{19}{section.4.1}%
-\contentsline {paragraph}{Example 3.1:}{20}{section*.24}%
-\contentsline {section}{\numberline {4.2}Vectors}{20}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Motion in 2D}{23}{section.4.3}%
-\contentsline {paragraph}{Example 3.2:}{23}{section*.29}%
-\contentsline {paragraph}{Example 3.3:}{25}{section*.31}%
-\contentsline {paragraph}{Example 3.4:}{26}{section*.32}%
-\contentsline {chapter}{\numberline {5}Forces and Momentum}{29}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Force and Motion}{29}{section.5.1}%
-\contentsline {paragraph}{Example 4.1:}{29}{section*.34}%
-\contentsline {paragraph}{Example 4.2:}{31}{section*.36}%
-\contentsline {section}{\numberline {5.2}Newton's Laws}{32}{section.5.2}%
-\contentsline {paragraph}{Newton's First Law:}{33}{section*.40}%
-\contentsline {paragraph}{Newton's Second Law:}{33}{section*.41}%
-\contentsline {paragraph}{Example 4.3:}{34}{section*.42}%
-\contentsline {paragraph}{Example 4.4:}{34}{section*.43}%
-\contentsline {paragraph}{Newton's Third Law:}{35}{section*.44}%
-\contentsline {paragraph}{Example 4.5:}{35}{section*.45}%
-\contentsline {section}{\numberline {5.3}Momentum and Collisions}{35}{section.5.3}%
-\contentsline {paragraph}{Example 4.6:}{35}{section*.46}%
-\contentsline {paragraph}{Example 4.7:}{36}{section*.47}%
-\contentsline {paragraph}{Example 4.8:}{36}{section*.48}%
-\contentsline {paragraph}{Example 4.9:}{37}{section*.49}%
-\contentsline {section}{\numberline {5.4}Impact and Conservation of Momentum}{37}{section.5.4}%
-\contentsline {paragraph}{Example 4.10:}{38}{section*.51}%
-\contentsline {paragraph}{Example 4.11:}{39}{section*.52}%
-\contentsline {chapter}{\numberline {6}Work and Energy}{41}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Forces and Work}{41}{section.6.1}%
-\contentsline {paragraph}{Work:}{41}{section*.53}%
-\contentsline {paragraph}{Example 5.1:}{42}{section*.55}%
-\contentsline {paragraph}{Kinetic Energy:}{43}{section*.57}%
-\contentsline {paragraph}{Potential Energy:}{43}{section*.58}%
-\contentsline {paragraph}{Example 5.2:}{44}{section*.59}%
-\contentsline {section}{\numberline {6.2}Power and Efficiency}{45}{section.6.2}%
-\contentsline {paragraph}{Example 5.3:}{46}{section*.61}%
-\contentsline {paragraph}{Example 5.4:}{46}{section*.62}%
-\contentsline {paragraph}{Example 5.5:}{46}{section*.63}%
-\contentsline {paragraph}{Example 5.6:}{47}{section*.64}%
-\contentsline {paragraph}{Example 5.7:}{47}{section*.65}%
-\contentsline {paragraph}{Example 5.8:}{48}{section*.66}%
-\contentsline {section}{\numberline {6.3}Energy and Collisions}{49}{section.6.3}%
-\contentsline {paragraph}{Example 5.9:}{49}{section*.67}%
-\contentsline {paragraph}{Example 5.10:}{49}{section*.68}%
-\contentsline {chapter}{\numberline {7}Motion in a Circle}{51}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Radians and Degrees}{51}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Circular Motion}{52}{section.7.2}%
-\contentsline {paragraph}{Example 6.1:}{53}{section*.72}%
-\contentsline {paragraph}{Example 6.2:}{54}{section*.73}%
-\contentsline {section}{\numberline {7.3}Centripetal forces}{54}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Circular motion in action}{55}{section.7.4}%
-\contentsline {paragraph}{Going over hills.}{56}{section*.75}%
-\contentsline {paragraph}{Roundabouts.}{56}{section*.76}%
-\contentsline {paragraph}{Example 6.4:}{57}{section*.77}%
-\contentsline {paragraph}{Amusement rides.}{57}{section*.78}%
-\contentsline {paragraph}{Example 6.5:}{58}{section*.79}%
-\contentsline {chapter}{\numberline {8}Oscillations}{61}{chapter.8}%
-\contentsline {section}{\numberline {8.1}SHM and Sine Waves}{61}{section.8.1}%
-\contentsline {paragraph}{Example 7.1:}{62}{section*.80}%
-\contentsline {paragraph}{Simple Harmonic Motion.}{62}{section*.81}%
-\contentsline {paragraph}{Example 7.2:}{63}{section*.83}%
-\contentsline {paragraph}{Example 7.3:}{65}{section*.86}%
-\contentsline {section}{\numberline {8.2}Springs and Pendulums}{65}{section.8.2}%
-\contentsline {paragraph}{Springs:}{65}{section*.87}%
-\contentsline {paragraph}{Example 7.4:}{66}{section*.88}%
-\contentsline {paragraph}{The simple pendulum:}{67}{section*.90}%
-\contentsline {section}{\numberline {8.3}Damping, Forcing, and Resonance}{69}{section.8.3}%
-\contentsline {paragraph}{Example 7.5:}{70}{section*.92}%
-\contentsline {chapter}{\numberline {9}Electric Circuits}{73}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Voltage, Current, and Resistance}{73}{section.9.1}%
-\contentsline {paragraph}{Current:}{73}{section*.93}%
-\contentsline {paragraph}{Example 8.1:}{74}{section*.94}%
-\contentsline {paragraph}{Voltage:}{75}{section*.95}%
-\contentsline {paragraph}{Example 8.2:}{75}{section*.96}%
-\contentsline {paragraph}{Example 8.3:}{76}{section*.98}%
-\contentsline {paragraph}{Resistance:}{76}{section*.99}%
-\contentsline {paragraph}{Example 8.4:}{77}{section*.101}%
-\contentsline {section}{\numberline {9.2}Series and Parallel Circuits}{78}{section.9.2}%
-\contentsline {paragraph}{Current rules:}{78}{section*.105}%
-\contentsline {paragraph}{Voltage rules:}{79}{section*.108}%
-\contentsline {paragraph}{Example 8.5:}{80}{section*.113}%
-\contentsline {paragraph}{Example 8.6:}{81}{section*.115}%
-\contentsline {paragraph}{Combining resistors:}{82}{section*.117}%
-\contentsline {paragraph}{Example 8.7:}{83}{section*.120}%
-\contentsline {paragraph}{Power:}{84}{section*.122}%
-\contentsline {paragraph}{Example 8.8:}{84}{section*.123}%
-\contentsline {paragraph}{Potential Dividers:}{84}{section*.124}%
-\contentsline {paragraph}{Example 8.9:}{85}{section*.126}%
-\contentsline {paragraph}{Capacitors:}{86}{section*.128}%
-\contentsline {section}{\numberline {9.3}AC Circuits}{87}{section.9.3}%
-\contentsline {paragraph}{Example 8.10:}{89}{section*.133}%
-\contentsline {paragraph}{Example 8.11:}{89}{section*.134}%
-\contentsline {section}{\numberline {9.4}Circuit Component Symbols}{90}{section.9.4}%
-\contentsline {chapter}{\numberline {10}Modern Physics}{91}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Rapid Relativity}{91}{section.10.1}%
-\contentsline {paragraph}{Example 9.1:}{94}{section*.139}%
-\contentsline {section}{\numberline {10.2}Quantum Quandaries}{95}{section.10.2}%
-\contentsline {chapter}{\numberline {11}Mathematical Basics}{99}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Background and References}{99}{section.11.1}%
-\contentsline {section}{\numberline {11.2}Trigonometry Primer}{99}{section.11.2}%
-\contentsline {section}{\numberline {11.3}Rearranging Equations}{100}{section.11.3}%
-\contentsline {chapter}{\numberline {12}Further Reading}{105}{chapter.12}%
-\contentsline {section}{\numberline {12.1}What is Physics Extra Reading}{106}{section.12.1}%
-\contentsline {section}{\numberline {12.2}Kinematics in 1D Extra Reading}{106}{section.12.2}%
-\contentsline {section}{\numberline {12.3}Kinematics in 2D Extra Reading}{106}{section.12.3}%
-\contentsline {section}{\numberline {12.4}Forces and Freebody Diagrams Extra Reading}{107}{section.12.4}%
-\contentsline {section}{\numberline {12.5}Energy Extra Reading}{107}{section.12.5}%
-\contentsline {section}{\numberline {12.6}Circular Motion and Oscillations Extra Reading}{107}{section.12.6}%
-\contentsline {section}{\numberline {12.7}Electric Circuits Extra Reading}{108}{section.12.7}%
-\contentsline {section}{\numberline {12.8}Modern Physics Extra Reading}{108}{section.12.8}%
-\contentsline {chapter}{\numberline {13}Formula Sheet}{109}{chapter.13}%
-\contentsline {chapter}{Bibliography}{113}{chapter*.151}%
+\contentsline {paragraph}{Precision:}{7}{section*.9}%
+\contentsline {paragraph}{Clarity:}{7}{section*.10}%
+\contentsline {paragraph}{Formal language:}{7}{section*.11}%
+\contentsline {paragraph}{Organisation:}{8}{section*.12}%
+\contentsline {chapter}{\numberline {2}Motion in One Dimension and SUVAT}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Mechanics}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Motion in 1D}{10}{section.2.2}%
+\contentsline {paragraph}{Example 2.1:}{13}{section*.20}%
+\contentsline {section}{\numberline {2.3}Kinematic Equations}{13}{section.2.3}%
+\contentsline {paragraph}{Example 2.2:}{14}{section*.21}%
+\contentsline {paragraph}{Example 2.3:}{15}{section*.22}%
+\contentsline {chapter}{\numberline {3}Freefall and Projectile Motion}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Freefall}{17}{section.3.1}%
+\contentsline {paragraph}{Example 3.1:}{18}{section*.24}%
+\contentsline {section}{\numberline {3.2}Vectors}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Motion in 2D}{21}{section.3.3}%
+\contentsline {paragraph}{Example 3.2:}{21}{section*.29}%
+\contentsline {paragraph}{Example 3.3:}{23}{section*.31}%
+\contentsline {paragraph}{Example 3.4:}{24}{section*.32}%
+\contentsline {chapter}{\numberline {4}Forces and Momentum}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Force and Motion}{27}{section.4.1}%
+\contentsline {paragraph}{Example 4.1:}{27}{section*.34}%
+\contentsline {paragraph}{Example 4.2:}{29}{section*.36}%
+\contentsline {section}{\numberline {4.2}Newton's Laws}{30}{section.4.2}%
+\contentsline {paragraph}{Newton's First Law:}{31}{section*.40}%
+\contentsline {paragraph}{Newton's Second Law:}{31}{section*.41}%
+\contentsline {paragraph}{Example 4.3:}{32}{section*.42}%
+\contentsline {paragraph}{Example 4.4:}{32}{section*.43}%
+\contentsline {paragraph}{Newton's Third Law:}{33}{section*.44}%
+\contentsline {paragraph}{Example 4.5:}{33}{section*.45}%
+\contentsline {section}{\numberline {4.3}Momentum and Collisions}{33}{section.4.3}%
+\contentsline {paragraph}{Example 4.6:}{33}{section*.46}%
+\contentsline {paragraph}{Example 4.7:}{34}{section*.47}%
+\contentsline {paragraph}{Example 4.8:}{34}{section*.48}%
+\contentsline {paragraph}{Example 4.9:}{35}{section*.49}%
+\contentsline {section}{\numberline {4.4}Impact and Conservation of Momentum}{35}{section.4.4}%
+\contentsline {paragraph}{Example 4.10:}{36}{section*.51}%
+\contentsline {paragraph}{Example 4.11:}{37}{section*.52}%
+\contentsline {chapter}{\numberline {5}Work and Energy}{39}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Forces and Work}{39}{section.5.1}%
+\contentsline {paragraph}{Work:}{39}{section*.53}%
+\contentsline {paragraph}{Example 5.1:}{40}{section*.55}%
+\contentsline {paragraph}{Kinetic Energy:}{41}{section*.57}%
+\contentsline {paragraph}{Potential Energy:}{41}{section*.58}%
+\contentsline {paragraph}{Example 5.2:}{42}{section*.59}%
+\contentsline {section}{\numberline {5.2}Power and Efficiency}{43}{section.5.2}%
+\contentsline {paragraph}{Example 5.3:}{44}{section*.61}%
+\contentsline {paragraph}{Example 5.4:}{44}{section*.62}%
+\contentsline {paragraph}{Example 5.5:}{44}{section*.63}%
+\contentsline {paragraph}{Example 5.6:}{45}{section*.64}%
+\contentsline {paragraph}{Example 5.7:}{45}{section*.65}%
+\contentsline {paragraph}{Example 5.8:}{46}{section*.66}%
+\contentsline {section}{\numberline {5.3}Energy and Collisions}{47}{section.5.3}%
+\contentsline {paragraph}{Example 5.9:}{47}{section*.67}%
+\contentsline {paragraph}{Example 5.10:}{47}{section*.68}%
+\contentsline {chapter}{\numberline {6}Motion in a Circle}{49}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Radians and Degrees}{49}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Circular Motion}{50}{section.6.2}%
+\contentsline {paragraph}{Example 6.1:}{51}{section*.72}%
+\contentsline {paragraph}{Example 6.2:}{52}{section*.73}%
+\contentsline {section}{\numberline {6.3}Centripetal forces}{52}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Circular motion in action}{53}{section.6.4}%
+\contentsline {paragraph}{Going over hills.}{54}{section*.75}%
+\contentsline {paragraph}{Roundabouts.}{54}{section*.76}%
+\contentsline {paragraph}{Example 6.4:}{55}{section*.77}%
+\contentsline {paragraph}{Amusement rides.}{55}{section*.78}%
+\contentsline {paragraph}{Example 6.5:}{56}{section*.79}%
+\contentsline {chapter}{\numberline {7}Oscillations}{59}{chapter.7}%
+\contentsline {section}{\numberline {7.1}SHM and Sine Waves}{59}{section.7.1}%
+\contentsline {paragraph}{Example 7.1:}{60}{section*.80}%
+\contentsline {paragraph}{Simple Harmonic Motion.}{60}{section*.81}%
+\contentsline {paragraph}{Example 7.2:}{61}{section*.83}%
+\contentsline {paragraph}{Example 7.3:}{63}{section*.86}%
+\contentsline {section}{\numberline {7.2}Springs and Pendulums}{63}{section.7.2}%
+\contentsline {paragraph}{Springs:}{63}{section*.87}%
+\contentsline {paragraph}{Example 7.4:}{64}{section*.88}%
+\contentsline {paragraph}{The simple pendulum:}{65}{section*.90}%
+\contentsline {section}{\numberline {7.3}Damping, Forcing, and Resonance}{67}{section.7.3}%
+\contentsline {paragraph}{Example 7.5:}{68}{section*.92}%
+\contentsline {chapter}{\numberline {8}Electric Circuits}{71}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Voltage, Current, and Resistance}{71}{section.8.1}%
+\contentsline {paragraph}{Current:}{71}{section*.93}%
+\contentsline {paragraph}{Example 8.1:}{72}{section*.94}%
+\contentsline {paragraph}{Voltage:}{73}{section*.95}%
+\contentsline {paragraph}{Example 8.2:}{73}{section*.96}%
+\contentsline {paragraph}{Example 8.3:}{74}{section*.98}%
+\contentsline {paragraph}{Resistance:}{74}{section*.99}%
+\contentsline {paragraph}{Example 8.4:}{75}{section*.101}%
+\contentsline {section}{\numberline {8.2}Series and Parallel Circuits}{76}{section.8.2}%
+\contentsline {paragraph}{Current rules:}{76}{section*.105}%
+\contentsline {paragraph}{Voltage rules:}{77}{section*.108}%
+\contentsline {paragraph}{Example 8.5:}{78}{section*.113}%
+\contentsline {paragraph}{Example 8.6:}{79}{section*.115}%
+\contentsline {paragraph}{Combining resistors:}{80}{section*.117}%
+\contentsline {paragraph}{Example 8.7:}{81}{section*.120}%
+\contentsline {paragraph}{Power:}{82}{section*.122}%
+\contentsline {paragraph}{Example 8.8:}{82}{section*.123}%
+\contentsline {paragraph}{Potential Dividers:}{82}{section*.124}%
+\contentsline {paragraph}{Example 8.9:}{83}{section*.126}%
+\contentsline {paragraph}{Capacitors:}{84}{section*.128}%
+\contentsline {section}{\numberline {8.3}AC Circuits}{85}{section.8.3}%
+\contentsline {paragraph}{Example 8.10:}{87}{section*.133}%
+\contentsline {paragraph}{Example 8.11:}{87}{section*.134}%
+\contentsline {section}{\numberline {8.4}Circuit Component Symbols}{88}{section.8.4}%
+\contentsline {chapter}{\numberline {9}Modern Physics}{89}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Rapid Relativity}{89}{section.9.1}%
+\contentsline {paragraph}{Example 9.1:}{92}{section*.139}%
+\contentsline {section}{\numberline {9.2}Quantum Quandaries}{93}{section.9.2}%
+\contentsline {chapter}{\numberline {10}Mathematical Basics}{97}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Background and References}{97}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Trigonometry Primer}{97}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Rearranging Equations}{98}{section.10.3}%
+\contentsline {chapter}{\numberline {11}Further Reading}{103}{chapter.11}%
+\contentsline {section}{\numberline {11.1}What is Physics Extra Reading}{104}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Kinematics in 1D Extra Reading}{104}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Kinematics in 2D Extra Reading}{104}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Forces and Freebody Diagrams Extra Reading}{105}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Energy Extra Reading}{105}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Circular Motion and Oscillations Extra Reading}{105}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Electric Circuits Extra Reading}{106}{section.11.7}%
+\contentsline {section}{\numberline {11.8}Modern Physics Extra Reading}{106}{section.11.8}%
+\contentsline {chapter}{\numberline {12}Formula Sheet}{107}{chapter.12}%
+\contentsline {chapter}{Bibliography}{111}{chapter*.151}%
