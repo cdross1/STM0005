@@ -3,14 +3,14 @@
 \contentsline {section}{\numberline {1.2}What is Physics}{1}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Measurements and Units}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Fermi Problems and Approximations}{4}{section.1.4}%
-\contentsline {paragraph}{Example 1.1}{5}{section*.4}%
+\contentsline {paragraph}{Example 1.1}{4}{section*.4}%
 \contentsline {paragraph}{Question 1:}{5}{section*.5}%
 \contentsline {section}{\numberline {1.5}The Scientific Method}{5}{section.1.5}%
-\contentsline {paragraph}{Example 1.2:}{6}{section*.7}%
+\contentsline {paragraph}{Example 1.2:}{7}{section*.7}%
 \contentsline {paragraph}{Question 2:}{7}{section*.8}%
 \contentsline {paragraph}{Precision:}{7}{section*.9}%
 \contentsline {paragraph}{Clarity:}{7}{section*.10}%
-\contentsline {paragraph}{Formal language:}{7}{section*.11}%
+\contentsline {paragraph}{Formal language:}{8}{section*.11}%
 \contentsline {paragraph}{Organisation:}{8}{section*.12}%
 \contentsline {chapter}{\numberline {2}Motion in One Dimension and SUVAT}{9}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Mechanics}{9}{section.2.1}%
@@ -120,6 +120,7 @@
 \contentsline {section}{\numberline {10.1}Background and References}{97}{section.10.1}%
 \contentsline {section}{\numberline {10.2}Trigonometry Primer}{97}{section.10.2}%
 \contentsline {section}{\numberline {10.3}Rearranging Equations}{98}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Quadratic Equations}{102}{section.10.4}%
 \contentsline {chapter}{\numberline {11}Further Reading}{103}{chapter.11}%
 \contentsline {section}{\numberline {11.1}What is Physics Extra Reading}{104}{section.11.1}%
 \contentsline {section}{\numberline {11.2}Kinematics in 1D Extra Reading}{104}{section.11.2}%

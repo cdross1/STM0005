@@ -120,14 +120,15 @@
 \contentsline {section}{\numberline {10.1}{\ignorespaces Background and References\relax }}{306}{}%
 \contentsline {section}{\numberline {10.2}{\ignorespaces Trigonometry Primer\relax }}{307}{}%
 \contentsline {section}{\numberline {10.3}{\ignorespaces Rearranging Equations\relax }}{311}{}%
-\contentsline {chapter}{\numberline {11}{\ignorespaces Further Reading\relax }}{313}{}%
-\contentsline {section}{\numberline {11.1}{\ignorespaces What is Physics Extra Reading\relax }}{314}{}%
-\contentsline {section}{\numberline {11.2}{\ignorespaces Kinematics in 1D Extra Reading\relax }}{315}{}%
-\contentsline {section}{\numberline {11.3}{\ignorespaces Kinematics in 2D Extra Reading\relax }}{316}{}%
-\contentsline {section}{\numberline {11.4}{\ignorespaces Forces and Freebody Diagrams Extra Reading\relax }}{317}{}%
-\contentsline {section}{\numberline {11.5}{\ignorespaces Energy Extra Reading\relax }}{318}{}%
-\contentsline {section}{\numberline {11.6}{\ignorespaces Circular Motion and Oscillations Extra Reading\relax }}{321}{}%
-\contentsline {section}{\numberline {11.7}{\ignorespaces Electric Circuits Extra Reading\relax }}{322}{}%
-\contentsline {section}{\numberline {11.8}{\ignorespaces Modern Physics Extra Reading\relax }}{323}{}%
-\contentsline {chapter}{\numberline {12}{\ignorespaces Formula Sheet\relax }}{325}{}%
-\contentsline {chapter}{Bibliography}{332}{}%
+\contentsline {section}{\numberline {10.4}{\ignorespaces Quadratic Equations\relax }}{312}{}%
+\contentsline {chapter}{\numberline {11}{\ignorespaces Further Reading\relax }}{314}{}%
+\contentsline {section}{\numberline {11.1}{\ignorespaces What is Physics Extra Reading\relax }}{315}{}%
+\contentsline {section}{\numberline {11.2}{\ignorespaces Kinematics in 1D Extra Reading\relax }}{316}{}%
+\contentsline {section}{\numberline {11.3}{\ignorespaces Kinematics in 2D Extra Reading\relax }}{317}{}%
+\contentsline {section}{\numberline {11.4}{\ignorespaces Forces and Freebody Diagrams Extra Reading\relax }}{318}{}%
+\contentsline {section}{\numberline {11.5}{\ignorespaces Energy Extra Reading\relax }}{319}{}%
+\contentsline {section}{\numberline {11.6}{\ignorespaces Circular Motion and Oscillations Extra Reading\relax }}{322}{}%
+\contentsline {section}{\numberline {11.7}{\ignorespaces Electric Circuits Extra Reading\relax }}{323}{}%
+\contentsline {section}{\numberline {11.8}{\ignorespaces Modern Physics Extra Reading\relax }}{324}{}%
+\contentsline {chapter}{\numberline {12}{\ignorespaces Formula Sheet\relax }}{326}{}%
+\contentsline {chapter}{Bibliography}{333}{}%

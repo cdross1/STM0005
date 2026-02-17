@@ -1,0 +1,787 @@
+
+\chapter{Electric Circuits}
+The penultimate section of this module changes tack and explores the basic physics of electric circuits and their components. \textcolor{red}{This section involves lots of pictures some of which will be added in later, initially it may be hard to read parts of this section and you should use the handwritten lecture notes to see the relevant figures.}
+
+\section{Voltage, Current, and Resistance}
+\paragraph{Current:} Electricity is the flow of charge around a circuit, this is known as an \textbf{electrical current}. Usually we are thinking of a flow of electrons\footnote{Fundamental particles that carry a negative electrical charge.}, but these could also be positively charged protons or charged ions. We call the particles flowing round the circuit \textbf{charge carriers}.\\
+
+By convention we say that a \textbf{current} flows from a positive charge to a negative charge\footnote{I believe that we can blame Benjamin Franklin for picking this convention and it is now so ingrained that nobody is campaigning to change it.}, even if the charge carriers are travelling in the opposite direction. This means that in an electrical circuit the current is in the opposite direction to the flow of electrons.\\
+
+If we look at a battery, which is often called a \textbf{cell} in electronics, the two ends of the battery are marked with a $+$ and a $-$, we call these ends terminals and when we connect wires to the battery we can think of electrons as flowing from the $-$ terminal through the wire, and anything else that is connected to it, and then going back into the $+$ terminal. A current will only flow if  the circuit is closed, if there are any breaks then a current will not flow.\\
+
+Current is give the symbol $I$ and is measured in Amperes, often shortened to Amps\footnote{Named after Andr\'{e}-Marie Amp`{e}re.}, with the symbol $\text{A}$.\\
+
+There are two types of circuit that we care about in this module:
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item \textbf{Direct Current:} This is where a cell produces a constant current which points in the same direction, this is the case where our cartoon picture of a flow of electrons makes sense.
+    \item \textbf{Alternating Current:} The voltage and current in a circuit are periodic and change direction in time. In this case the picture is more like the electrons in the wires are oscillating backwards and forwards. We will study AC circuits at the end of this section where we will make use of a lot of the ideas about periodicity and circular motion that we met earlier in the module.
+\end{itemize}  
+
+We can formalise some of the concepts that were introduced above. \textbf{Charge}\footnote{Here we use charge and electric charge synonymously, however there are other types of charge that show up in other contexts. For example mass can be thought of as being gravitational charge since it quantifies how an object responds to a gravitational field.}, given the symbol $Q$, is a property of an object which determines how the object responds to an electromagnetic field. Charge is measured in units called Coulombs\footnote{These are named after Charles-Augustin de Coulomb.} and given the symbol $\text{C}$. We said above that a current is a flow of charge carriers and this leads us to relate Coulombs to Amps through $1\text{C}=1\text{A}s$ ie one coulomb is one Amp in one second. Alternatively we can write this as
+\begin{equation}
+I=\frac{\Delta Q}{\Delta t},
+\label{eq: current definition}
+\end{equation}
+or in words, current is the rate of change of charge.\\
+
+An electron has a tiny charge of $Q=1.6\times10^{-19}\text{C}$, so a current of $1\text{A}$ is due to $6.25\times 10^{18}$ electrons passing along the wire per second. Note that we have not put a minus sign on the charge of an electron, in many places you will see it quoted as $q_{e}=-1.6\times10^{-19}\text{C}$, but we are not that concerned with what the charge carriers are in this module so have quoted the charge without a sign in this case.\\
+
+In terms of how they respond to electrical currents physical materials essentially come in three types:
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item \textbf{Conductors:} These have free charge carriers and allow a current to flow through them. The wire used to connect circuit components in the lab is an example of a conductor.
+    \item \textbf{Insulators:} These do not support conduction of electricity. Think of materials like rubber, wood, or plastic.
+    \item \textbf{Semiconductors:} These are a halfway house where the conduction properties depend on what we do to the material, for example they can depend on the temperature with certain materials being insulators at low temperatures and becoming conductors as they heat up. The physics of semiconductors is complicated, but they are integral to many modern technologies.
+\end{itemize}  
+
+The important points to remember are that a current delivers energy around the circuit, and the cell or battery has the potential to transfer its chemical energy to the kinetic energy of the charge carriers.
+
+\paragraph{Example 8.1:}What is the current if $10\text{C}$ of charge passes along a wire in $10\text{s}$?\\
+
+Use $I=\frac{Q}{t}$ and substitute in the numbers given in the question:
+\begin{equation*}
+I=\frac{10}{10}=1\text{A}.
+\end{equation*}
+
+A very useful analogy to have in mind when thinking about electric circuits is of water flowing through pipes. The flow of water is like the flow of charge carriers and the rate that water flows at is the current.  We can then ask what cells or batteries would be in this analogy? The answer is that these are like the water starting off at the top of a hill where it has potential energy, and as it flows through the circuit this potential energy is converted into the kinetic energy of the charge carriers. Then when charge carriers pass through a circuit component this is like a water fall where the water loses potential energy as it falls.\\
+
+
+\paragraph{Voltage:} More formally, each charge carrier does work when it passes through a component. This work done is equal to a loss of energy of the charge carriers. Since in our analogy this would be a loss of potential energy as the water falls, we refer to the drop in energy across a component as the \textbf{potential difference}.
+
+\begin{equation*}
+\text{Work done per charge} = \text{Potential Difference (pd)} = \text{Voltage}.
+\end{equation*}
+The terms potential difference and voltage are used essentially interchangeably  and both are measured in units of Volts, $\text{V}$, with $1\text{V}=1\text{J/C}$. 
+
+\paragraph{Example 8.2:} If $30\text{J}$ of work is done when $5\text{C}$ of charge passes through a circuit component, find the voltage.\\
+
+We are told both the charge and the work done so can use
+\begin{equation*}
+V=\frac{W}{Q}=\frac{30}{5}=6\text{V}.
+\end{equation*}
+
+The voltage supplied by a cell or battery is often called the \textbf{electromotive force} or EMF and is given the symbol $\mathcal{E}$. We saw above that voltage was a measure of the energy per charge, this means that the product of voltage and charge is a measure of energy. In other words
+\begin{equation}
+\text{Electrical Energy}=E=\mathcal{E}Q,
+\end{equation}
+where here electrical energy means the energy supplied to the circuit by the cell.\\
+
+In our water analogy, the electrical energy is like the initial potential energy determined by the height that the water starts of at. This energy will decrease every time we pass through a circuit component as that is analogous to the water going down a drop and turning some of its potential energy into kinetic energy, heat energy, or sound.\\
+
+Charge carriers lose energy when they pass through circuit components like bulbs as their energy is used to make the component work, ie light up in the case of a bulb. However, they will also lose energy as they pass through the wires in a circuit, since the cause the wire to heat up slightly. This is known as \textbf{resistance}, and we normally ignore the resistance of the wires in a circuit as it is so much smaller than the resistance of the circuit components. In the water analogy, the resistance is like the width of the pipe. If a pipe narrows this slows down the flow of water and reduces its kinetic energy.\\
+
+Certain circuit components like resistance heaters and filament bulbs have high resistances. In fact a filament bulb is more of a heater than a light, it only produces light as a by-product of the filament heating up.\\
+
+Combining all of the ideas we have seen so far, consider a circuit component with a potential difference $V$ across it and a current $I$ passing through it for a time $t$ We can then compute the charge that flows through the component in that times $Q=It$ and the work done by the charges is
+\begin{equation*}
+W=QV=ItV,
+\end{equation*}
+but we know that Power is work divided by time, so we get a measure of electrical power from
+\begin{equation*}
+P=\frac{W}{t}=IV.
+\end{equation*}
+
+This is another equation you can use a formula triangle to help you remember, see \cref{fig: PIV triangle}.   When you buy a bulb in a shop the power rating corresponds to the electrical power that needs to be supplied for the bulb to illuminate. As in the case of mechanical power we use Watts, $\text{W}$, as the unit of power.
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The formula triangle for power, voltage, and current.}
+  %  \pdftooltip{
+  \large \formulatriang[.4]{$P$}{}{$I$}{}{$ V$}{}
+  %}{The formula triangle for power, voltage, and current.}
+    \caption{The formula triangle for power, voltage, and current. }
+    \label{fig: PIV triangle}
+\end{figure}
+
+
+\paragraph{Example 8.3:} A $6\text{V}$, $12\text{W}$ bulb is connected to a $6\text{V}$ battery. Calculate:
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[a)] The current through the bulb,
+    \item[b)] The energy transferred to the bulb in $1800\text{s}$.
+\end{itemize}  
+Note that when we quote a voltage associated with a circuit component we mean that this is the potential difference needed for the component to work.\\
+
+a) Use $P=IV$ and rearrange it to give
+\begin{equation*}
+I=\frac{P}{V}=\frac{12}{6}=2\text{A}.
+\end{equation*}
+
+b) We know that $E=Pt$ so can substitute in $P$ and $t$ to calculate
+\begin{equation*}
+E=Pt=12\times 1800=21600\text{J}\simeq 22\text{kJ}.
+\end{equation*}
+
+
+\paragraph{Resistance:} The resistance is a measure of how difficult it is to make a current flow through a circuit component. At a microscopic level we can think of it as being caused by collisions between the charge carriers. It is given as the ration of the voltage across a component to the current passing through it and we give it the symbol $R$. The unit of resistance is the Ohm\footnote{After Georg Ohm.} $\Omega$.\\
+
+This relationship between voltage, current, and resistance is known as Ohm's law and is not true for every material, in fact we call materials where Ohm's law holds Ohmic materials. Unless explicitly stated, in this module we are assuming that all materials are Ohmic. As in the case of Hooke's law, Ohm's law describes how a material behaves under certain conditions, if we put too big a current or too high a voltage through a material we can find that Ohm's law will break down above a certain point. As an equation Ohm's law is
+\begin{equation}
+V=IR.
+\label{eq: Ohms law}
+\end{equation}
+The formula triangle in \cref{fig: Ohms law} can help you remember how to rearrange Ohm's law. This relationship shows us how to define the Ohm as a unit with $1\Omega=1\text{V/A}$.
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The formula triangle for voltage, current, and resistance.}
+   % \pdftooltip{
+   \large \formulatriang[.4]{$V$}{}{$I$}{}{$ R$}{}
+   %}{The formula triangle for Ohm's law.}
+    \caption{The formula triangle for Ohm's law. }
+    \label{fig: Ohms law}
+\end{figure}
+
+One of the lab experiments involves you testing a circuit component called a resistor and checking that Ohm's law is satisfied for this component. A consequence of \cref{eq: Ohms law} is that if we plot voltage against current, for a material where Ohm's law is valid, we will get a straight line graph whose gradient is the resistance.
+
+\paragraph{Example 8.4:} The current through a circuit component is $2\text{mA}$ when the potential difference is $12\text{V}$. Calculate:
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[a)] Its resistance,
+    \item[b)] The voltage across the component if the current is $50\mu\text{A}$.
+\end{itemize}
+
+a) Use Ohm's law to write $R=V/I$ and substitute in the numbers that we are given:
+\begin{equation*}
+R=\frac{V}{I}=\frac{12}{0.0002}=6000\Omega = 6\text{k}\Omega.
+\end{equation*}
+
+b) Resistance is a property of a material so remains constant, unless we are told that the material has special properties where its resistance depends on the temperature or on the light level. We have changed $I$ and are keeping $R$ fixed so can use Ohm's law to find $V$ through
+\begin{equation*}
+V=IR=50\times10^{-6}\times 6\times 10^{3}=0.3\text{V}.
+\end{equation*}
+
+
+There is a special circuit component, called a \textbf{resistor}, whose purpose is just to add particular resistance to a circuit. In one of the lab sessions you will look at several resistors in a circuit and test Ohm's law by measuring the voltage across all of the resistors.  There are two circuit symbols that re used to stand for a resistor, both are shown in \cref{fig: resistors}.
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The circuit symbols for a resistor.}
+   % \pdftooltip{
+   \begin{tikzpicture}[circuit ee IEC]
+    % Var resistor
+  \begin{scope}[set resistor graphic=var resistor IEC graphic]
+    \draw (0,1) to [resistor] (2,1);
+    % Back to original
+    \draw [set resistor graphic=resistor IEC graphic]
+      (0,0) to [resistor] (2,0);
+  \end{scope}
+\end{tikzpicture}
+%}{resistors}
+    \caption{The two symbols for a resistor in a circuit}
+    \label{fig: resistors}
+\end{figure}
+
+A natural question after what we have seen in this section is ``How do we measure current and voltage?'' The answer is that there are two specific circuit components that we add to a circuit to do this. To measure the current through a circuit we connect a device called an \textbf{ammeter} into the circuit as shown in \cref{fig: ammeter}.
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The circuit symbol for an ammeter which is connected in series with the component that you are measuring the current through.}
+    %\pdftooltip{
+    \begin{tikzpicture}[circuit ee IEC]
+     \draw (0,0) to [battery] (4,0) ;
+    \draw (0,-2) to [amperemeter] (2,-2);
+    \draw    (2,-2) to [resistor] (4,-2);
+    \draw (0,0) to (0,-2);
+    \draw (4,0) to (4,-2);
+\end{tikzpicture}
+%%}{ammeter}
+    \caption{An ammeter is connected in series to measure the current through a circuit.}
+    \label{fig: ammeter}
+\end{figure}
+
+Voltage is measured using a different device called a \textbf{voltmeter}, which is connected across a circuit component, rather than  being inserted beside the resistor. This is shown in \cref{fig: voltmeter}. In the next subsection we will learn about why these two circuits look different. We say that the ammeter and resistor are in series while the voltmeter and resistor are in parallel. If you look in an older book you may find a generic meter being referred to as a \textbf{galvanometer}, this is a device that can be set up to measure current or voltage, it can even be used to measure resistance. 
+
+\begin{figure}[ht]
+    \centering
+    %\pdftooltip{
+    \ThisAltText{ The circuit symbol for a voltmeter which is connected in parallel to the component that you are measuring the voltage across.}
+    \begin{tikzpicture}[circuit ee IEC]
+     \draw (-1,0) to [battery] (3,0) ;
+    \draw (0,-4) to [voltmeter] (2,-4);
+    \draw    (-1,-2) to [resistor] (3,-2);
+    \draw (0,-2) to (0,-4);
+    \draw (2,-2) to (2,-4);
+    \draw (-1,0) to (-1,-2);
+    \draw (3,0) to (3,-2);
+\end{tikzpicture}
+%}{voltmeter}
+    \caption{A voltmeter is connected in series to measure the voltage across a circuit component.}
+    \label{fig: voltmeter}
+\end{figure}
+
+\section{Series and Parallel Circuits}
+It turns out that there are a set of rules that govern how current and voltage behave in a circuit. These are known as \textbf{Kirchhoff's laws}\footnote{Named for Gustav Kirchhoff}, and understanding how an electric circuit will behave is often just a case of applying these rules. It is natural to separate these rules into the current laws and the voltage laws, when we state these it should become clear why we connect ammeters and voltmeters in different ways as that comes from these rules. \\
+
+\paragraph{Current rules:} There are two current rules.
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[1)] When multiple wires meet at a junction the total current entering the junction is equal to the total current leaving the junction. As an example consider the diagram in \cref{fig: K1}. Here the current rule says that $1.5\text{A}=0.5\text{A}+I$ which means that $I=1\text{A}$ going in to the junction.
+    \item[2)] For components in series, ie components that are side by side, the current entering a component is equal to the current leaving a component. So in the \cref{fig: K2} below the reading on both ammeters will be the same.
+\end{itemize}
+   \begin{figure}[ht]
+    \centering
+   % \pdftooltip{
+   \ThisAltText{ Kirchhoff's first law that the current entering a junction must be equal to the current leaving the junction.}
+   \begin{tikzpicture}[circuit ee IEC]
+   \draw (0,0) to[current direction={near start,info={$0.5$A}}] (2,0);
+     \draw (3,-1) to[current direction={near start,info={$I=?$}}] (2,0);
+        \draw (2,0) to[current direction={near end,info={$1.5$A}}] (3,1);
+\end{tikzpicture}
+%}{Current rule 1}
+    \caption{The current entering the junction is equal to the current leaving the junction.}
+    \label{fig: K1}
+\end{figure}
+
+ \begin{figure}[ht]
+    \centering
+   % \pdftooltip{
+   \ThisAltText{ The current entering a circuit component is the same as the current leaving it.}
+   \begin{tikzpicture}[circuit ee IEC]
+   \draw (-1,0) to [battery] (3,0) ;
+    \draw    (-1,-2) to [bulb] (3,-2);
+    \draw (-1,0) to [amperemeter] (-1,-2);
+    \draw (3,0) to [amperemeter] (3,-2);
+\end{tikzpicture}
+%}{Current rule 2}
+    \caption{The current entering a circuit component is the same as the current leaving it.}
+    \label{fig: K2}
+\end{figure}
+
+The second current rule can also be interpreted as saying that for components in series the current passing through them is the same. If we have components in parallel then we need to use rule 1) to say how the current splits up at the junction.
+
+\paragraph{Voltage rules:} There are three voltage rules. Before stating them it is useful to recall that the voltage between two points in a circuit is equal to the energy transfer per coulomb of charge flowing between the two points.  For example in \cref{fig: voltage rule 0} we have two circuit components that we can consider the potential difference across. 
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The voltage across components in parallel is the same.}
+   % \pdftooltip{
+   \begin{tikzpicture}[circuit ee IEC]
+     \draw (-1,0) to [battery] (3,0) ;
+    \draw (-1,-4) to [resistor] (3,-4);
+    \draw    (-1,-2) to [bulb] (3,-2);
+    \draw (-1,-2) to (-1,-4)node[left]{c};
+    \draw (3,-2) to (3,-4)node[right]{d};
+    \draw (-1,0) to (-1,-2)node[left]{a};
+    \draw (3,0) to (3,-2)node[right]{b};
+\end{tikzpicture}
+%}{voltage across the bulb and resistor agree}
+    \caption{$V_{ab}$= voltage across the bulb and $V_{cd}$= voltage across the resistor}
+    \label{fig: voltage rule 0}
+\end{figure}
+
+If the charge carriers gain energy then there will be a potential rise, such as in a cell. While if they lose energy then there is a potential drop. For most circuit components there will be a potential drop as the charge carriers do work on the circuit component.\\
+
+Kirchhoff's three voltage rules are:
+
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[1)] Voltages in series add, so in a circuit with two resistors in series as in \cref{fig: voltage rule 1} the voltage supplied by the cell is equal to the sum of the potential differences across the resistors, or $V_{0}=V_{1}+V_{2}$.
+     \begin{figure}[ht]
+    \centering
+   % \pdftooltip{
+   \ThisAltText{ Voltages in series add to give the total voltage across the components.}
+   \begin{tikzpicture}[circuit ee IEC]
+     \draw (-3,0) to [battery ={info={$V_{0}$}}] (3,0) ;
+    \draw (-0,-3) to [resistor={info'={$V_{1}$}}] (3,-3);
+    \draw    (-3,-3) to [resistor={info'={$V_{2}$}}] (0,-3);
+    \draw (-3,0) to (-3,-3);
+    \draw (3,0) to (3,-3);
+\end{tikzpicture}
+%}{Voltages in series add }
+    \caption{Voltages in series add , $V_{0}=V_{1}+V_{2}$.}
+    \label{fig: voltage rule 1}
+\end{figure}
+    \item[2)] Voltages in parallel are the same. So for a circuit with two resistors in parallel as in \cref{fig: voltage rule 2}, the voltage across both resistors is the same, and this is also the same as the voltage supplied by the cell. Or in symbols $V_{0}=V_{1}=V_{2}$.
+    \begin{figure}[ht]
+    \centering
+    \ThisAltText{ Voltages in parallel are the same.}
+  %  \pdftooltip{
+  \begin{tikzpicture}[circuit ee IEC]
+     \draw (-1,0) to [battery ={info={$V_{0}$}}] (3,0) ;
+    \draw (-1,-4) to [resistor={info'={$V_{2}$}}] (3,-4);
+    \draw    (-1,-2) to [resistor={info'={$V_{1}$}}] (3,-2);
+    \draw (-1,-2) to (-1,-4);
+    \draw (3,-2) to (3,-4);
+    \draw (-1,0) to (-1,-2);
+    \draw (3,0) to (3,-2);
+\end{tikzpicture}
+%}{Voltages in parallel are the same }
+    \caption{Voltages in parallel are the same , $V_{0}=V_{1}=V_{2}$.}
+    \label{fig: voltage rule 2}
+\end{figure}
+    \item[3)] For a loop the sum of voltage gains is equal to the sum of voltage loses. This is a version of the conservation of energy as it is saying that for a closed loop the energy that leaves the circuit is equal to the energy that enters the circuit. For the circuit shown in \cref{fig: voltage rule 3} this means that $V_{0}+V_{1}=V_{2}+V_{3}$
+       \begin{figure}[ht]
+    \centering
+    \ThisAltText{ In a closed loop the total voltage gain is equal to the total voltage loss.}
+  %  \pdftooltip{
+  \begin{tikzpicture}[circuit ee IEC]
+     \draw (-1,0) to [battery ={info={$V_{0}$}}] (3,0) ;
+    \draw (3,-4) to [battery={info={$V_{1}$}}] (-1,-4);
+    \draw (-1,0) to [resistor={info'={$V_{3}$}}] (-1,-4);
+    \draw (3,0) to [resistor={info={$V_{2}$}}] (3,-4);
+\end{tikzpicture}
+%}{Voltages in loops}
+    \caption{For a closed loop the total voltage gain is equal to the total voltage loss.}
+    \label{fig: voltage rule 3}
+\end{figure}
+\end{itemize}
+
+\paragraph{Example 8.5:} Consider the circuit shown in \cref{fig: car charging} which describes a car battery being jump started. There are two batteries with an emf and an internal resistance, denoted by the resistors next to the batteries, and two resistors standing for the resistance in the jump leads. Find the current $I$ in the circuit.\\
+
+  \begin{figure}[ht]
+    \centering
+    \ThisAltText{ A circuit diagram corresponding to jump starting a car.}
+ %   \pdftooltip{
+ \begin{tikzpicture}[circuit ee IEC]
+     \draw (-3,0) to [resistor={info={$R_{1}=2\Omega$}}](0,0);
+     \draw (0,0) to [battery ={info={$V_{0}=12$V}}] (3,0) ;
+    \draw (3,0) to [resistor={info={$R_{5}=7\Omega$}}] (3,-4);
+    \draw (-3,-4) to [resistor={info'={$R_{3}=4\Omega$}}] (0,-4);
+    \draw (-3,0) to [resistor={info'={$R_{2}=3\Omega$}}] (-3,-4);
+    \draw (0,-4) to [battery ={info'={$V_{4}=4$V}}] (3,-4);
+\end{tikzpicture}
+%}{charging loop}
+    \caption{A circuit describing a car battery being charged. Since the car batteries are oriented oppositely the upper one is a potential gain, while the lower battery is a potential drop as it is being charged.}
+    \label{fig: car charging}
+\end{figure}
+
+To analyse this circuit we use a combination of the voltage rules and Ohm's Law.  Voltage rule 3 tells us that the sum of the voltage across all of the resistors plus the voltage across the charging battery is equal to $12\text{V}$, or
+\begin{equation*}
+\begin{split}
+12\text{V}=V_{0}&=V_{1}+V_{2}+V_{3}+V_{4}+V_{5}\\
+&=R_{1}I+R_{2}I+R_{3}I+4\text{V}+R_{5}I\\
+&=2I+3I+4I+4\text{V}+7I\\
+&=16I+4\text{V}.
+\end{split}
+\end{equation*}
+Here we have use the second current law to say that the current is the same through all of the resistors, and made use of Ohm's law to convert the voltage across each resistor into the product of $I$ and the resistance. Now we can solve the linear equation for $I$ as
+\begin{equation*}
+12=16I+4, \quad \Rightarrow \, 16I=8,
+\end{equation*}
+or $I=1/2=0.5\text{A}$.\\
+
+This example is about as complicated a problem as you can expect to find where we are just building a circuit from batteries and resistors. If you can solve this problem then you will be able to solve pretty much any problem that you are confronted by.
+
+\paragraph{Example 8.6:} Consider the circuit in \cref{fig: 2 resistors}, find the current through the circuit.\\
+
+  \begin{figure}[ht]
+    \centering
+    \ThisAltText{ A circuit with a single cell and two resistors.}
+   % \pdftooltip{
+   \begin{tikzpicture}[circuit ee IEC]
+     \draw (-3,0) to [battery ={info={$V_{0}=12$V}}] (3,0) ;
+    \draw (3,0) to  (3,-4);
+    \draw (-3,0) to  (-3,-4);
+    \draw (-3,-4) to [resistor={info'={$R_{1}=4\Omega$}}] (0,-4);
+    \draw (0,-4) to [resistor ={info'={$R_{2}=8\Omega$}}] (3,-4);
+\end{tikzpicture}
+%}{A potential divider}
+    \caption{A circuit with a single cell and two resistors.}
+    \label{fig: 2 resistors}
+\end{figure}
+
+This ii similar to the previous example in that we use Ohm's law to convert $R_{1}$ and $R_{2}$ into a voltage through $V_{1}=I R_{1}$ and $V_{2}=I R_{2}$ and then use the second current rule that the total current gained in a closed loop is equal to the total current lost in the loop. In other words:
+\begin{equation*}
+12\text{V}=V_{1}+V_{2}=\left(R_{1}+R_{2}\right)I=12I,
+\end{equation*}
+so $I=12/12 \text{A}=1\text{A}$.
+
+
+\paragraph{Combining resistors:} A consequence of Kirchhoff's laws is that we can now combine all the resistance in a circuit and construct an analogous circuit which has the same total resistance but all of it is contained in one resistor. In fact we can start to see this in the above example where we have 
+\begin{equation*}
+V_{0}=\left(R_{1}+R_{2}\right)I,
+\end{equation*}
+from Ohm's law this would be like having a single resistor whose resistance is $R=R_{1}+R_{2}$. \\
+
+
+This is exactly what happens for resistors in series, their resistance adds. 
+\begin{equation}
+R=R_{1}+R_{2}.
+\label{eq: resistors in series}
+\end{equation} 
+See \cref{fig: resistance in series} for a what this means in terms of circuit diagrams.\\
+  \begin{figure}[ht]
+    \centering
+    \ThisAltText{ For resistors in series the total resistance is the sum of the individual resistances.}
+    %\pdftooltip{
+    \begin{tikzpicture}[circuit ee IEC]
+    \draw (-3,0) to [resistor={info={$R_{1}$}}] (0,0);
+    \draw (0,0) to [resistor ={info={$R_{2}$}}] (3,0);
+    \draw (5,0) to [resistor ={info={$R=R_{1}+R_{2}$}}] (8,0);
+    \path (3,0) -- (5,0) node[midway, blue]{=};
+\end{tikzpicture}
+%}{Resistors in Series}
+    \caption{Combining resistance in series the resistance adds.}
+    \label{fig: resistance in series}
+\end{figure}
+
+In the water flowing through pipes analogy, we think of a resistor as being like a drop in height where the water loses potential energy, then this is just saying that if the water drops first a height $h_{1}$ and then a height $h_{2}$, the change in potential energy is the same as if the water dropped a height of $h_{1}+h_{2}$ in one go.\\
+
+Resistors in parallel combine in a more complicated way. This is because we need to use the second voltage rule, that the voltage is the same in parallel paths, and the first current rule, which tells us what happens to the current at a junction. Using both of these we find that if we have two resistors $R_{1}$ and $R_{2}$ in parallel then the combined resistance is
+\begin{equation}
+\frac{1}{R}=\frac{1}{R_{1}}+\frac{1}{R_{2}}.
+\label{eq: resistors in parallel}
+\end{equation}
+
+  \begin{figure}[ht]
+    \centering
+    \ThisAltText{ For resistors in parallel the reciprocal of the total resistance is the sum of the reciprocals of the individual resistances.}
+   % \pdftooltip{
+   \begin{tikzpicture}[circuit ee IEC]
+    \draw (0,0) to [resistor={info'={$R_{1}$}}] (2,0);
+    \draw (0,-2) to [resistor ={info'={$R_{2}$}}] (2,-2);
+    \draw(0,-1) to[current direction={near start,info={$I_{1}$}}] (0,0);
+     \draw(0,-1) to[current direction={near start,info'={$I_{2}$}}] (0,-2);
+    \draw (2,0) to[current direction={near start,info'={$I_{1}$}}] (2,-1);
+    \draw (2,-2) to[current direction={near start,info={$I_{2}$}}] (2,-1);
+    \draw(-2,-1) to[current direction={near start,info={$I$}}] (0,-1);
+    \draw(2,-1) to[current direction={near start,info={$I$}}] (4,-1);
+    \draw (6,-1)to [current direction={near start,info={$I$}},resistor ={info'={$R=\frac{1}{\frac{1}{R_{1}}+\frac{1}{R_{2}}}$}}] (9,-1);
+    \path (4,-1) -- (6,-1) node[midway, blue]{=};
+\end{tikzpicture}
+%}{Resistors in parallel}
+    \caption{Combining resistance in parallel the reciprocals of the resistance add.}
+    \label{fig: resistors in parallel}
+\end{figure}
+
+What this means for a circuit diagram can be seen in \cref{fig: resistors in parallel}.  From the first current rule we know that $I=I_{1}+I_{2}$ while from the second voltage rule we know that the voltage across resistor 1 is equal to the voltage across resistor 2. If we use Ohm's law on each resistor we have that 
+\begin{align*}
+V_{1}&=I_{1} R_{1},\\
+V_{2}&=I_{2} R_{2},\\
+V_{1}&=V_{2}=V.
+\end{align*}
+While for the single big resistor on the other side we have that $V=IR$.  Then we use the first current rule 
+\begin{align*}
+I&=I_{1}+I_{2}\\
+\frac{V}{R}&=\frac{V_{1}}{R_{1}}+\frac{V_{2}}{R_{2}}\\
+&=\frac{V}{R_{1}}+\frac{V}{R_{2}}\\
+&=V\left(\frac{1}{R_{1}}+\frac{1}{R_{2}}\right),
+\end{align*}
+which if we cancel the factors of $V$ gives \cref{eq: resistors in parallel}.
+
+\paragraph{Example 8.7:} Find the combined resistance for the circuit shown in \cref{fig: combining resistance example}. Is it
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[a)] $11\Omega$,
+    \item[b)] $4\Omega$,
+    \item[c)] $1\Omega$.
+\end{itemize}
+
+  \begin{figure}[ht]
+    \centering
+    \ThisAltText{ A circuit with resistors in parallel and in series.}
+    %\pdftooltip{
+    \begin{tikzpicture}[circuit ee IEC]
+    \draw (0,0) to [resistor={info={$R_{2}=3\Omega$}}] (2,0);
+    \draw (0,-2) to [resistor ={info'={$R_{3}=6\Omega$}}] (2,-2);
+    \draw(0,-1) to (0,0);
+     \draw(0,-1) to(0,-2);
+    \draw (2,0) to (2,-1);
+    \draw (2,-2) to (2,-1);
+    \draw(-3,-1) to[resistor ={info'={$R_{1}=2\Omega$}}]  (0,-1);
+    \draw(2,-1) to(4,-1);
+\end{tikzpicture}
+%}{Combining resistance example}
+    \caption{Combining resistance for both in series and parallel resistors.}
+    \label{fig: combining resistance example}
+\end{figure}
+
+The answer is b) $R=4\Omega$. To see this we first combine $R_{2}$ and $R_{3}$ in parallel as
+\begin{equation*}
+R_{\text{Par}}=\frac{1}{\frac{1}{R_{2}}+\frac{1}{R_{3}}}=\frac{1}{\frac{1}{3}+\frac{1}{6}}=\frac{1}{\frac{1}{2}}=2\Omega.
+\end{equation*}
+Then we can combine $R_{1}$ and $R_{\text{Par}}$ in series as
+\begin{equation*}
+R =R_{1}+R_{\text{Par}}=2+2=4\Omega.
+\end{equation*}
+
+Note that a) would be the answer if all the resistors were in series, while c) would be the answer if all three were in parallel.
+
+\paragraph{Power:} We saw above that the electrical power through a circuit component is given by $P=IV$. We motivated discussing power by first introducing resistance so it is no surprise that using Ohm's law and $P=IV$ we can express the power in terms of the resistance as either
+\begin{equation*}
+P=I^{2}R,
+\end{equation*}
+or
+\begin{equation*}
+P=\frac{V^{2}}{R}.
+\end{equation*}
+Remember that the resistance of a component causes the component to heat up, this is how kettles, irons, and filament bulbs work. For these components the power is then the power radiated to the environment by the hot component, either as heat or as light.
+
+\paragraph{Example 8.8:} The potential difference across a $1k\Omega$ resistor is measured to be $6\text{V}$. What is the electrical power supplied to the resistor?\\
+
+We know the voltage and the resistance so can use $P=\frac{V^{2}}{R}$ to calculate that the power is
+\begin{equation*}
+P=\frac{V^{2}}{R}=\frac{36}{1000}=0.036\text{W}.
+\end{equation*}
+
+
+\paragraph{Potential Dividers:} We saw in Kirchhoff's voltage laws that for resistors in series the potential differences add. This means that combining resistors in series enables us to split the supplied voltage and deliver different voltages across each resistor. A \textbf{potential divider}, sometimes called a voltage divider, is a circuit which makes use of this property. It is a circuit with a cell and two, or more, resistors. If we put other components in parallel to the resistors then by choosing the value of the resistance, we can control the voltage delivered to the component.\\
+
+  \begin{figure}[ht]
+    \centering
+    %\pdftooltip{
+    \ThisAltText{ A potential or voltage divider circuit.}
+    \begin{tikzpicture}[circuit ee IEC]
+     \draw (-3,0) to [battery ={info={$V_{0}$}}] (3,0) ;
+    \draw (3,0) to  (3,-2);
+    \draw (-3,0) to  (-3,-2);
+    \draw (-3,-2) to [resistor={info'={$R_{1}$}}] (0,-2);
+    \draw (0,-2) to [resistor ={info'={$R_{2}$}}] (3,-2);
+\end{tikzpicture}
+%}{A potential divider}
+    \caption{A potential divider circuit with two resistors}
+    \label{fig: potential divider}
+\end{figure}
+
+A potential divider circuit has the form shown in \cref{fig: potential divider}. The resistors in the circuit can have a fixed resistance, or they can be variable resistors. For fixed resistors, the total resistance in the circuit is $R=R_{1}+R_{2}$, since the resistors are in parallel. Thus Ohm's law gives that the current in the circuit is
+\begin{equation*}
+I=\frac{V_{0}}{R_{1}+R_{2}}.
+\end{equation*}
+Using this we can write the potential differences across the resistors as
+\begin{align*}
+V_{1}&=IR_{1}=\frac{V_{0}R_{1}}{R_{1}+R_{2}},\\
+V_{2}&=IR_{2}=\frac{V_{0}R_{2}}{R_{1}+R_{2}}.
+\end{align*}
+
+If $R_{1}=5\text{k}\Omega$ and $R_{2}=10\text{k}\Omega$ then
+\begin{equation*}
+V_{1}=\frac{1}{3}V_{0}, \qquad V_{2}=\frac{2}{3}V_{0},
+\end{equation*}
+and 
+\begin{equation*}
+R_{1}=\frac{1}{3}\left(R_{1}+R_{2}\right), \qquad R_{2}=\frac{2}{3}\left(R_{1}+R_{2}\right).
+\end{equation*}
+
+Comparing the expression for the voltage and the resistance we see that they are split in the same proportions. ie $V_{1}$ is the same fraction of the supply voltage as $R_{1}$ is of the total resistance. This means that the ratio of voltages is equal to the ratio of resistances:
+\begin{equation}
+\frac{V_{1}}{V_{2}}=\frac{R_{1}}{R_{2}}.
+\label{eq: voltage ratios}
+\end{equation}
+
+In a variable potential divider one of the resistors is replaced by a variable resistor, or sliding connection, or a resistor that depends on its surroundings like a thermistor\footnote{The resistance of a thermistor depends on the temperature.} or  light dependent resistor. In this setting as the resistance changes the output voltage across the resistors changes. This is used in devices like volume controls or dimmer switches where we manually adjust the resistance using a dial which changes the output voltage and hence the power being supplied to a bulb.\\
+
+\paragraph{Example 8.9:} Consider the circuit shown in \cref{fig: pd example}.
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[a)] Find the current through the circuit,
+    \item[b)] Find the voltage across each resistor.
+\end{itemize}  
+ \begin{figure}[ht]
+    \centering
+    \ThisAltText{ A specific potential divider circuit.}
+   % \pdftooltip{
+   \begin{tikzpicture}[circuit ee IEC]
+     \draw (-3,0) to [battery ={info={$V_{0}=6\text{V}$}}] (3,0) ;
+    \draw (3,0) to  (3,-2);
+    \draw (-3,0) to  (-3,-2);
+    \draw (-3,-2) to [resistor={info'={$R_{1}=4\Omega$}}] (0,-2);
+    \draw (0,-2) to [resistor ={info'={$R_{2}=8\Omega$}}] (3,-2);
+\end{tikzpicture}
+%}{A potential divider}
+    \caption{A potential divider with $R_{1}=4\Omega$ and $R_{2}=8\Omega$.}
+    \label{fig: pd example}
+\end{figure}
+
+a) As the resistors are in series, add the resistance to give $R=R_{1}+R_{2}=12\Omega$, then use Ohm's law to find the current:
+\begin{equation*}
+I=\frac{V}{R}=\frac{6}{12}=\frac{1}{2}\text{A}=0.5\text{A}.
+\end{equation*}
+
+b) We can compute $V_{1}$ and $V_{2}$ directly using:
+\begin{align*}
+V_{1}&=\frac{V_{0}R_{1}}{R_{1}+R_{2}}=\frac{6\times 4}{12}=2\text{V},\\
+V_{2}&=\frac{V_{0}R_{2}}{R_{1}+R_{2}}=\frac{6\times 8}{12}=4\text{V}.
+\end{align*}
+
+
+
+\paragraph{Capacitors:} Another type of circuit component that we want to discuss here is a \textbf{capacitor}. This is a circuit component that stores charge its circuit symbol is shown in \cref{fig: capacitor}, and looks very similar to the symbol for a battery.
+  \begin{figure}[ht]
+    \centering
+    %\pdftooltip{
+    \ThisAltText{ The circuit symbol for a capacitor.}
+    \begin{tikzpicture}[circuit ee IEC]
+     \draw (0,0) to [capacitor] (3,0) ;
+\end{tikzpicture}
+%}{capacitor circuit symbol}
+    \caption{The circuit symbol for a capacitor}
+    \label{fig: capacitor}
+\end{figure}
+
+We can think of a capacitor as being formed from two parallel metal plates separated by some other substance. When the plates are connected to the opposite terminals of a battery the different charges will build up on either plate, so one plate becomes negatively charged and the other becomes positively charged. If the battery is disconnected and an different circuit component is connected across the capacitor then it will discharge all of the stored charges until the plates have become neutral again.\\
+
+It is important to note that a capacitor does not charge instantaneously, it takes time for it to build up charge. Recall that, if the current in a circuit is $I$ then after a time $t$, the amount of charge that has flowed through a circuit component will be $Q=It$, this means that the rate a capacitor charges at depends on the current in the circuit.  The amount of charge that it can build up depends on the potential difference across the capacitor, and a quantity known as the \textbf{capacitance}. Capacitance is measured in Farads\footnote{Named after Michael Faraday.} which have the symbol $\text{F}$. Mathematically capacitance is related to potential difference and charge through
+\begin{equation}
+C=\frac{Q}{V},
+\label{eq: capacitance eq}
+\end{equation} 
+and $1\text{F}=1\text{C/V}$.\\
+
+One of the lab experiments looks at the charging and discharging times for a capacitor. The key point is that if we have a circuit like that in \cref{fig: RC circuit}, which is known as an RC circuit. If the switch is initially open then the capacitor will start uncharged. Upon closing the switch the capacitor will begin to charge up and after a time $t$ the current in the circuit will be
+\begin{equation*}
+I(t)=\frac{V_{0}}{R}\exp\left(-\frac{t}{RC}\right),
+\end{equation*}
+this is time dependent as the more charge that builds up on the capacitor the lower the current being drawn will be, if the capacitor becomes fully charged then current will no longer be able to flow round the circuit. From looking at the expression we see that the capacitor will only become fully charged when $\exp\left(-\frac{t}{RC}\right)=0$, which would need $t\to \infty$. A consequence of this is that the capacitor can become arbitrarily close to being full charged but will never actually reach it.\\
+
+     \begin{figure}[ht]
+    \centering
+    \ThisAltText{ An RC circuit with a resistor and a capacitor in series.}
+    %\pdftooltip{
+    \begin{tikzpicture}[circuit ee IEC]
+     \draw (-1,0) to [battery ={info={$V_{0}$}}] (3,0) ;
+    \draw (3,-4) to [capacitor={info'={$C$}}] (-1,-4);
+    \draw (-1,0) to [resistor={info'={$R$}}] (-1,-4);
+    \draw (3,0) to [make contact] (3,-4);
+\end{tikzpicture}
+%}{RC circuit}
+    \caption{An RC circuit}
+    \label{fig: RC circuit}
+\end{figure}
+Using this expression for the current we can obtain an expression for the voltage across the resistor
+\begin{equation*}
+V_{R}(t)=V_{0}\exp\left(-\frac{t}{RC}\right)
+\end{equation*}
+and by Kirchhoff's voltage laws , the voltage across the capacitor is
+\begin{equation*}
+V_{C}(t)=V_{0}\left(1-\exp\left(-\frac{t}{RC}\right)\right).
+\end{equation*}
+Notice that as time goes on the voltage across the resistor drops and the voltage across the capacitor increases.\\
+ 
+A natural time scale is given by $\uptau=RC$ which is known as the \textbf{time constant}. This is the time required for the voltage across the resistor to fall by $V_{0}/e$.\\
+
+If you go on to study more about circuits you will meet the concept of \textbf{impedance} which is a generalisation of resistance that takes account of all of the opposition to the flow of current. This includes contributions from resistance, capacitance, and inductance\footnote{A concept related to a circuit component called an inductor that we will not meet in this module.}.
+
+\section{AC Circuits}
+In a DC circuit the supply voltage is a constant in time, usually denoted by  $V_{0}$. While in an AC circuit, the direction the charge carriers move in changes with time. In fact the current is periodic and follows a sinusoidal wave, 
+\begin{equation*}
+V(t)=V_{0}\sin(\uw t),\qquad I(t)=I_{0}\sin(\uw t),
+\end{equation*}
+where $\uw=2\up f=2\up/T$ is the angular frequency. As we saw when studying circular motion the frequency is the number of cycles per second and the period $T$ is the time taken for one cycle. In the UK $f=50\text{Hz}$ for mains power.\\
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The profile of the voltage in an AC circuit is a sinusoidal curve.}
+  %  \pdftooltip{
+    \begin{tikzpicture}[domain=0:6.282, smooth,variable=\x]
+     \draw[->] (0,0) -- (6.4,0) node[above] {$t$};
+  \draw[->] (0,-1.2)node[left] {$-V_{0}$} -- (0,1.2)node[left] {$V_{0}$};
+ \draw[color=blue] node[left] {Voltage}  plot (\x,{sin(\x r)}) ;
+    \end{tikzpicture}
+ %   }{The voltage in an AC circuit }
+    \caption{The voltage in an AC circuit is periodic in time.}
+        \label{fig: AC voltage}
+\end{figure}
+
+We call the amplitude of the current, $I_{0}$, and voltage, $V_{0}$, the \textbf{peak current} and \textbf{peak voltage}. The voltage in an AC circuit is shown in \cref{fig: AC voltage}. The voltage and current in the circuit can be observed by studying an oscilloscope reading of the current or voltage. The frequency $f$ can also be observed using an oscilloscope. What about the power? Recall that $P=IV=I^{2}R$, so the power is also periodic but is given by
+\begin{equation*}
+P=I_{0}^{2}R\left(\sin\left(\uw t\right)\right)^{2},
+\end{equation*}
+which is always greater than zero. We call 
+\begin{equation*}
+\bar{P}=\frac{1}{2}I_{0}^{2}R=\frac{1}{2}P_{0},
+\end{equation*}
+the mean power, which is half of the peak power $P_{0}$.\\
+
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ The profile of the power in an AC circuit is everywhere positive and follows a sinusoidal curve.}
+   % \pdftooltip{
+    \begin{tikzpicture}[domain=0:6.282, smooth,variable=\x]
+     \draw[->] (0,0) -- (6.4,0) node[above] {$t$};
+  \draw[->] (0,-2.2) -- (0,4.2);
+ \draw[color=blue] node[left] {Power}  plot (\x,{4*sin(\x r)*sin(\x r)}) ;
+ \draw[color=red]  plot (\x,{2*sin(\x r)})node[right] {Current} ;
+    \end{tikzpicture}
+%    }{The power and current }
+    \caption{The Power in an AC circuit is related to the square of the current so is everywhere greater than zero.}
+        \label{fig: AC Power}
+\end{figure}
+
+It is sometimes useful to think about a direct current that produce the same power as the mean power. This current is called the \textbf{root mean squared} current or $I_{\text{rms}}$ and is defined by 
+\begin{equation*}
+\bar{P}=(I_{\text{rms}})^{2}R=\frac{1}{2}I_{0}^{2}R.
+\end{equation*}
+
+This relation means that $I_{\text{rms}}=I_{0}/\sqrt{2}$. It is called the root mean squared current because computing it involves squaring the current, taking its mean, then square rooting this.\\
+
+Similarly for the voltage we have the rms voltage
+\begin{equation*}
+V_{\text{rms}}=\frac{V_{0}}{\sqrt{2}}.
+\end{equation*}
+Note that the mean power is given by
+\begin{equation*}
+\bar{P}=I_{\text{rms}}V_{\text{rms}}.
+\end{equation*}
+
+\paragraph{Example 8.10:} Consider an AC source with $f=200\text{Hz}$ and peak current $I_{0}=0.1\text{A}$. Find:
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[a)] The period,
+    \item[b)] The rms current
+\end{itemize}  
+
+a) Use $T=1/f$ so that the period is
+\begin{equation*}
+T=\frac{1}{f}=\frac{1}{200}=0.005\text{s}=5\text{ms}.
+\end{equation*}
+
+b) This time use the expression for $I_{\text{rms}}$ to find:
+\begin{equation*}
+I_{\text{rms}}=\frac{1}{\sqrt{2}}I_{0}=\frac{0.1}{\sqrt{2}}=0.07\text{A}.
+\end{equation*}
+
+\paragraph{Example 8.11:} An alternating current with peak current $I_{0}=3\text{A}$ is passing through a $4\Omega$ resistor. Calculate:
+\begin{itemize}
+\setlength{\itemsep}{-5pt}
+    \item[a)] The rms current,
+    \item[b)] The rms voltage across the resistor,
+    \item[c)] The peak power,
+    \item[d)] The man power.
+\end{itemize}  
+
+a) Given $I_{0}=3\text{A}$ then
+\begin{equation*}
+I_{\text{rms}}=\frac{1}{\sqrt{2}}I_{0}=\frac{3}{\sqrt{2}}=2.12\text{A}.
+\end{equation*}
+
+b) Use Ohm's law, $V_{\text{rms}}=I_{\text{rms}}R$ so that
+\begin{equation*}
+V_{\text{rms}}=I_{\text{rms}}R=\frac{3\times 4}{\sqrt{2}}=\frac{12}{\sqrt{2}}=8.5\text{V}.
+\end{equation*}
+
+c) The peak power is given  by $P_{0}=I_{0}V_{0}=I_{0}^{2}R$ which is
+\begin{equation*}
+P_{0}=I_{0}^{2}R=9\times 4=36\text{W}.
+\end{equation*}
+
+d) The mean power is then
+\begin{equation*}
+\bar{P}=\frac{1}{2}P_{0}=18\text{W}.
+\end{equation*}
+
+\newpage
+\section{Circuit Component Symbols}
+\begin{figure}[ht]
+    \centering
+    \ThisAltText{ A summary of the symbols for the circuit components that we have used in this module.}
+  %  \pdftooltip{
+  \begin{tikzpicture}[circuit ee IEC]
+    \draw    (0,0) to [resistor] (2,0) node[right]{Resistor};
+      \draw (0,-1) to [make contact] (2,-1) node[right]{Switch};
+      \draw (0,-2) to [amperemeter] (2,-2) node[right]{Ammeter};
+      \draw (0,-3) to [voltmeter] (2,-3) node[right]{Voltmeter};
+      \draw (0,-4) to [bulb] (2,-4) node[right]{Bulb};
+      \draw (0,-5) to [capacitor] (2,-5) node[right]{Capacitor};
+      \draw (0,-6) to [battery] (2,-6) node[right]{Battery or Cell};
+      \draw (0,-7) to [ac source] (2,-7) node[right]{AC source};
+      \draw (0,-8) to [diode] (2,-8) node[right]{Diode};
+      \draw (0,-9) to [diode=light emitting] (2,-9) node[right]{LED};
+\draw (0,-10) to [resistor=light dependent] (2,-10) node[right]{Light dependent resistor};
+\draw (0,-11) to [resistor=adjustable] (2,-11) node[right]{Variable resistor};
+\end{tikzpicture}
+%}{Circuit components}
+    \caption{Circuit symbols and the components that the represent.}
+    \label{fig: circuit components}
+\end{figure}

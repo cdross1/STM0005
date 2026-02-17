@@ -11,34 +11,71 @@
 %Allows the inclusion of graphics and also allows the inclusion of captions to describe images or figures.
 \usepackage{natbib}
 \usepackage[Symbolsmallscale]{upgreek}
+\usepackage[xindy,toc]{glossaries} %Enables the creation of a glossary of terms.
 
 \usepackage{appendix}
 \usepackage[normalem]{ulem}
 \usepackage{cancel}
-\usepackage{amscd,amsthm}
-
+\usepackage{amsmath,amssymb,amscd,amsthm} % Loads various ams maths packages
+\usepackage{textcomp}% This should give an interrobang symbol
 \usepackage{caption}
 
-\usepackage{tikz}
+\usepackage{tikz,pgfplots}
 \usetikzlibrary{calc, scopes, circuits.ee.IEC, patterns}
 \usetikzlibrary{arrows,arrows.meta}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{angles,quotes} % for pic (angle labels)
 \usetikzlibrary{shapes,snakes}
+\usetikzlibrary{intersections,positioning}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.12}
+
+
 
 \usepackage{tkz-euclide}
-%\usepackage{mathtools}
+%\usepackage{mathtools} % Currently this package does not work with lwarp so needs to be avoided if an html version is required.
 \usepackage{tabularx}
 \usepackage{multirow}
 
-\newtheorem{thm}{Theorem}[section]
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=1.5cm,lmargin=2cm,rmargin=3cm,headheight=1cm,headsep=1cm,footskip=1cm}
+
+%Remove indents at the start of paragraphs. Why is this not the default?
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage{polynom}
+
+\usepackage{makeidx} \makeindex
+\usepackage{xcolor} % (Demonstration purposes only.)
+\usepackage[
+nottoc,
+%numbib, % adds a chapter number
+]{tocbibind} % This makes the bibliography a chapter in the table of contents
+\usepackage[hidelinks]{hyperref}\usepackage{cleveref} % LOAD THESE LAST!
+
+
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{prob}{Theorem}[section]
+\newtheorem{Example}{\protect\examplename}[chapter]
+\newtheorem{diversion}{\protect\examplename}[chapter]
+\newtheorem{application}{\protect\examplename}[chapter]
 \newtheorem{prop}[thm]{Proposition}
 \newtheorem{cor}[thm]{Corollary} 
 \newtheorem{dfn}[thm]{Definition}
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{ex}[thm]{Example}
 \newtheorem{exercise}[thm]{Exercise}
-\newtheorem{Example}{\protect\examplename}[section]
+\newtheorem{mdiv}[diversion]{Mathematical Diversion}
+\newtheorem{app}[application]{Real World Application}
+\newtheorem{problem}[prob]{Problem}
+
+
 
 % % % Custom Commands
 \def\ud{\mathrm{d}}
@@ -249,3 +286,4 @@
 
 % % % Tikz stuff
 \def\tick#1#2{\draw[thick] (#1)++(#2:0.12) --++ (#2-180:0.24)}
+\newcommand\xsetpos{6}

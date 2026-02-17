@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.10)  11 FEB 2026 12:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.1) (preloaded format=pdflatex 2026.2.10)  17 FEB 2026 11:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -874,63 +874,227 @@ Package upgreek Info: Using Adobe Symbol, scaled 900, for upright Greek on inpu
 t line 85.
 \symugrf@m=\mathgroup6
 )
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/base\glossar
+ies.sty
+Package: glossaries 2025/11/09 v4.9 (NLCT)
+ (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks28
+\XKV@tempa@toks=\toks29
+)
+\XKV@depth=\count315
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/mfirstuc\mfirstuc.sty
+Package: mfirstuc 2025/04/03 v2.09 (NLCT)
+\@glsmfirst=\toks30
+\@glsmrest=\toks31
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/xfor\xfor.sty
+Package: xfor 2009/02/05 v1.05 (NLCT)
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-base.
+sty
+Package: datatool-base 2025/12/04 v3.4.3 (NLCT)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/tracklang\tracklang.sty
+Package: tracklang 2025/03/11 v1.6.6 (NLCT) Track Languages
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/tracklang\tracklang.t
+ex))
+\l__datatool_tmpa_int=\count316
+\l__datatool_tmpb_int=\count317
+\l__datatool_tmpc_int=\count318
+\l__datatool_tmpd_int=\count319
+\l__datatool_count_int=\count320
+\l__datatool_tmp_datatype_int=\count321
+\l__datatool_tmpa_dim=\dimen163
+\l__datatool_tmpb_dim=\dimen164
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-l3fp.
+def
+File: datatool-l3fp.def 2025/12/04 v3.4.3 (NLCT)
+)
+\@dtl@toks=\toks32
+\@dtl@tmpcount=\count322
+\dtl@tmplength=\skip70
+\l__datatool_measure_box=\box57
+\dtl@sortresult=\count323
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-utf8.
+ldf
+File: datatool-utf8.ldf 2025/12/04 v3.4.3 (NLCT)
+)
+\@dtl@datatype=\count324
+\c_datatool_unknown_int=\count325
+\l__datatool_year_int=\count326
+\l__datatool_month_int=\count327
+\l__datatool_day_int=\count328
+\l__datatool_hour_int=\count329
+\l__datatool_minute_int=\count330
+\l__datatool_second_int=\count331
+\l__datatool_tzhour_int=\count332
+\l__datatool_tzminute_int=\count333
+\l__datatool_julian_int=\count334
+\l__datatool_local_julian_int=\count335
+\l__datatool_prefix_int=\count336
+\l__datatool_suffix_int=\count337
+\@dtl@foreach@level=\count338
+\dtl@codeA=\count339
+\dtl@codeB=\count340
+)
+\gls@level=\count341
+\@gls@tmpb=\toks33
+\gls@tmplen=\skip71
+\l__glossaries_tmpa_dim=\dimen165
+\l__glossaries_tmpb_dim=\dimen166
+\glskeylisttok=\toks34
+\glslabeltok=\toks35
+\glsshorttok=\toks36
+\glslongtok=\toks37
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\gloss
+ary-hypernav.sty
+Package: glossary-hypernav 2025/11/09 v4.9 (NLCT)
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\gloss
+ary-list.sty
+Package: glossary-list 2025/11/09 v4.9 (NLCT)
+\glslistdottedwidth=\skip72
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\gloss
+ary-long.sty
+Package: glossary-long 2025/11/09 v4.9 (NLCT)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip73
+\LTright=\skip74
+\LTpre=\skip75
+\LTpost=\skip76
+\LTchunksize=\count342
+\LTcapwidth=\dimen167
+\LT@head=\box58
+\LT@firsthead=\box59
+\LT@foot=\box60
+\LT@lastfoot=\box61
+\LT@gbox=\box62
+\LT@cols=\count343
+\LT@rows=\count344
+\c@LT@tables=\count345
+\c@LT@chunks=\count346
+\LT@p@ftn=\toks38
+)
+\glsdescwidth=\skip77
+\glspagelistwidth=\skip78
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\gloss
+ary-super.sty
+Package: glossary-super 2025/11/09 v4.9 (NLCT)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/supertabular\supertabul
+ar.sty
+Package: supertabular 2025/06/26 v4.2d the supertabular environment
+\c@tracingst=\count347
+\ST@wd=\dimen168
+\ST@rightskip=\skip79
+\ST@leftskip=\skip80
+\ST@parfillskip=\skip81
+\ST@pageleft=\dimen169
+\ST@headht=\dimen170
+\ST@tailht=\dimen171
+\ST@pagesofar=\dimen172
+\ST@pboxht=\dimen173
+\ST@rowht=\dimen174
+\ST@prevht=\dimen175
+\ST@toadd=\dimen176
+\ST@dimen=\dimen177
+\ST@pbox=\box63
+))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\gloss
+ary-tree.sty
+Package: glossary-tree 2025/11/09 v4.9 (NLCT)
+\l__glossaries_tree_max_known_level_int=\count348
+\l__glossaries_tree_offset_dim=\dimen178
+\l__glossaries_tree_namewidth_dim=\dimen179
+\l__glossaries_tree_symbolwidth_dim=\dimen180
+\l__glossaries_tree_prenamesym_width_dim=\dimen181
+\l__glossaries_tree_presubnamesym_width_dim=\dimen182
+\l__glossaries_tree_namewidth_padding_dim=\dimen183
+\l__glossaries_tree_symbolwidth_padding_dim=\dimen184
+\l__glossaries_tree_namesymbolwidth_dim=\dimen185
+\l__glossaries_tree_namesymbolwidth_padding_dim=\dimen186
+\l__glossaries_tree_level_int=\count349
+\glstreeindent=\skip82
+))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/appendix\appendix.sty
 Package: appendix 2020/02/08 v1.2c extra appendix facilities
-\c@@pps=\count315
-\c@@ppsavesec=\count316
-\c@@ppsaveapp=\count317
+\c@@pps=\count350
+\c@@ppsavesec=\count351
+\c@@ppsaveapp=\count352
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/ulem\ulem.sty
-\UL@box=\box57
-\UL@hyphenbox=\box58
-\UL@skip=\skip70
-\UL@hook=\toks28
-\UL@height=\dimen163
-\UL@pe=\count318
-\UL@pixel=\dimen164
-\ULC@box=\box59
+\UL@box=\box64
+\UL@hyphenbox=\box65
+\UL@skip=\skip83
+\UL@hook=\toks39
+\UL@height=\dimen187
+\UL@pe=\count353
+\UL@pixel=\dimen188
+\ULC@box=\box66
 Package: ulem 2019/11/18
-\ULdepth=\dimen165
+\ULdepth=\dimen189
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/cancel\cancel.sty
 Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amscd.sty
 Package: amscd 2017/04/14 v2.1 AMS Commutative Diagrams
-\athelp@=\toks29
-\minaw@=\dimen166
-\bigaw@=\dimen167
-\minCDarrowwidth=\dimen168
+\athelp@=\toks40
+\minaw@=\dimen190
+\bigaw@=\dimen191
+\minCDarrowwidth=\dimen192
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/amscls\amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks30
-\thm@bodyfont=\toks31
-\thm@headfont=\toks32
-\thm@notefont=\toks33
-\thm@headpunct=\toks34
-\thm@preskip=\skip71
-\thm@postskip=\skip72
-\thm@headsep=\skip73
-\dth@everypar=\toks35
+\thm@style=\toks41
+\thm@bodyfont=\toks42
+\thm@headfont=\toks43
+\thm@notefont=\toks44
+\thm@headpunct=\toks45
+\thm@preskip=\skip84
+\thm@postskip=\skip85
+\thm@headsep=\skip86
+\dth@everypar=\toks46
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen169
-\captionmargin=\dimen170
-\caption@leftmargin=\dimen171
-\caption@rightmargin=\dimen172
-\caption@width=\dimen173
-\caption@indent=\dimen174
-\caption@parindent=\dimen175
-\caption@hangindent=\dimen176
+\caption@tempdima=\dimen193
+\captionmargin=\dimen194
+\caption@leftmargin=\dimen195
+\caption@rightmargin=\dimen196
+\caption@width=\dimen197
+\caption@indent=\dimen198
+\caption@parindent=\dimen199
+\caption@hangindent=\dimen256
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count319
-\c@continuedfloat=\count320
+\c@caption@flags=\count354
+\c@continuedfloat=\count355
+Package caption Info: longtable package is loaded.
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/caption\ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
+Package caption Info: supertabular package is loaded.
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
 sty
@@ -939,13 +1103,13 @@ sty
 y
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -common.tex
-\pgfutil@everybye=\toks36
-\pgfutil@tempdima=\dimen177
-\pgfutil@tempdimb=\dimen178
+\pgfutil@everybye=\toks47
+\pgfutil@tempdima=\dimen257
+\pgfutil@tempdimb=\dimen258
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -latex.def
-\pgfutil@abb=\box60
+\pgfutil@abb=\box67
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
 code.tex
@@ -964,33 +1128,33 @@ Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
 .code.tex
-\pgfkeys@pathtoks=\toks37
-\pgfkeys@temptoks=\toks38
+\pgfkeys@pathtoks=\toks48
+\pgfkeys@temptoks=\toks49
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
 libraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks39
+\pgfkeys@tmptoks=\toks50
 ))
-\pgf@x=\dimen179
-\pgf@y=\dimen180
-\pgf@xa=\dimen181
-\pgf@ya=\dimen182
-\pgf@xb=\dimen183
-\pgf@yb=\dimen184
-\pgf@xc=\dimen185
-\pgf@yc=\dimen186
-\pgf@xd=\dimen187
-\pgf@yd=\dimen188
+\pgf@x=\dimen259
+\pgf@y=\dimen260
+\pgf@xa=\dimen261
+\pgf@ya=\dimen262
+\pgf@xb=\dimen263
+\pgf@yb=\dimen264
+\pgf@xc=\dimen265
+\pgf@yc=\dimen266
+\pgf@xd=\dimen267
+\pgf@yd=\dimen268
 \w@pgf@writea=\write5
 \r@pgf@reada=\read2
-\c@pgf@counta=\count321
-\c@pgf@countb=\count322
-\c@pgf@countc=\count323
-\c@pgf@countd=\count324
-\t@pgf@toka=\toks40
-\t@pgf@tokb=\toks41
-\t@pgf@tokc=\toks42
-\pgf@sys@id@count=\count325
+\c@pgf@counta=\count356
+\c@pgf@countb=\count357
+\c@pgf@countc=\count358
+\c@pgf@countd=\count359
+\t@pgf@toka=\toks51
+\t@pgf@tokb=\toks52
+\t@pgf@tokc=\toks53
+\pgf@sys@id@count=\count360
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
 fg
@@ -1009,8 +1173,8 @@ File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 ssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count326
-\pgfsyssoftpath@bigbuffer@items=\count327
+\pgfsyssoftpath@smallbuffer@items=\count361
+\pgfsyssoftpath@bigbuffer@items=\count362
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 sprotocol.code.tex
@@ -1044,12 +1208,12 @@ Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
 code.tex)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
 r.code.tex
-\pgfmath@dimen=\dimen189
-\pgfmath@count=\count328
-\pgfmath@box=\box61
-\pgfmath@toks=\toks43
-\pgfmath@stack@operand=\toks44
-\pgfmath@stack@operation=\toks45
+\pgfmath@dimen=\dimen269
+\pgfmath@count=\count363
+\pgfmath@box=\box68
+\pgfmath@toks=\toks54
+\pgfmath@stack@operand=\toks55
+\pgfmath@stack@operation=\toks56
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
 ions.code.tex)
@@ -1073,59 +1237,59 @@ ions.integerarithmetics.code.tex)
 code.tex)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
 .code.tex
-\c@pgfmathroundto@lastzeros=\count329
+\c@pgfmathroundto@lastzeros=\count364
 ))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
 tex)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@picminx=\dimen190
-\pgf@picmaxx=\dimen191
-\pgf@picminy=\dimen192
-\pgf@picmaxy=\dimen193
-\pgf@pathminx=\dimen194
-\pgf@pathmaxx=\dimen195
-\pgf@pathminy=\dimen196
-\pgf@pathmaxy=\dimen197
-\pgf@xx=\dimen198
-\pgf@xy=\dimen199
-\pgf@yx=\dimen256
-\pgf@yy=\dimen257
-\pgf@zx=\dimen258
-\pgf@zy=\dimen259
+\pgf@picminx=\dimen270
+\pgf@picmaxx=\dimen271
+\pgf@picminy=\dimen272
+\pgf@picmaxy=\dimen273
+\pgf@pathminx=\dimen274
+\pgf@pathmaxx=\dimen275
+\pgf@pathminy=\dimen276
+\pgf@pathmaxy=\dimen277
+\pgf@xx=\dimen278
+\pgf@xy=\dimen279
+\pgf@yx=\dimen280
+\pgf@yy=\dimen281
+\pgf@zx=\dimen282
+\pgf@zy=\dimen283
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@path@lastx=\dimen260
-\pgf@path@lasty=\dimen261
+\pgf@path@lastx=\dimen284
+\pgf@path@lasty=\dimen285
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 epathusage.code.tex
 File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@shorten@end@additional=\dimen262
-\pgf@shorten@start@additional=\dimen263
+\pgf@shorten@end@additional=\dimen286
+\pgf@shorten@start@additional=\dimen287
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 escopes.code.tex
 File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfpic=\box62
-\pgf@hbox=\box63
-\pgf@layerbox@main=\box64
-\pgf@picture@serial@count=\count330
+\pgfpic=\box69
+\pgf@hbox=\box70
+\pgf@layerbox@main=\box71
+\pgf@picture@serial@count=\count365
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 egraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgflinewidth=\dimen264
+\pgflinewidth=\dimen288
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 etransformations.code.tex
 File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@pt@x=\dimen265
-\pgf@pt@y=\dimen266
-\pgf@pt@temp=\dimen267
+\pgf@pt@x=\dimen289
+\pgf@pt@y=\dimen290
+\pgf@pt@temp=\dimen291
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 equick.code.tex
@@ -1142,14 +1306,14 @@ File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 earrows.code.tex
 File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowsep=\dimen268
+\pgfarrowsep=\dimen292
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@max=\dimen269
-\pgf@sys@shading@range@num=\count331
-\pgf@shadingcount=\count332
+\pgf@max=\dimen293
+\pgf@sys@shading@range@num=\count366
+\pgf@shadingcount=\count367
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eimage.code.tex
@@ -1158,7 +1322,7 @@ File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eexternal.code.tex
 File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfexternal@startupbox=\box65
+\pgfexternal@startupbox=\box72
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 elayers.code.tex
@@ -1179,7 +1343,7 @@ File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 shapes.code.tex
 File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfnodeparttextbox=\box66
+\pgfnodeparttextbox=\box73
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 plot.code.tex
@@ -1188,8 +1352,8 @@ File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-0-65.sty
 Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@nodesepstart=\dimen270
-\pgf@nodesepend=\dimen271
+\pgf@nodesepstart=\dimen294
+\pgf@nodesepend=\dimen295
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
 mp-version-1-18.sty
@@ -1207,10 +1371,10 @@ ty
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
 code.tex
 Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
-\pgffor@iter=\dimen272
-\pgffor@skip=\dimen273
-\pgffor@stack=\toks46
-\pgffor@toks=\toks47
+\pgffor@iter=\dimen296
+\pgffor@skip=\dimen297
+\pgffor@stack=\toks57
+\pgffor@toks=\toks58
 ))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z\tikz.code.tex
@@ -1219,38 +1383,165 @@ Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count333
-\pgfplotmarksize=\dimen274
+\pgf@plot@mark@count=\count368
+\pgfplotmarksize=\dimen298
 )
-\tikz@lastx=\dimen275
-\tikz@lasty=\dimen276
-\tikz@lastxsaved=\dimen277
-\tikz@lastysaved=\dimen278
-\tikz@lastmovetox=\dimen279
-\tikz@lastmovetoy=\dimen280
-\tikzleveldistance=\dimen281
-\tikzsiblingdistance=\dimen282
-\tikz@figbox=\box67
-\tikz@figbox@bg=\box68
-\tikz@tempbox=\box69
-\tikz@tempbox@bg=\box70
-\tikztreelevel=\count334
-\tikznumberofchildren=\count335
-\tikznumberofcurrentchild=\count336
-\tikz@fig@count=\count337
+\tikz@lastx=\dimen299
+\tikz@lasty=\dimen300
+\tikz@lastxsaved=\dimen301
+\tikz@lastysaved=\dimen302
+\tikz@lastmovetox=\dimen303
+\tikz@lastmovetoy=\dimen304
+\tikzleveldistance=\dimen305
+\tikzsiblingdistance=\dimen306
+\tikz@figbox=\box74
+\tikz@figbox@bg=\box75
+\tikz@tempbox=\box76
+\tikz@tempbox@bg=\box77
+\tikztreelevel=\count369
+\tikznumberofchildren=\count370
+\tikznumberofcurrentchild=\count371
+\tikz@fig@count=\count372
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 matrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count338
-\pgfmatrixcurrentcolumn=\count339
-\pgf@matrix@numberofcolumns=\count340
+\pgfmatrixcurrentrow=\count373
+\pgfmatrixcurrentcolumn=\count374
+\pgf@matrix@numberofcolumns=\count375
 )
-\tikz@expandcount=\count341
+\tikz@expandcount=\count376
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/pgfplots\pgfplots.sty
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.rev
+ision.tex)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.cod
+e.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotscore
+.code.tex
+\t@pgfplots@toka=\toks59
+\t@pgfplots@tokb=\toks60
+\t@pgfplots@tokc=\toks61
+\pgfplots@tmpa=\dimen307
+\c@pgfplots@coordindex=\count377
+\c@pgfplots@scanlineindex=\count378
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/sys\pgfplots
+sysgeneric.code.tex))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\pgfplot
+slibrary.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/oldpgfcompat
+ib\pgfplotsoldpgfsupp_loader.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryfpu.code.tex)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks62
+\t@pgf@tokb=\toks63
+\t@pgf@tokc=\toks64
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/oldpgfcompat
+ib\pgfplotsoldpgfsupp_pgfutil-common-lists.tex))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplot
+sutil.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
+e\pgfplotsliststructure.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
+e\pgfplotsliststructureext.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
+e\pgfplotsarray.code.tex
+\c@pgfplotsarray@tmp=\count379
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
+e\pgfplotsmatrix.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/numtable\pgf
+plotstableshared.code.tex
+\c@pgfplotstable@counta=\count380
+\t@pgfplotstable@a=\toks65
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
+e\pgfplotsdeque.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplot
+sbinary.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplot
+sbinary.data.code.tex))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplot
+sutil.verb.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\pgflibr
+arypgfplots.surfshading.code.tex
+\c@pgfplotslibrarysurf@no=\count381
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/sys\pgflibra
+rypgfplots.surfshading.pgfsys-pdftex.def)))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplot
+scolormap.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplot
+scolor.code.tex))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsstac
+kedplots.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsplot
+handlers.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsmesh
+plothandler.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsmesh
+plotimage.code.tex)))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.sca
+ling.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotscoor
+dprocessing.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.err
+orbars.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.mar
+kers.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotstick
+s.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.pat
+hs.code.tex)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarydecorations.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+decorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen308
+\pgfdecoratedremainingdistance=\dimen309
+\pgfdecoratedinputsegmentcompleteddistance=\dimen310
+\pgfdecoratedinputsegmentremainingdistance=\dimen311
+\pgf@decorate@distancetomove=\dimen312
+\pgf@decorate@repeatstate=\count382
+\pgfdecorationsegmentamplitude=\dimen313
+\pgfdecorationsegmentlength=\dimen314
+)
+\tikz@lib@dec@box=\box78
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarydecorations.pathmorphing.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
+ions\pgflibrarydecorations.pathmorphing.code.tex))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarydecorations.pathreplacing.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
+ions\pgflibrarydecorations.pathreplacing.code.tex))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlib
+rarypgfplots.contourlua.code.tex)
+\pgfplots@numplots=\count383
+\pgfplots@xmin@reg=\dimen315
+\pgfplots@xmax@reg=\dimen316
+\pgfplots@ymin@reg=\dimen317
+\pgfplots@ymax@reg=\dimen318
+\pgfplots@zmin@reg=\dimen319
+\pgfplots@zmax@reg=\dimen320
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarycalc.code.tex
@@ -1269,7 +1560,7 @@ File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryarrows.code.tex
 File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\arrowsize=\dimen283
+\arrowsize=\dimen321
 ))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries/circuits\tikzlibrarycircuits.ee.code.tex
@@ -1277,25 +1568,10 @@ z/libraries/circuits\tikzlibrarycircuits.ee.code.tex
 z/libraries/circuits\tikzlibrarycircuits.code.tex
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarydecorations.markings.code.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibrarydecorations.code.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
-decorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen284
-\pgfdecoratedremainingdistance=\dimen285
-\pgfdecoratedinputsegmentcompleteddistance=\dimen286
-\pgfdecoratedinputsegmentremainingdistance=\dimen287
-\pgf@decorate@distancetomove=\dimen288
-\pgf@decorate@repeatstate=\count342
-\pgfdecorationsegmentamplitude=\dimen289
-\pgfdecorationsegmentlength=\dimen290
-)
-\tikz@lib@dec@box=\box71
-)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
 ions\pgflibrarydecorations.markings.code.tex))
-\tikz@lib@circ@count=\count343
-\tikzcircuitssizeunit=\dimen291
+\tikz@lib@circ@count=\count384
+\tikzcircuitssizeunit=\dimen322
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes/
 circuits\pgflibraryshapes.gates.ee.code.tex))
@@ -1312,10 +1588,10 @@ File: pgflibrarypatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryarrows.meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowinset=\dimen292
-\pgfarrowlength=\dimen293
-\pgfarrowwidth=\dimen294
-\pgfarrowlinewidth=\dimen295
+\pgfarrowinset=\dimen323
+\pgfarrowlength=\dimen324
+\pgfarrowwidth=\dimen325
+\pgfarrowlinewidth=\dimen326
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryangles.code.tex
@@ -1372,26 +1648,26 @@ File: tikzlibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
 pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfnodepartlowerbox=\box72
-\pgfnodeparttwobox=\box73
-\pgfnodepartthreebox=\box74
-\pgfnodepartfourbox=\box75
-\pgfnodeparttwentybox=\box76
-\pgfnodepartnineteenbox=\box77
-\pgfnodeparteighteenbox=\box78
-\pgfnodepartseventeenbox=\box79
-\pgfnodepartsixteenbox=\box80
-\pgfnodepartfifteenbox=\box81
-\pgfnodepartfourteenbox=\box82
-\pgfnodepartthirteenbox=\box83
-\pgfnodeparttwelvebox=\box84
-\pgfnodepartelevenbox=\box85
-\pgfnodeparttenbox=\box86
-\pgfnodepartninebox=\box87
-\pgfnodeparteightbox=\box88
-\pgfnodepartsevenbox=\box89
-\pgfnodepartsixbox=\box90
-\pgfnodepartfivebox=\box91
+\pgfnodepartlowerbox=\box79
+\pgfnodeparttwobox=\box80
+\pgfnodepartthreebox=\box81
+\pgfnodepartfourbox=\box82
+\pgfnodeparttwentybox=\box83
+\pgfnodepartnineteenbox=\box84
+\pgfnodeparteighteenbox=\box85
+\pgfnodepartseventeenbox=\box86
+\pgfnodepartsixteenbox=\box87
+\pgfnodepartfifteenbox=\box88
+\pgfnodepartfourteenbox=\box89
+\pgfnodepartthirteenbox=\box90
+\pgfnodeparttwelvebox=\box91
+\pgfnodepartelevenbox=\box92
+\pgfnodeparttenbox=\box93
+\pgfnodepartninebox=\box94
+\pgfnodeparteightbox=\box95
+\pgfnodepartsevenbox=\box96
+\pgfnodepartsixbox=\box97
+\pgfnodepartfivebox=\box98
 )))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarysnakes.code.tex
@@ -1403,17 +1679,29 @@ Package pgf Warning: Snakes have been superseded by decorations. Please use the
 
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibrarydecorations.pathmorphing.code.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
-ions\pgflibrarydecorations.pathmorphing.code.tex))
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibrarydecorations.pathreplacing.code.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
-ions\pgflibrarydecorations.pathreplacing.code.tex))
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarydecorations.shapes.code.tex
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
 ions\pgflibrarydecorations.shapes.code.tex)))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryintersections.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryintersections.code.tex
+\pgf@intersect@solutions=\count385
+))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlib
+rarypgfplots.fillbetween.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/pgfcontrib\t
+ikzlibraryfillbetween.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/pgfcontrib\t
+ikzlibrarydecorations.softclip.code.tex
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/pgfcontrib\p
+gflibraryfillbetween.code.tex)))
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlib
+rarypgfplots.decorations.softclip.code.tex))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/tkz-euclide\tkz-euclide
 .sty
 2026/01/25 5.13c tkz-euclide.sty
@@ -1422,44 +1710,24 @@ Package: tkz-euclide  2026/01/25 5.13c for pure Euclidean Geometry
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarybackgrounds.code.tex
 File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@layerbox@background=\box92
-\pgf@layerboxsaved@background=\box93
+\pgf@layerbox@background=\box99
+\pgf@layerboxsaved@background=\box100
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarydecorations.text.code.tex
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
 ions\pgflibrarydecorations.text.code.tex
-\pgf@lib@dec@text@box=\box94
+\pgf@lib@dec@text@box=\box101
 )
-\tikz@lib@dec@te@box=\box95
+\tikz@lib@dec@te@box=\box102
 )
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibraryintersections.code.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
-aryintersections.code.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
-aryfpu.code.tex)
-\pgf@intersect@solutions=\count344
-))
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarymath.code.tex
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryfpu.code.tex)
-\tikz@math@for@depth=\count345
-\tikz@math@dimen=\dimen296
-\tikz@math@toks=\toks48
-)
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibraryplotmarks.code.tex
-File: tikzlibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
-aryplotmarks.code.tex
-File: pgflibraryplotmarks.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibrarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\tikz@math@for@depth=\count386
+\tikz@math@dimen=\dimen327
+\tikz@math@toks=\toks66
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarythrough.code.tex
@@ -1468,18 +1736,18 @@ File: tikzlibrarythrough.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xfp\xfp.sty
 Package: xfp 2025-10-09 L3 Floating point unit
 )
-\tkzRadius=\dimen297
-\tkzLength=\dimen298
-\tkz@radi=\dimen299
-\tkz@ax=\dimen300
-\tkz@ay=\dimen301
-\tkz@bx=\dimen302
-\tkz@by=\dimen303
-\tkz@cx=\dimen304
-\tkz@cy=\dimen305
-\tkz@dx=\dimen306
-\tkz@dy=\dimen307
-\tkz@cntmk=\count346
+\tkzRadius=\dimen328
+\tkzLength=\dimen329
+\tkz@radi=\dimen330
+\tkz@ax=\dimen331
+\tkz@ay=\dimen332
+\tkz@bx=\dimen333
+\tkz@by=\dimen334
+\tkz@cx=\dimen335
+\tkz@cy=\dimen336
+\tkz@dx=\dimen337
+\tkz@dy=\dimen338
+\tkz@cntmk=\count387
 Local configuration file tkz-euclide.cfg found and used
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/tkz-euclide\tkz-euclide
@@ -1626,122 +1894,54 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen308
-\ar@mcellbox=\box96
-\extrarowheight=\dimen309
-\NC@list=\toks49
-\extratabsurround=\skip74
-\backup@length=\skip75
-\ar@cellbox=\box97
+\col@sep=\dimen339
+\ar@mcellbox=\box103
+\extrarowheight=\dimen340
+\NC@list=\toks67
+\extratabsurround=\skip87
+\backup@length=\skip88
+\ar@cellbox=\box104
 )
-\TX@col@width=\dimen310
-\TX@old@table=\dimen311
-\TX@old@col=\dimen312
-\TX@target=\dimen313
-\TX@delta=\dimen314
-\TX@cols=\count347
-\TX@ftn=\toks50
+\TX@col@width=\dimen341
+\TX@old@table=\dimen342
+\TX@old@col=\dimen343
+\TX@target=\dimen344
+\TX@delta=\dimen345
+\TX@cols=\count388
+\TX@ftn=\toks68
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
-\multirow@colwidth=\skip76
-\multirow@cntb=\count348
-\multirow@dima=\skip77
-\bigstrutjot=\dimen315
+\multirow@colwidth=\skip89
+\multirow@cntb=\count389
+\multirow@dima=\skip90
+\bigstrutjot=\dimen346
 )
-\c@thm=\count349
-\c@Example=\count350
-
-Excluding 'warpHTML' comment.)
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count351
-\Gm@cntv=\count352
-\c@Gm@tempcnt=\count353
-\Gm@bindingoffset=\dimen316
-\Gm@wd@mp=\dimen317
-\Gm@odd@mp=\dimen318
-\Gm@even@mp=\dimen319
-\Gm@layoutwidth=\dimen320
-\Gm@layoutheight=\dimen321
-\Gm@layouthoffset=\dimen322
-\Gm@layoutvoffset=\dimen323
-\Gm@dimlist=\toks51
+\Gm@cnth=\count390
+\Gm@cntv=\count391
+\c@Gm@tempcnt=\count392
+\Gm@bindingoffset=\dimen347
+\Gm@wd@mp=\dimen348
+\Gm@odd@mp=\dimen349
+\Gm@even@mp=\dimen350
+\Gm@layoutwidth=\dimen351
+\Gm@layoutheight=\dimen352
+\Gm@layouthoffset=\dimen353
+\Gm@layoutvoffset=\dimen354
+\Gm@dimlist=\toks69
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime.sty
-Package: datetime 2015/03/20 v2.60 Date Time Package
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fmtcount.sty
-Package: fmtcount 2025/12/02 v3.12 Displaying the values of LaTeX counters (NT,
-VB,NE)
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
-Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/polynom\polynom.sty
+Package: polynom 2017/07/17 0.19 (CH,HA)
+\pld@currstage=\count393
 )
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
-Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
-\XKV@toks=\toks52
-\XKV@tempa@toks=\toks53
-)
-\XKV@depth=\count354
-File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcprefix.sty
-Package: fcprefix 2012/09/28
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcnumparser.st
-y
-Package: fcnumparser 2017/06/15
-\fc@digit@counter=\count355
-))
-\c@padzeroesN=\count356
-\fc@tmpcatcode=\count357
-\@DT@modctr=\count358
-\@ordinalctr=\count359
-\@orgargctr=\count360
-\@strctr=\count361
-\@tmpstrctr=\count362
-\@DT@loopN=\count363
-\@DT@X=\count364
-)
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime-defau
-lts.sty
-Package: datetime-defaults 2013/09/10
-)
-\@day=\count365
-\@month=\count366
-\@year=\count367
-\c@HOUR=\count368
-\c@HOURXII=\count369
-\c@MINUTE=\count370
-\c@TOHOUR=\count371
-\c@TOMINUTE=\count372
-\c@SECOND=\count373
-\currenthour=\count374
-\currentminute=\count375
-\currentsecond=\count376
-Package datetime Info: No datetime.cfg file found, using default settings on in
-put line 308.
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\dt-UKenglish.d
-ef
-File: dt-UKenglish.def 2013/09/10
-)
-\@dtctr=\count377
-\dayofyear=\count378
-\dayofweek=\count379
-LaTeX Info: Redefining \today on input line 736.
-\dt@a=\toks54
-\dt@b=\toks55
-) (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/base\makeidx.sty
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/base\makeidx.sty
 Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
 )
 \@indexfile=\write6
@@ -1771,16 +1971,16 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count380
+\c@section@level=\count394
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.s
 ty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen324
-\Hy@linkcounter=\count381
-\Hy@pagecounter=\count382
+\@linkdim=\dimen355
+\Hy@linkcounter=\count395
+\Hy@pagecounter=\count396
  (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -1788,7 +1988,7 @@ Now handling font encoding PD1 ...
 ) (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count383
+\Hy@SavedSpaceFactor=\count397
  (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -1801,14 +2001,14 @@ Package hyperref Info: Plain pages OFF on input line 4216.
 Package hyperref Info: Backreferencing OFF on input line 4221.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
-\c@Hy@tempcnt=\count384
+\c@Hy@tempcnt=\count398
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4807.
-\XeTeXLinkMargin=\dimen325
+\XeTeXLinkMargin=\dimen356
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -1818,9 +2018,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count385
-\Field@Width=\dimen326
-\Fld@charsize=\dimen327
+\Fld@menulength=\count399
+\Field@Width=\dimen357
+\Fld@charsize=\dimen358
 Package hyperref Info: Hyper figures OFF on input line 6084.
 Package hyperref Info: Link nesting OFF on input line 6089.
 Package hyperref Info: Hyper index ON on input line 6092.
@@ -1828,16 +2028,16 @@ Package hyperref Info: backreferencing OFF on input line 6099.
 Package hyperref Info: Link coloring OFF on input line 6104.
 Package hyperref Info: Link coloring with OCG OFF on input line 6109.
 Package hyperref Info: PDF/A mode OFF on input line 6114.
-\Hy@abspage=\count386
-\c@Item=\count387
-\c@Hfootnote=\count388
+\Hy@abspage=\count400
+\c@Item=\count401
+\c@Hfootnote=\count402
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
-\Fld@listcount=\count389
-\c@bookmark@seq@number=\count390
+\Fld@listcount=\count403
+\c@bookmark@seq@number=\count404
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -1850,7 +2050,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
-\Hy@SectionHShift=\skip78
+\Hy@SectionHShift=\skip91
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -1868,7 +2068,67 @@ LaTeX Info: Redefining \labelcpageref on input line 2370.
 Package cleveref Info: `amsthm' support loaded on input line 3026.
 )
 ==> First Aid for cleveref.sty applied!
-(stm0005-notes.aux)
+\c@thm=\count405
+\c@prob=\count406
+\c@Example=\count407
+\c@diversion=\count408
+\c@application=\count409
+Excluding 'warpHTML' comment.)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime.sty
+Package: datetime 2015/03/20 v2.60 Date Time Package
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fmtcount.sty
+Package: fmtcount 2025/12/02 v3.12 Displaying the values of LaTeX counters (NT,
+VB,NE)
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcprefix.sty
+Package: fcprefix 2012/09/28
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fcnumparser.st
+y
+Package: fcnumparser 2017/06/15
+\fc@digit@counter=\count410
+))
+\c@padzeroesN=\count411
+\fc@tmpcatcode=\count412
+\@DT@modctr=\count413
+\@ordinalctr=\count414
+\@orgargctr=\count415
+\@strctr=\count416
+\@tmpstrctr=\count417
+\@DT@loopN=\count418
+\@DT@X=\count419
+)
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\datetime-defau
+lts.sty
+Package: datetime-defaults 2013/09/10
+)
+\@day=\count420
+\@month=\count421
+\@year=\count422
+\c@HOUR=\count423
+\c@HOURXII=\count424
+\c@MINUTE=\count425
+\c@TOHOUR=\count426
+\c@TOMINUTE=\count427
+\c@SECOND=\count428
+\currenthour=\count429
+\currentminute=\count430
+\currentsecond=\count431
+Package datetime Info: No datetime.cfg file found, using default settings on in
+put line 308.
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/datetime\dt-UKenglish.d
+ef
+File: dt-UKenglish.def 2013/09/10
+)
+\@dtctr=\count432
+\dayofyear=\count433
+\dayofweek=\count434
+LaTeX Info: Redefining \today on input line 736.
+\dt@a=\toks70
+\dt@b=\toks71
+) (stm0005-notes.aux)
 \openout1 = `stm0005-notes.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
@@ -1893,7 +2153,7 @@ LaTeX Font Info:    ... okay on input line 63.
 
 \openout4 = `stm0005-notes.lwarpmkconf'.
 
-\LWR@colorminipagebox=\box98
+\LWR@colorminipagebox=\box105
 LaTeX Info: Redefining \microtypecontext on input line 63.
 Package microtype Info: Applying patch `item' on input line 63.
 Package microtype Info: Applying patch `toc' on input line 63.
@@ -1921,23 +2181,31 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count391
-\scratchdimen=\dimen328
-\scratchbox=\box99
-\nofMPsegments=\count392
-\nofMParguments=\count393
-\everyMPshowfont=\toks56
-\MPscratchCnt=\count394
-\MPscratchDim=\dimen329
-\MPnumerator=\count395
-\makeMPintoPDFobject=\count396
-\everyMPtoPDFconversion=\toks57
+\scratchcounter=\count435
+\scratchdimen=\dimen359
+\scratchbox=\box106
+\nofMPsegments=\count436
+\nofMParguments=\count437
+\everyMPshowfont=\toks72
+\MPscratchCnt=\count438
+\MPscratchDim=\dimen360
+\MPnumerator=\count439
+\makeMPintoPDFobject=\count440
+\everyMPtoPDFconversion=\toks73
 )
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
 fg
@@ -1946,6 +2214,9 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
+
+Package pgfplots notification 'compat/show suggested version=true': you might b
+enefit from \pgfplotsset{compat=1.18} (current compat level: 1.12).
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1985,19 +2256,18 @@ Package geometry Warning: The marginal notes overrun the paper.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+Package hyperref Info: Link coloring OFF on input line 63.
+(stm0005-notes.out) (stm0005-notes.out)
+\@outlinefile=\write7
+\openout7 = `stm0005-notes.out'.
+
 
 (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fc-english.def
 File: fc-english.def 2016/01/12
 )
-Package hyperref Info: Link coloring OFF on input line 63.
- (stm0005-notes.out) (stm0005-notes.out)
-\@outlinefile=\write7
-\openout7 = `stm0005-notes.out'.
-
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 7
 1.
-
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+ (C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 7
@@ -2073,42 +2343,257 @@ LaTeX Font Info:    Font shape `U/fsy/m/n' will be
 \tf@toc=\write8
 \openout8 = `stm0005-notes.toc'.
 
- [2]
+ [2] (chapters/course-intro.tex
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--88
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
  []
 
 [1
 
+
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
+4.
+(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [2{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc
+}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 38.
+LaTeX Font Info:    Font shape `U/fsy/m/n' will be
+(Font)              scaled to size 4.49997pt on input line 38.
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+
+ []
+
+<figures/Enrico_Fermi_1943-49.jpg, id=328, 570.4512pt x 705.1143pt>
+File: figures/Enrico_Fermi_1943-49.jpg Graphic file (type jpg)
+<use figures/Enrico_Fermi_1943-49.jpg>
+Package pdftex.def Info: figures/Enrico_Fermi_1943-49.jpg  used on input line 1
+05.
+(pdftex.def)             Requested size: 182.09486pt x 225.08171pt.
+[3{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
+:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C
+:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+
+ []
+
+<figures/The_Scientific_Method.png, id=355, 2164.085pt x 2056.68375pt>
+File: figures/The_Scientific_Method.png Graphic file (type png)
+<use figures/The_Scientific_Method.png>
+Package pdftex.def Info: figures/The_Scientific_Method.png  used on input line 
+142.
+(pdftex.def)             Requested size: 273.14923pt x 259.56404pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+
+ []
+
+[5 <./figures/Enrico_Fermi_1943-49.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+[6 <./figures/The_Scientific_Method.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+
+ []
+
+[7]) [8] (chapters/one-d.tex
+Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
+
+ []
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <24.88> on input line 43.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <20.74> on input line 43.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <17.28> on input line 43.
+LaTeX Font Info:    Font shape `U/fsy/m/n' will be
+(Font)              scaled to size 22.39185pt on input line 43.
+LaTeX Font Info:    Font shape `U/fsy/m/n' will be
+(Font)              scaled to size 18.66588pt on input line 43.
+LaTeX Font Info:    Font shape `U/fsy/m/n' will be
+(Font)              scaled to size 15.55188pt on input line 43.
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+
+ []
+
+[9
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 91--92
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 98--99
+Underfull \hbox (badness 10000) in paragraph at lines 105--107
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 204--206
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 260--262
+
+ []
+
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
+
+ []
+
+) [15] (chapters/freefall.tex [16
+
+]
+Chapter 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+
+ []
+
+<figures/Galileo.jpg, id=458, 451.6875pt x 573.8238pt>
+File: figures/Galileo.jpg Graphic file (type jpg)
+<use figures/Galileo.jpg>
+Package pdftex.def Info: figures/Galileo.jpg  used on input line 10.
+(pdftex.def)             Requested size: 182.09486pt x 231.3379pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
+
+ []
+
+[17 <./figures/Galileo.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
 
  []
 
@@ -2117,16 +2602,432 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-08.
-(C:\Users\cdhro\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [2{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc
-}]
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+
+ []
+
+[20{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.e
+nc}] [21]
+Underfull \hbox (badness 10000) in paragraph at lines 237--239
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
+
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
+
+ []
+
+[24] [25]) [26] (chapters/forces.tex
+Chapter 4.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 112.
+(Font)              <10.95> on input line 28.
 LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 4.49997pt on input line 112.
+(Font)              scaled to size 9.85492pt on input line 28.
+Missing character: There is no ; in font nullfont!
+[27
+
+]
+<figures/inclined_plane.png, id=538, 565.36218pt x 425.33907pt>
+File: figures/inclined_plane.png Graphic file (type png)
+<use figures/inclined_plane.png>
+Package pdftex.def Info: figures/inclined_plane.png  used on input line 52.
+(pdftex.def)             Requested size: 182.09486pt x 136.99393pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
+
+ []
+
+[28 <./figures/inclined_plane.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 68--70
+
+ []
+
+<figures/hanging_mass.png, id=550, 284.56313pt x 274.77657pt>
+File: figures/hanging_mass.png Graphic file (type png)
+<use figures/hanging_mass.png>
+Package pdftex.def Info: figures/hanging_mass.png  used on input line 78.
+(pdftex.def)             Requested size: 136.57462pt x 131.88286pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--84
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--116
+
+ []
+
+[29 <./figures/hanging_mass.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+
+ []
+
+<figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg, id=561, 2226.3175pt x 2681.016
+25pt>
+File: figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg Graphic file (type jpg)
+<use figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg>
+Package pdftex.def Info: figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg  used o
+n input line 150.
+(pdftex.def)             Requested size: 182.09486pt x 219.27203pt.
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
+
+ []
+
+[31 <./figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
+
+ []
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
+
+ []
+
+[33] [34]
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
+
+ []
+
+<figures/recoil.png, id=603, 433.62pt x 123.46124pt>
+File: figures/recoil.png Graphic file (type png)
+<use figures/recoil.png>
+Package pdftex.def Info: figures/recoil.png  used on input line 328.
+(pdftex.def)             Requested size: 182.09486pt x 51.84583pt.
+[35]
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+
+ []
+
+[36 <./figures/recoil.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
+
+ []
+
+) [37] (chapters/energy.tex [38
+
+]
+Chapter 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+
+ []
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
+
+ []
+
+<figures/SHO_lagrangian_mech.png, id=631, 1284.8pt x 343.2825pt>
+File: figures/SHO_lagrangian_mech.png Graphic file (type png)
+<use figures/SHO_lagrangian_mech.png>
+Package pdftex.def Info: figures/SHO_lagrangian_mech.png  used on input line 35
+.
+(pdftex.def)             Requested size: 273.14923pt x 72.98192pt.
+<figures/spring_work.png, id=633, 268.00125pt x 212.29312pt>
+File: figures/spring_work.png Graphic file (type png)
+<use figures/spring_work.png>
+Package pdftex.def Info: figures/spring_work.png  used on input line 49.
+(pdftex.def)             Requested size: 182.09486pt x 144.2408pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
+
+ []
+
+[40 <./figures/SHO_lagrangian_mech.png> <./figures/spring_work.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
+
+ []
+
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 99--101
+
+ []
+
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--155
+
+ []
+
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 166--168
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--176
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
+
+ []
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 205--207
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 234--235
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 238--239
+
+ []
+
+[45]
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
+
+ []
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 276--277
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 278--279
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--304
+
+ []
+
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 318--320
+
+ []
+
+) [48] (chapters/circle.tex
+Chapter 6.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--37
+
+ []
+
+[49
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+
+ []
+
+[50]
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
+
+ []
+
+[51]
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
+
+ []
+
+[52] [53]
+Underfull \hbox (badness 10000) in paragraph at lines 249--251
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 261--263
+
+ []
+
+[54]
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
+
+ []
+
+[55] [56]) [57] (chapters/oscillations.tex [58
+
+]
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
+
+ []
+
+[59]
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
+
+ []
+
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+ []
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
@@ -2137,834 +3038,199 @@ Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
-
- []
-
-<figures/Enrico_Fermi_1943-49.jpg, id=323, 570.4512pt x 705.1143pt>
-File: figures/Enrico_Fermi_1943-49.jpg Graphic file (type jpg)
-<use figures/Enrico_Fermi_1943-49.jpg>
-Package pdftex.def Info: figures/Enrico_Fermi_1943-49.jpg  used on input line 1
-79.
-(pdftex.def)             Requested size: 182.09486pt x 225.08171pt.
-[3{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C
-:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C
-:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
-
- []
-
-[4 <./figures/Enrico_Fermi_1943-49.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 203--204
-
- []
-
-<figures/The_Scientific_Method.png, id=349, 2164.085pt x 2056.68375pt>
-File: figures/The_Scientific_Method.png Graphic file (type png)
-<use figures/The_Scientific_Method.png>
-Package pdftex.def Info: figures/The_Scientific_Method.png  used on input line 
-216.
-(pdftex.def)             Requested size: 273.14923pt x 259.56404pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 230--231
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 232--233
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 260--261
-
- []
-
-[6 <./figures/The_Scientific_Method.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 264--265
-
- []
-
-[7] [8]
-Chapter 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 335--336
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 366--367
-
- []
-
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <24.88> on input line 373.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.74> on input line 373.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 373.
-LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 22.39185pt on input line 373.
-LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 18.66588pt on input line 373.
-LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 15.55188pt on input line 373.
-
-Underfull \hbox (badness 10000) in paragraph at lines 381--382
-
- []
-
-[9
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 388--389
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 403--404
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 405--406
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 421--422
-
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 429--430
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--437
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 456--457
-
- []
-
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 482--483
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--514
-
- []
-
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 534--536
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 540--541
-
- []
-
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 542--543
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 590--592
-
- []
-
-[14]
-Underfull \hbox (badness 10000) in paragraph at lines 623--625
-
- []
-
-[15] [16
-
-]
-Chapter 3.
-
-Underfull \hbox (badness 10000) in paragraph at lines 637--638
-
- []
-
-<figures/Galileo.jpg, id=453, 451.6875pt x 573.8238pt>
-File: figures/Galileo.jpg Graphic file (type jpg)
-<use figures/Galileo.jpg>
-Package pdftex.def Info: figures/Galileo.jpg  used on input line 643.
-(pdftex.def)             Requested size: 182.09486pt x 231.3379pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 651--653
-
- []
-
-[17 <./figures/Galileo.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 685--686
-
- []
-
-[18]
-Underfull \hbox (badness 10000) in paragraph at lines 732--733
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 735--736
-
- []
-
-[19]
-Underfull \hbox (badness 10000) in paragraph at lines 757--758
-
- []
-
-[20{C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.e
-nc}] [21]
-Underfull \hbox (badness 10000) in paragraph at lines 870--872
-
- []
-
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 905--906
-
- []
-
-[23]
-Underfull \hbox (badness 10000) in paragraph at lines 929--930
-
- []
-
-[24] [25] [26]
-Chapter 4.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1017--1018
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1019--1020
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1021--1022
-
- []
-
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 1042.
-LaTeX Font Info:    Font shape `U/fsy/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 1042.
-Missing character: There is no ; in font nullfont!
-[27
-
-]
-<figures/inclined_plane.png, id=533, 565.36218pt x 425.33907pt>
-File: figures/inclined_plane.png Graphic file (type png)
-<use figures/inclined_plane.png>
-Package pdftex.def Info: figures/inclined_plane.png  used on input line 1066.
-(pdftex.def)             Requested size: 182.09486pt x 136.99393pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1071--1072
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1074--1075
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1077--1078
-
- []
-
-[28 <./figures/inclined_plane.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
-
- []
-
-<figures/hanging_mass.png, id=545, 284.56313pt x 274.77657pt>
-File: figures/hanging_mass.png Graphic file (type png)
-<use figures/hanging_mass.png>
-Package pdftex.def Info: figures/hanging_mass.png  used on input line 1092.
-(pdftex.def)             Requested size: 136.57462pt x 131.88286pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1087--1098
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1128--1130
-
- []
-
-[29 <./figures/hanging_mass.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1153--1154
-
- []
-
-<figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg, id=556, 2226.3175pt x 2681.016
-25pt>
-File: figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg Graphic file (type jpg)
-<use figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg>
-Package pdftex.def Info: figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg  used o
-n input line 1164.
-(pdftex.def)             Requested size: 182.09486pt x 219.27203pt.
-[30]
-Underfull \hbox (badness 10000) in paragraph at lines 1169--1170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1171--1172
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1175--1176
-
- []
-
-[31 <./figures/Portrait_of_Sir_Isaac_Newton,_1689.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 1185--1186
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1196--1197
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1200--1201
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1213--1214
-
- []
-
-[32]
-Underfull \hbox (badness 10000) in paragraph at lines 1221--1222
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1223--1224
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1233--1234
-
- []
-
-[33] [34]
-Underfull \hbox (badness 10000) in paragraph at lines 1327--1328
-
- []
-
-<figures/recoil.png, id=598, 433.62pt x 123.46124pt>
-File: figures/recoil.png Graphic file (type png)
-<use figures/recoil.png>
-Package pdftex.def Info: figures/recoil.png  used on input line 1342.
-(pdftex.def)             Requested size: 182.09486pt x 51.84583pt.
-[35]
-Underfull \hbox (badness 10000) in paragraph at lines 1366--1367
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1368--1369
-
- []
-
-[36 <./figures/recoil.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1395--1396
-
- []
-
-[37] [38
-
-]
-Chapter 5.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1425--1426
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1435--1436
-
- []
-
-[39]
-Underfull \hbox (badness 10000) in paragraph at lines 1447--1448
-
- []
-
-<figures/SHO_lagrangian_mech.png, id=626, 1284.8pt x 343.2825pt>
-File: figures/SHO_lagrangian_mech.png Graphic file (type png)
-<use figures/SHO_lagrangian_mech.png>
-Package pdftex.def Info: figures/SHO_lagrangian_mech.png  used on input line 14
-55.
-(pdftex.def)             Requested size: 273.14923pt x 72.98192pt.
-<figures/spring_work.png, id=628, 268.00125pt x 212.29312pt>
-File: figures/spring_work.png Graphic file (type png)
-<use figures/spring_work.png>
-Package pdftex.def Info: figures/spring_work.png  used on input line 1469.
-(pdftex.def)             Requested size: 182.09486pt x 144.2408pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1476--1477
-
- []
-
-[40 <./figures/SHO_lagrangian_mech.png> <./figures/spring_work.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1500--1501
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1512--1513
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1514--1515
-
- []
-
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 1519--1521
-
- []
-
-[42]
-Underfull \hbox (badness 10000) in paragraph at lines 1550--1551
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1552--1553
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1574--1575
-
- []
-
-[43]
-Underfull \hbox (badness 10000) in paragraph at lines 1586--1588
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1595--1596
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1620--1621
-
- []
-
-[44]
-Underfull \hbox (badness 10000) in paragraph at lines 1625--1627
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1628--1629
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1635--1636
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1654--1655
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1656--1657
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1658--1659
-
- []
-
-[45]
-Underfull \hbox (badness 10000) in paragraph at lines 1660--1661
-
- []
-
-[46]
-Underfull \hbox (badness 10000) in paragraph at lines 1694--1695
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1696--1697
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1698--1699
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1722--1724
-
- []
-
-[47]
-Underfull \hbox (badness 10000) in paragraph at lines 1738--1740
-
- []
-
-[48]
-Chapter 6.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1749--1750
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1781--1783
-
- []
-
-[49
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1812
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1813--1814
-
- []
-
-[50]
-Underfull \hbox (badness 10000) in paragraph at lines 1866--1868
-
- []
-
-[51]
-Underfull \hbox (badness 10000) in paragraph at lines 1904--1905
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1935--1936
-
- []
-
-[52] [53]
-Underfull \hbox (badness 10000) in paragraph at lines 1995--1997
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1998--1999
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2007--2009
-
- []
-
-[54]
-Underfull \hbox (badness 10000) in paragraph at lines 2055--2056
-
- []
-
-[55] [56] [57] [58
-
-]
-Chapter 7.
-
-Underfull \hbox (badness 10000) in paragraph at lines 2125--2126
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2136--2137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2143--2144
-
- []
-
-[59]
-Underfull \hbox (badness 10000) in paragraph at lines 2153--2154
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2155--2156
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2176--2177
-
- []
-
-[60]
-Underfull \hbox (badness 10000) in paragraph at lines 2189--2190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2219--2220
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2221--2222
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2223--2224
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2225--2226
-
- []
-
 [61]
-Underfull \hbox (badness 10000) in paragraph at lines 2262--2264
+Underfull \hbox (badness 10000) in paragraph at lines 151--153
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2268--2270
+Underfull \hbox (badness 10000) in paragraph at lines 157--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2271--2272
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
 
  []
 
 [62]
-Underfull \hbox (badness 10000) in paragraph at lines 2280--2281
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2295--2297
+Underfull \hbox (badness 10000) in paragraph at lines 184--186
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2307--2308
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2309--2310
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 
  []
 
 [63]
-<figures/Simple_gravity_pendulum.png, id=815, 2185.16376pt x 2055.68pt>
+<figures/Simple_gravity_pendulum.png, id=820, 2185.16376pt x 2055.68pt>
 File: figures/Simple_gravity_pendulum.png Graphic file (type png)
 <use figures/Simple_gravity_pendulum.png>
 Package pdftex.def Info: figures/Simple_gravity_pendulum.png  used on input lin
-e 2347.
+e 236.
 (pdftex.def)             Requested size: 273.14923pt x 256.95937pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2354--2355
+Underfull \hbox (badness 10000) in paragraph at lines 243--244
 
  []
 
 [64] [65 <./figures/Simple_gravity_pendulum.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 2397--2399
+Underfull \hbox (badness 10000) in paragraph at lines 286--288
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2400--2401
+Underfull \hbox (badness 10000) in paragraph at lines 289--290
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2405--2407
+Underfull \hbox (badness 10000) in paragraph at lines 294--296
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2408--2409
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2410--2411
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
 
  []
 
 [66]
-Underfull \hbox (badness 10000) in paragraph at lines 2437--2438
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
 
  []
 
 [67]
-Underfull \hbox (badness 10000) in paragraph at lines 2455--2456
+Underfull \hbox (badness 10000) in paragraph at lines 344--345
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2457--2458
+Underfull \hbox (badness 10000) in paragraph at lines 346--347
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2459--2460
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2462--2463
+Underfull \hbox (badness 10000) in paragraph at lines 351--352
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2466--2467
+Underfull \hbox (badness 10000) in paragraph at lines 355--356
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2468--2469
-
- []
-
-[68] [69] [70
+) [68] [69] (chapters/circuits.tex [70
 
 ]
 Chapter 8.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2477--2478
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2479--2480
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2481--2482
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2483--2484
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
  []
 
 [71]
-Underfull \hbox (badness 10000) in paragraph at lines 2496--2498
+Underfull \hbox (badness 10000) in paragraph at lines 25--27
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2499--2500
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2511--2512
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2518--2519
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
 
  []
 
 [72]
-Underfull \hbox (badness 10000) in paragraph at lines 2528--2529
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2538--2540
+Underfull \hbox (badness 10000) in paragraph at lines 67--69
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2541--2542
+Underfull \hbox (badness 10000) in paragraph at lines 70--71
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2543--2544
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2545--2546
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
 
 [73]
-Underfull \hbox (badness 10000) in paragraph at lines 2575--2576
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2588--2589
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
 
  []
 
 [74] [75]
-Underfull \hbox (badness 10000) in paragraph at lines 2686--2687
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
 
  []
 
 [76]
-Underfull \hbox (badness 10000) in paragraph at lines 2745--2746
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
 
  []
 
 [77]
-Underfull \hbox (badness 10000) in paragraph at lines 2802--2803
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
 
  []
 
@@ -2972,335 +3238,345 @@ Underfull \hbox (badness 10000) in paragraph at lines 2802--2803
 Underfull \vbox (badness 1024) has occurred while \output is active []
 
  [78]
-Underfull \hbox (badness 10000) in paragraph at lines 2833--2835
+Underfull \hbox (badness 10000) in paragraph at lines 362--364
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2838--2839
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
 
 [79]
-Underfull \hbox (badness 10000) in paragraph at lines 2866--2868
+Underfull \hbox (badness 10000) in paragraph at lines 395--397
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2891--2892
+Underfull \hbox (badness 10000) in paragraph at lines 420--421
 
  []
 
 [80] [81]
-Underfull \hbox (badness 10000) in paragraph at lines 2983--2984
+Underfull \hbox (badness 10000) in paragraph at lines 512--513
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2991--2992
+Underfull \hbox (badness 10000) in paragraph at lines 520--521
 
  []
 
 [82]
-Underfull \hbox (badness 10000) in paragraph at lines 3034--3035
+Underfull \hbox (badness 10000) in paragraph at lines 563--564
 
  []
 
 [83]
-Underfull \hbox (badness 10000) in paragraph at lines 3084--3085
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3090--3092
+Underfull \hbox (badness 10000) in paragraph at lines 619--621
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3096--3098
+Underfull \hbox (badness 10000) in paragraph at lines 625--627
 
  []
 
 [84]
-Underfull \hbox (badness 10000) in paragraph at lines 3120--3122
+Underfull \hbox (badness 10000) in paragraph at lines 649--651
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3123--3124
+Underfull \hbox (badness 10000) in paragraph at lines 652--653
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3131--3133
+Underfull \hbox (badness 10000) in paragraph at lines 660--662
 
  []
 
 [85]
-Underfull \hbox (badness 10000) in paragraph at lines 3155--3157
+Underfull \hbox (badness 10000) in paragraph at lines 684--686
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3178--3179
+Underfull \hbox (badness 10000) in paragraph at lines 707--708
 
  []
 
-[86] [87] [88]
+[86] [87]) [88] (chapters/modern.tex
 Chapter 9.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3263--3264
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3265--3266
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3267--3268
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3272--3273
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
  []
 
-<figures/James-Clerk-Maxwell.jpg, id=1033, 197.2971pt x 246.6816pt>
+<figures/James-Clerk-Maxwell.jpg, id=1038, 197.2971pt x 246.6816pt>
 File: figures/James-Clerk-Maxwell.jpg Graphic file (type jpg)
 <use figures/James-Clerk-Maxwell.jpg>
-Package pdftex.def Info: figures/James-Clerk-Maxwell.jpg  used on input line 32
-78.
+Package pdftex.def Info: figures/James-Clerk-Maxwell.jpg  used on input line 17
+.
 (pdftex.def)             Requested size: 182.09486pt x 227.69133pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3283--3284
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
  []
 
 [89
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3285--3286
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
-<figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg, id=1041, 607.7907pt x 
+<figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg, id=1046, 607.7907pt x 
 798.1017pt>
 File: figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg Graphic file (type
  jpg)
 <use figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg>
 Package pdftex.def Info: figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg
-  used on input line 3291.
+  used on input line 30.
 (pdftex.def)             Requested size: 182.09486pt x 239.10355pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3303--3304
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3305--3306
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
 [90 <./figures/James-Clerk-Maxwell.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 3307--3308
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
 
  []
 
 [91 <./figures/Einstein_1921_by_F_Schmutzer_-_restoration.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 3341--3343
+Underfull \hbox (badness 10000) in paragraph at lines 80--82
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3344--3345
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3354--3355
+Underfull \hbox (badness 10000) in paragraph at lines 93--94
 
  []
 
 [92]
-Underfull \hbox (badness 10000) in paragraph at lines 3377--3379
+Underfull \hbox (badness 10000) in paragraph at lines 116--118
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3383--3385
+Underfull \hbox (badness 10000) in paragraph at lines 122--124
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3389--3390
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3391--3392
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3393--3394
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
 
  []
 
 [93]
-Underfull \hbox (badness 10000) in paragraph at lines 3395--3396
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3397--3398
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
 
  []
 
-<figures/Two-Slit_Experiment_Particles.png, id=1080, 2569.6pt x 1798.72pt>
+<figures/Two-Slit_Experiment_Particles.png, id=1085, 2569.6pt x 1798.72pt>
 File: figures/Two-Slit_Experiment_Particles.png Graphic file (type png)
 <use figures/Two-Slit_Experiment_Particles.png>
 Package pdftex.def Info: figures/Two-Slit_Experiment_Particles.png  used on inp
-ut line 3403.
+ut line 142.
 (pdftex.def)             Requested size: 227.62206pt x 159.32532pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3409--3410
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
 
  []
 
-<figures/Two-Slit_Experiment_Light.png, id=1086, 2569.6pt x 1798.72pt>
+<figures/Two-Slit_Experiment_Light.png, id=1091, 2569.6pt x 1798.72pt>
 File: figures/Two-Slit_Experiment_Light.png Graphic file (type png)
 <use figures/Two-Slit_Experiment_Light.png>
 Package pdftex.def Info: figures/Two-Slit_Experiment_Light.png  used on input l
-ine 3415.
+ine 154.
 (pdftex.def)             Requested size: 227.62206pt x 159.32532pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3421--3422
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
 
  []
 
 [94 <./figures/Two-Slit_Experiment_Particles.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 3423--3424
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3425--3426
+Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
 
-<figures/double_slit_electrons.png, id=1101, 2569.6pt x 1230.5975pt>
+<figures/double_slit_electrons.png, id=1106, 2569.6pt x 1230.5975pt>
 File: figures/double_slit_electrons.png Graphic file (type png)
 <use figures/double_slit_electrons.png>
 Package pdftex.def Info: figures/double_slit_electrons.png  used on input line 
-3431.
+170.
 (pdftex.def)             Requested size: 227.62206pt x 109.0027pt.
-[95 <./figures/Two-Slit_Experiment_Light.png> <./figures/double_slit_electrons.
-png>] [96]
+) [95 <./figures/Two-Slit_Experiment_Light.png> <./figures/double_slit_electron
+s.png>] [96] (chapters/background.tex
 Chapter 10.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3462--3463
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3465--3466
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3467--3468
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3472--3473
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
 [97
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3505--3507
+Underfull \hbox (badness 10000) in paragraph at lines 57--59
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3511--3512
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 
  []
 
 [98]
-Underfull \hbox (badness 10000) in paragraph at lines 3517--3519
+Underfull \hbox (badness 10000) in paragraph at lines 69--71
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3520--3521
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3531--3533
+Underfull \hbox (badness 10000) in paragraph at lines 83--85
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3543--3545
+Underfull \hbox (badness 10000) in paragraph at lines 95--97
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3549--3551
+Underfull \hbox (badness 10000) in paragraph at lines 101--103
 
  []
 
 [99]
-Underfull \hbox (badness 10000) in paragraph at lines 3582--3584
+Underfull \hbox (badness 10000) in paragraph at lines 134--136
 
  []
 
 [100]
-Underfull \hbox (badness 10000) in paragraph at lines 3591--3593
+Underfull \hbox (badness 10000) in paragraph at lines 143--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3608--3610
+Underfull \hbox (badness 10000) in paragraph at lines 160--162
 
  []
 
-[101] [102]
+[101]
+Underfull \hbox (badness 10000) in paragraph at lines 180--182
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--188
+
+ []
+
+) [102] (chapters/further_reading.tex
 Chapter 11.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3624--3625
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3626--3627
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3628--3629
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3630--3631
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3632--3633
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3634--3635
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
@@ -3310,84 +3586,84 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [103
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 3639--3640
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3644--3645
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3646--3647
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3650--3651
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
  []
 
 [104]
-Underfull \hbox (badness 10000) in paragraph at lines 3672--3673
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3674--3675
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3676--3677
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
  []
 
 [105]
-Underfull \hbox (badness 10000) in paragraph at lines 3681--3682
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
-[106]
+) [106] (chapters/formula.tex
 Chapter 12.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3700--3701
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3702--3703
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3713--3714
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3715--3716
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3717--3718
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3719--3720
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3721--3722
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3723--3724
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
 
@@ -3397,7 +3673,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [107
 
 ]
-[108] [109] (stm0005-notes.bbl [110
+[108]) [109] (stm0005-notes.bbl [110
 
 
 ]) [111] (stm0005-notes.aux)
@@ -3406,16 +3682,16 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2020/03/25>
  ***********
 Package rerunfilecheck Info: File `stm0005-notes.out' has not changed.
-(rerunfilecheck)             Checksum: A82C0FB4EFB50E5F954E89C72CCA2B6C;9096.
+(rerunfilecheck)             Checksum: C866137A435E83EDFBA9938B3A71A97E;9251.
  ) 
 Here is how much of TeX's memory you used:
- 41040 strings out of 467866
- 851312 string characters out of 5418325
- 1292789 words of memory out of 5000000
- 68122 multiletter control sequences out of 15000+600000
+ 57884 strings out of 467866
+ 1352260 string characters out of 5418325
+ 1917208 words of memory out of 5000000
+ 84738 multiletter control sequences out of 15000+600000
  746224 words of font info for 316 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 103i,17n,134p,1205b,1549s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 103i,17n,137p,2484b,1506s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pf
 b><C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
 b><C:/Users/cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pf
@@ -3435,9 +3711,9 @@ cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Users/
 cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/
 cdhro/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/c
 dhro/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb>
-Output written on stm0005-notes.pdf (114 pages, 9296114 bytes).
+Output written on stm0005-notes.pdf (114 pages, 9306600 bytes).
 PDF statistics:
- 1436 PDF objects out of 1440 (max. 8388607)
- 407 named destinations out of 1000 (max. 500000)
- 59920 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1445 PDF objects out of 1728 (max. 8388607)
+ 410 named destinations out of 1000 (max. 500000)
+ 59928 words of extra memory for PDF output out of 61914 (max. 10000000)
 
